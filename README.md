@@ -1,4 +1,4 @@
-# 1DAW-PROGR Java
+# 1DAW-PROG Java
 
 This is a repository to store all the exercises, projects, and exams I complete in my Java programming course.
 
