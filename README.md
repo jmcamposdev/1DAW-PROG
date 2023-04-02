@@ -42,11 +42,11 @@ The repository is divided into three main folders:
 
 ### Exams
 
-- **Exam 1:** This folder contains the code for the first exam I complete in the course.
+- **1 Quarter December:** In this exam we put into practice basic knowledge of conditions, loops, arrays and matrix.
 
-- **Exam 2:** This folder contains the code for the second exam I complete in the course.
+- **2 Quarter February:** In this exam we put into practice already given knowledge and the dynamic data structure.
 
-- **Exam N:** This folder contains the code for any other exam I complete in the course.
+- **2 Quarter March:** In this exam we put into practice knowledge already given and the OOP, polymorphism, inheritance, interfaces, Comparator/Comparable.
 
 ## Contributing
 
