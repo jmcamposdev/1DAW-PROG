@@ -22,6 +22,8 @@ The repository is divided into three main folders:
 
 - **Loops:** This folder contains all the exercises that involve loop structures, such as for, while, do-while, and more.
 
+- **Matrix** 
+
 - **OOP:** This folder contains all the exercises that involve object-oriented programming, such as classes, objects, inheritance, polymorphism, and more.
 
 ### Projects
