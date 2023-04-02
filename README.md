@@ -26,13 +26,19 @@ The repository is divided into three main folders:
 
 - **OOP:** This folder contains all the exercises that involve object-oriented programming, such as classes, objects, inheritance, polymorphism, and more.
 
+- **Matrix:** This folder contains all the exercises related to matrix operations.
+
+- **ListofExercises-1:** This folder contains a list of additional exercises to complete.
+
+- **ListofExercises-2:** This folder contains a second list of additional exercises to complete.
+
 ### Projects
 
-- **Project 1:** This folder contains the code for the first project I complete in the course.
+- **JuegoPente:** This folder contains the code for the first project I complete in the course.
 
-- **Project 2:** This folder contains the code for the second project I complete in the course.
+- **Gestion de Tarjetas:** This folder contains the code for the second project I complete in the course.
 
-- **Project N:** This folder contains the code for any other project I complete in the course.
+- **Vergeflix:** This folder contains the code for any other project I complete in the course.
 
 ### Exams
 
