@@ -34,11 +34,11 @@ The repository is divided into three main folders:
 
 ### Projects
 
-- **JuegoPente:** This folder contains the code for the first project I complete in the course.
+- **JuegoPente:** This folder contains the code for the "Juego del Pente" project. This project is a Java implementation of the Pente board game.
 
-- **Gestion de Tarjetas:** This folder contains the code for the second project I complete in the course.
+- **Gestion de Tarjetas:** This folder contains the code for the "Gestion de Tarjetas" project. This project use OOP. 
 
-- **Vergeflix:** This folder contains the code for any other project I complete in the course.
+- **Vergeflix:** This folder contains the code for the "Vergeflix" project. This project involves using inheritance, polymorphism, interfaces, and the Comparable/Comparator interfaces
 
 ### Exams
 
