@@ -26,3 +26,6 @@ The Vergeflix repository contains a PDF file that explains how to create the nec
 ## Conclusion
 
 Vergeflix is a comprehensive project that teaches advanced OPP concepts and provides an opportunity to practice them. With its functionalities such as creating and managing movies and TV series, adding seasons and episodes, and voting for favorite content, it provides an excellent learning opportunity for aspiring programmers.
+
+> **Thank you for reading the project and I hope you find it useful 😉 <br>
+> If you liked it please give me ⭐️**
