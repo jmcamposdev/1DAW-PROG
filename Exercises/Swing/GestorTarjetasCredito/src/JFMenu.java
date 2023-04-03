@@ -1,3 +1,8 @@
+
+import clases.TarjetaCredito;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,7 +13,7 @@
  * @author josemaria
  */
 public class JFMenu extends javax.swing.JFrame {
-    private static int numeroTarjetasExistentes = 0;
+    private static ArrayList<TarjetaCredito> tarjetasCreditos;
 
     /**
      * Creates new form JFMenu
@@ -19,10 +24,7 @@ public class JFMenu extends javax.swing.JFrame {
     }
     
     private void inicializar() {
-        jbModificarTarjeta.setVisible(false);
-        jbEliminarTarjeta.setVisible(false);
-        jlTotalGastado.setVisible(false);
-        jlTarjetasExistentes.setVisible(false);
+        tarjetasCreditos = new ArrayList<>();
     }
 
     /**
@@ -40,6 +42,8 @@ public class JFMenu extends javax.swing.JFrame {
         jbEliminarTarjeta = new javax.swing.JButton();
         jlTotalGastado = new javax.swing.JLabel();
         jlTarjetasExistentes = new javax.swing.JLabel();
+        jlTitularesActuales = new javax.swing.JLabel();
+        jlTitularesActualesNombres = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,17 +71,21 @@ public class JFMenu extends javax.swing.JFrame {
             }
         });
 
-        jlTotalGastado.setText("Total Gastado");
+        jlTotalGastado.setText("Total Gastado: 0");
 
-        jlTarjetasExistentes.setText("Tarjetas Existentes:");
+        jlTarjetasExistentes.setText("Tarjetas Existentes: 0");
+
+        jlTitularesActuales.setText("Titulares Actuales: ");
+
+        jlTitularesActualesNombres.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
@@ -89,11 +97,14 @@ public class JFMenu extends javax.swing.JFrame {
                                 .addGap(99, 99, 99)
                                 .addComponent(jlBienvenida)))
                         .addGap(0, 33, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlTotalGastado, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlTarjetasExistentes, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlTotalGastado)
+                            .addComponent(jlTarjetasExistentes)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jlTitularesActualesNombres)
+                                .addComponent(jlTitularesActuales)))))
                 .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
@@ -111,7 +122,11 @@ public class JFMenu extends javax.swing.JFrame {
                 .addComponent(jlTarjetasExistentes)
                 .addGap(2, 2, 2)
                 .addComponent(jbEliminarTarjeta)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jlTitularesActuales)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlTitularesActualesNombres)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,18 +134,62 @@ public class JFMenu extends javax.swing.JFrame {
 
     private void jbAñadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAñadirTarjetaActionPerformed
         // TODO add your handling code here:
-        JDCrearTarejeta jDCrearTarejeta = new JDCrearTarejeta(this, false);
+        JDCrearTarejeta jDCrearTarejeta = new JDCrearTarejeta(this, true);
         jDCrearTarejeta.setVisible(true);
+        
+        if (jDCrearTarejeta.isCreada()) {
+            tarjetasCreditos.add(jDCrearTarejeta.getTarjetaCredito());
+            actualizarTotalGastadoTextLabel();
+            actualizarTarjetasExistentesTextLabel();
+            actualizarTitularTextLabel();
+            jbEliminarTarjeta.setVisible(true);
+        }
     }//GEN-LAST:event_jbAñadirTarjetaActionPerformed
 
     private void jbModificarTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarTarjetaActionPerformed
-        // TODO add your handling code here:
+        if (tarjetasCreditos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Tarjetas", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            
+        }
     }//GEN-LAST:event_jbModificarTarjetaActionPerformed
 
     private void jbEliminarTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarTarjetaActionPerformed
-        // TODO add your handling code here:
+        if (tarjetasCreditos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Tarjetas", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JDEliminarTarjeta jDEliminarTarjeta = new JDEliminarTarjeta(this, true, tarjetasCreditos);
+            jDEliminarTarjeta.setVisible(true);
+            if (jDEliminarTarjeta.isEliminado()) {
+                actualizarTotalGastadoTextLabel();
+                actualizarTarjetasExistentesTextLabel();
+                actualizarTitularTextLabel();
+            }
+        }
+        
     }//GEN-LAST:event_jbEliminarTarjetaActionPerformed
 
+    private void actualizarTitularTextLabel() {
+        StringBuilder titulares = new StringBuilder();
+        tarjetasCreditos.forEach(tarjeta -> titulares.append(tarjeta.getTitular()+"\n"));
+        jlTitularesActualesNombres.setText("<html>"+titulares+"</html>");
+        jlTitularesActuales.setVisible(true);
+    }
+    private void actualizarTotalGastadoTextLabel() {
+        int totalGastado = 0;
+        for (TarjetaCredito tarjeta : tarjetasCreditos) {
+            totalGastado += tarjeta.gastado();
+        }
+        jlTotalGastado.setText("Total Gastado: "+totalGastado);
+        jlTotalGastado.setVisible(true);
+    }
+    
+   private void actualizarTarjetasExistentesTextLabel() {
+        jlTarjetasExistentes.setText("Tarjetas Existentes: "+tarjetasCreditos.size());
+        jlTarjetasExistentes.setVisible(true);
+   }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -172,6 +231,8 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JButton jbModificarTarjeta;
     private javax.swing.JLabel jlBienvenida;
     private javax.swing.JLabel jlTarjetasExistentes;
+    private javax.swing.JLabel jlTitularesActuales;
+    private javax.swing.JLabel jlTitularesActualesNombres;
     private javax.swing.JLabel jlTotalGastado;
     // End of variables declaration//GEN-END:variables
 }

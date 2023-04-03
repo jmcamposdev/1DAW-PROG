@@ -1,5 +1,6 @@
 
 import clases.TarjetaCredito;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,6 +13,7 @@ import clases.TarjetaCredito;
  */
 public class JDCrearTarejeta extends javax.swing.JDialog {
     private TarjetaCredito nuevaTarjetaCredito;
+    private boolean isCreada = false;
 
     /**
      * Creates new form JDCrearTarejeta
@@ -102,12 +104,12 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
                 .addComponent(jlCantidadLimite)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jsLimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jtfPIN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                        .addComponent(jtfNIF, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jtfNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtfPIN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addComponent(jtfNIF, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jtfTitular, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jtfNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,6 +160,12 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     
+    public boolean isCreada() {
+        return isCreada;
+    }
+    public TarjetaCredito getTarjetaCredito() {
+        return nuevaTarjetaCredito;
+    }
     
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         this.setVisible(false);
@@ -168,20 +176,40 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
     }//GEN-LAST:event_jsLimiteStateChanged
 
     private void jbAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAñadirActionPerformed
+        boolean validInput = true;
+        String errorMessage = "";
         String titular = jtfTitular.getText();
         String nif = jtfNIF.getText();
         String pin = jtfPIN.getText();
         int limite = jsLimite.getValue();
         String numeroTarjeta = jtfNumeroTarjeta.getText();
         
-        boolean validInput = TarjetaCredito.validarTitular(titular) && 
-                TarjetaCredito.validarNIF_NIE_CIF(nif) &&
-                TarjetaCredito.validarPin(pin) &&
-                TarjetaCredito.validarDigitosTarjeta(numeroTarjeta);
+        if (!TarjetaCredito.validarTitular(titular)) {
+            errorMessage = "El títular debe de poseer mas de 15 caracteres y menos de 80.";
+            validInput = false;
+        }
+        if (validInput && !TarjetaCredito.validarNIF_NIE_CIF(nif)) {
+            errorMessage = "El NIF es invalido";
+            validInput = false;
+        }
+        if (validInput && !TarjetaCredito.validarPin(pin)) {
+            errorMessage = "El PIN es inválido debe de poseer 4 dígitos o mas";
+            validInput = false;
+        }
+        /*if (validInput && !TarjetaCredito.validarDigitosTarjeta(numeroTarjeta)) {
+            errorMessage = "El número de la Tarjeta no es válido";
+            validInput = false;
+        }*/
         
         if (!validInput) {
-            
+            JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            nuevaTarjetaCredito = new TarjetaCredito(titular,nif,pin,limite,"4430597456741351");
+            isCreada = true;
+            this.setVisible(false);
         }
+          
+        
         
     }//GEN-LAST:event_jbAñadirActionPerformed
 

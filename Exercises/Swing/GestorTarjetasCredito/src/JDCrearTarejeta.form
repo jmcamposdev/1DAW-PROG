@@ -36,13 +36,13 @@
               <Component id="jlCantidadLimite" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="44" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jtfTitular" min="-2" pref="130" max="-2" attributes="0"/>
                   <Component id="jsLimite" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jtfPIN" alignment="0" pref="75" max="32767" attributes="0"/>
+                      <Component id="jtfPIN" alignment="0" pref="130" max="32767" attributes="0"/>
                       <Component id="jtfNIF" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jtfTitular" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jtfNumeroTarjeta" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="jtfNumeroTarjeta" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
           </Group>

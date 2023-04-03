@@ -23,9 +23,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
@@ -42,11 +42,15 @@
                       </Group>
                       <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jlTotalGastado" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jlTarjetasExistentes" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                              <Component id="jlTitularesActualesNombres" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlTitularesActuales" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -69,7 +73,11 @@
               <Component id="jlTarjetasExistentes" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Component id="jbEliminarTarjeta" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="129" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jlTitularesActuales" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jlTitularesActualesNombres" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="71" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,12 +117,22 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jlTotalGastado">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Total Gastado"/>
+        <Property name="text" type="java.lang.String" value="Total Gastado: 0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlTarjetasExistentes">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tarjetas Existentes:"/>
+        <Property name="text" type="java.lang.String" value="Tarjetas Existentes: 0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTitularesActuales">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Titulares Actuales: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTitularesActualesNombres">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
     </Component>
   </SubComponents>
