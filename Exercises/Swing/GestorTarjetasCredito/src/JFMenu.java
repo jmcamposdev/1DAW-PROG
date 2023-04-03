@@ -150,6 +150,19 @@ public class JFMenu extends javax.swing.JFrame {
         if (tarjetasCreditos.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No existen Tarjetas", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            ArrayList<String> validNifs = new ArrayList<>();
+            for (TarjetaCredito tarjeta : tarjetasCreditos) {
+                validNifs.add(tarjeta.getNif());
+            }
+            JDValidarNIF jDValidarNIF = new JDValidarNIF(this, true);
+            jDValidarNIF.setValidNIF(validNifs);
+            jDValidarNIF.setVisible(true);
+            int tarjetaIndex = jDValidarNIF.getIndexNIF();
+            if (tarjetaIndex != -1) {
+                TarjetaCredito tarjetaSeleccionada = tarjetasCreditos.get(tarjetaIndex);
+                JDTarjeta jDTarjeta = new JDTarjeta(this, true, tarjetaSeleccionada);
+                jDTarjeta.setVisible(true);
+            }
             
         }
     }//GEN-LAST:event_jbModificarTarjetaActionPerformed
