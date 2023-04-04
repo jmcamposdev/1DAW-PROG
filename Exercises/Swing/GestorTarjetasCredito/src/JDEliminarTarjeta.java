@@ -1,5 +1,5 @@
 
-import clases.TarjetaCredito;
+import modelo.TarjetaCredito;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -110,7 +110,7 @@ public class JDEliminarTarjeta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbElimiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbElimiarActionPerformed
-        String nif = jtfNIF.getText();
+        String nif = jtfNIF.getText().toUpperCase();
         if (!TarjetaCredito.validarNIF_NIE_CIF(nif)) {
             JOptionPane.showMessageDialog(this, "El NIF no es válido", "Error", JOptionPane.ERROR_MESSAGE);
         } else {

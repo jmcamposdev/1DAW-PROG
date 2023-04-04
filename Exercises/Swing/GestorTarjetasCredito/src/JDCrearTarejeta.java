@@ -1,5 +1,5 @@
 
-import clases.TarjetaCredito;
+import modelo.TarjetaCredito;
 import javax.swing.JOptionPane;
 
 /*
@@ -179,7 +179,7 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
         boolean validInput = true;
         String errorMessage = "";
         String titular = jtfTitular.getText();
-        String nif = jtfNIF.getText();
+        String nif = jtfNIF.getText().toUpperCase();
         String pin = jtfPIN.getText();
         int limite = jsLimite.getValue();
         String numeroTarjeta = jtfNumeroTarjeta.getText();

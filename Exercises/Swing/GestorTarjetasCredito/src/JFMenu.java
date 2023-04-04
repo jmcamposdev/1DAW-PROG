@@ -1,5 +1,5 @@
 
-import clases.TarjetaCredito;
+import modelo.TarjetaCredito;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -162,6 +162,7 @@ public class JFMenu extends javax.swing.JFrame {
                 TarjetaCredito tarjetaSeleccionada = tarjetasCreditos.get(tarjetaIndex);
                 JDTarjeta jDTarjeta = new JDTarjeta(this, true, tarjetaSeleccionada);
                 jDTarjeta.setVisible(true);
+                actualizarTotalGastadoTextLabel();
             }
             
         }

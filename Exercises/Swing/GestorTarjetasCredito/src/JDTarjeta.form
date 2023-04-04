@@ -23,6 +23,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -31,26 +36,38 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jlTituloTitular" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlTituloNIF" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlTituloPIN" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlTituloLimite" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlTituloNumeroTarjeta" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlTituloCaducidad" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jlTitular" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlNIF" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlPIN" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlLimite" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlCaducidad" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlNumeroTarjeta" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jlTituloTitular" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlTituloNIF" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlTituloPIN" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlTituloLimite" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlTituloNumeroTarjeta" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlTituloCaducidad" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlTituloGastoTotal" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jlTitular" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlNIF" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlPIN" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlLimite" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlCaducidad" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlNumeroTarjeta" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
+                                  <Component id="jlGastoTotal" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="jbRealizarPago" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jbVisualizarPagos" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="147" max="32767" attributes="0"/>
+              <EmptySpace pref="114" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,16 +97,27 @@
                   <Component id="jlLimite" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlTituloNumeroTarjeta" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jlNumeroTarjeta" alignment="0" min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="jlTituloNumeroTarjeta" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jlTituloCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="121" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jlTituloGastoTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlGastoTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jbSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbRealizarPago" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbVisualizarPagos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -159,6 +187,40 @@
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTituloGastoTotal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gasto Total:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbRealizarPago">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Realizar Pago"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbRealizarPagoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbSalir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSalirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlGastoTotal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=" "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbVisualizarPagos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Visualizar Pagos"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVisualizarPagosActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

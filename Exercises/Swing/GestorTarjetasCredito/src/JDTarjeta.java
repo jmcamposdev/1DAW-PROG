@@ -1,5 +1,8 @@
 
-import clases.TarjetaCredito;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import modelo.Movimiento;
+import modelo.TarjetaCredito;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -28,9 +31,13 @@ public class JDTarjeta extends javax.swing.JDialog {
         jlLimite.setText(String.valueOf(tarjetaCredito.getLimite()));
         jlNumeroTarjeta.setText(tarjetaCredito.getNumeroTarjeta());
         jlCaducidad.setText(tarjetaCredito.getMesCaducidad()+"/"+tarjetaCredito.getAñoCaducidad());
+        actualizarGastoTotal();
     }
     
-   
+    public boolean añadirMovimiento(String concepto, double cantidad) {
+        return tarjetaCredito.pagar(cantidad, concepto);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +61,11 @@ public class JDTarjeta extends javax.swing.JDialog {
         jlNumeroTarjeta = new javax.swing.JLabel();
         jlTituloCaducidad = new javax.swing.JLabel();
         jlCaducidad = new javax.swing.JLabel();
+        jlTituloGastoTotal = new javax.swing.JLabel();
+        jbRealizarPago = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
+        jlGastoTotal = new javax.swing.JLabel();
+        jbVisualizarPagos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,10 +94,39 @@ public class JDTarjeta extends javax.swing.JDialog {
 
         jlCaducidad.setText(" ");
 
+        jlTituloGastoTotal.setText("Gasto Total:");
+
+        jbRealizarPago.setText("Realizar Pago");
+        jbRealizarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRealizarPagoActionPerformed(evt);
+            }
+        });
+
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        jlGastoTotal.setText(" ");
+
+        jbVisualizarPagos.setText("Visualizar Pagos");
+        jbVisualizarPagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVisualizarPagosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbSalir)
+                .addGap(28, 28, 28))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -93,22 +134,31 @@ public class JDTarjeta extends javax.swing.JDialog {
                         .addComponent(jlTitulo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlTituloTitular)
-                            .addComponent(jlTituloNIF)
-                            .addComponent(jlTituloPIN)
-                            .addComponent(jlTituloLimite)
-                            .addComponent(jlTituloNumeroTarjeta)
-                            .addComponent(jlTituloCaducidad))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlTitular)
-                            .addComponent(jlNIF)
-                            .addComponent(jlPIN)
-                            .addComponent(jlLimite)
-                            .addComponent(jlCaducidad)
-                            .addComponent(jlNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(147, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jlTituloTitular)
+                                    .addComponent(jlTituloNIF)
+                                    .addComponent(jlTituloPIN)
+                                    .addComponent(jlTituloLimite)
+                                    .addComponent(jlTituloNumeroTarjeta)
+                                    .addComponent(jlTituloCaducidad)
+                                    .addComponent(jlTituloGastoTotal))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlTitular)
+                                    .addComponent(jlNIF)
+                                    .addComponent(jlPIN)
+                                    .addComponent(jlLimite)
+                                    .addComponent(jlCaducidad)
+                                    .addComponent(jlNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlGastoTotal)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jbRealizarPago)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbVisualizarPagos)))))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,19 +182,65 @@ public class JDTarjeta extends javax.swing.JDialog {
                     .addComponent(jlTituloLimite)
                     .addComponent(jlLimite))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlTituloNumeroTarjeta)
-                    .addComponent(jlNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlTituloNumeroTarjeta))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloCaducidad)
                     .addComponent(jlCaducidad))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloGastoTotal)
+                    .addComponent(jlGastoTotal))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbSalir)
+                    .addComponent(jbRealizarPago)
+                    .addComponent(jbVisualizarPagos))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRealizarPagoActionPerformed
+        JDRealizarPago jDRealizarPago = new JDRealizarPago(this,true,tarjetaCredito);
+        jDRealizarPago.setVisible(true);
+        
+        if (jDRealizarPago.isPagoRealizado()) {
+            actualizarGastoTotal();
+        }
+    }//GEN-LAST:event_jbRealizarPagoActionPerformed
+
+    private void jbVisualizarPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVisualizarPagosActionPerformed
+        JDMovimientos jDMovimientos = new JDMovimientos(this, true);
+        int numeroTotalMovimientos = tarjetaCredito.numeroMovimientos();
+        if (numeroTotalMovimientos == 0) {
+            JOptionPane.showMessageDialog(this, "La tarjeta no posee Movimientos", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            ArrayList<Movimiento> movimientos = tarjetaCredito.movimientos(numeroTotalMovimientos);
+            movimientos.forEach(movimiento -> jDMovimientos.añadirMovimiento(movimiento));
+            jDMovimientos.setVisible(true);
+        }
+    }//GEN-LAST:event_jbVisualizarPagosActionPerformed
+
+    private void actualizarGastoTotal() {
+        jlGastoTotal.setText(String.valueOf(tarjetaCredito.gastado()));
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -188,7 +284,11 @@ public class JDTarjeta extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbRealizarPago;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbVisualizarPagos;
     private javax.swing.JLabel jlCaducidad;
+    private javax.swing.JLabel jlGastoTotal;
     private javax.swing.JLabel jlLimite;
     private javax.swing.JLabel jlNIF;
     private javax.swing.JLabel jlNumeroTarjeta;
@@ -196,6 +296,7 @@ public class JDTarjeta extends javax.swing.JDialog {
     private javax.swing.JLabel jlTitular;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jlTituloCaducidad;
+    private javax.swing.JLabel jlTituloGastoTotal;
     private javax.swing.JLabel jlTituloLimite;
     private javax.swing.JLabel jlTituloNIF;
     private javax.swing.JLabel jlTituloNumeroTarjeta;
