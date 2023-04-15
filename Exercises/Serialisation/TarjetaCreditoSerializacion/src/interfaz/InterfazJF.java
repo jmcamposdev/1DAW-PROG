@@ -197,8 +197,10 @@ public class InterfazJF extends javax.swing.JFrame {
             
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile))) {
                 oos.writeObject(listaTarjetas);
+                JOptionPane.showMessageDialog(this, "Se ha guardado la información exitosamente","EXITO",JOptionPane.INFORMATION_MESSAGE);
+
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "No se ha podido escribir en el fichero","Error",JOptionPane.ERROR);
+                JOptionPane.showMessageDialog(this, "No se ha podido escribir en el fichero","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jmiGuardarActionPerformed
@@ -216,10 +218,10 @@ public class InterfazJF extends javax.swing.JFrame {
                 for (TarjetaCredito t : listaTarjetas) {
                     modelo.añadirTarjeta(t);
                 }
-            } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(this, "El fichero aportado no posee los datos necesarios","Error",JOptionPane.ERROR);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "No se ha podido escribir en el fichero","Error",JOptionPane.ERROR);
+                JOptionPane.showMessageDialog(this, "Se ha cargado la información exitosamente","EXITO",JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (ClassNotFoundException | IOException ex) {
+                JOptionPane.showMessageDialog(this, "El fichero es erronéo o esta corrupto","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jmiCargarActionPerformed
