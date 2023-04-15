@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -461,15 +462,34 @@ public class TarjetaCredito implements Comparable<TarjetaCredito>{
                 "Cantidad Gastada: "+this.gastado();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.numeroTarjeta);
+        return hash;
+    }
+
     /**
      * Compara si dos objetos TarjetaCredito son idénticos en cuanto a sus valores de atributos.
      * Se considera que dos objetos son iguales si el número de la tarjeta es igual.
      * @param j El objeto TarjetaCredito con el cual se comparará el objeto actual.
      * @return True si los objetos son iguales, false en caso contrario.
      */
-    public boolean equals(TarjetaCredito j) {
-        return this.numeroTarjeta.equals(j.numeroTarjeta);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TarjetaCredito other = (TarjetaCredito) obj;
+        return Objects.equals(this.numeroTarjeta, other.numeroTarjeta);
     }
+    
 
     @Override
     public int compareTo(TarjetaCredito o) {
