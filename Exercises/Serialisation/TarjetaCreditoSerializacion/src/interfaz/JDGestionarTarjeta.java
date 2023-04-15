@@ -96,6 +96,11 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         jmAcciones.add(jmiModificarPIN);
 
         jmiRealizarPago.setText("Realizar Pago");
+        jmiRealizarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRealizarPagoActionPerformed(evt);
+            }
+        });
         jmAcciones.add(jmiRealizarPago);
 
         jmiConsultarMovimientos.setText("Consultar Movimientos");
@@ -189,6 +194,10 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
             tarjetaCredito.setPin(newPin);
         }
     }//GEN-LAST:event_jmiModificarPINActionPerformed
+
+    private void jmiRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRealizarPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiRealizarPagoActionPerformed
 
     /**
      * @param args the command line arguments
