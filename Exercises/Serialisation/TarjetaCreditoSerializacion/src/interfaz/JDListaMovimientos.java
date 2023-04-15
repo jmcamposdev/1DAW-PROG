@@ -1,3 +1,5 @@
+package interfaz;
+
 
 import javax.swing.DefaultListModel;
 import modelo.Movimiento;
@@ -13,13 +15,13 @@ import modelo.ModeloListaMovimientos;
  *
  * @author josemaria
  */
-public class JDMovimientos extends javax.swing.JDialog {
+public class JDListaMovimientos extends javax.swing.JDialog {
     private DefaultListModel listModel = new DefaultListModel();
 
     /**
      * Creates new form JDMovimientos
      */
-    public JDMovimientos(java.awt.Dialog parent, boolean modal) {
+    public JDListaMovimientos(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         modelo = new ModeloListaMovimientos();
@@ -121,20 +123,21 @@ public class JDMovimientos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDListaMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDListaMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDListaMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDListaMovimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDMovimientos dialog = new JDMovimientos(new javax.swing.JDialog(), true);
+                JDListaMovimientos dialog = new JDListaMovimientos(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

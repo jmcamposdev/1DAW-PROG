@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Movimiento;
 import modelo.TarjetaCredito;
@@ -105,6 +106,11 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         jmAcciones.add(jmiRealizarPago);
 
         jmiConsultarMovimientos.setText("Consultar Movimientos");
+        jmiConsultarMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConsultarMovimientosActionPerformed(evt);
+            }
+        });
         jmAcciones.add(jmiConsultarMovimientos);
 
         jmbMenu.add(jmAcciones);
@@ -211,6 +217,18 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
             jlGastosTotales.setText(String.valueOf(tarjetaCredito.gastado()));
         }
     }//GEN-LAST:event_jmiRealizarPagoActionPerformed
+
+    private void jmiConsultarMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultarMovimientosActionPerformed
+        JDListaMovimientos jDListaMovimientos = new JDListaMovimientos(this, rootPaneCheckingEnabled);
+        int numeroTotalMovimientos = tarjetaCredito.numeroMovimientos();
+        if (numeroTotalMovimientos == 0) {
+            JOptionPane.showMessageDialog(this, "La tarjeta no posee Movimientos", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            ArrayList<Movimiento> movimientos = tarjetaCredito.movimientos(numeroTotalMovimientos);
+            movimientos.forEach(movimiento -> jDListaMovimientos.añadirMovimiento(movimiento));
+            jDListaMovimientos.setVisible(true);
+        }
+    }//GEN-LAST:event_jmiConsultarMovimientosActionPerformed
 
     /**
      * @param args the command line arguments

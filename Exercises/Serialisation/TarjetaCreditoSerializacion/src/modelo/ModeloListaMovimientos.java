@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -60,7 +61,8 @@ public class ModeloListaMovimientos extends AbstractTableModel{
                 value = m.getCantidad();
                 break;
             case 2:
-                value = m.getFecha();
+                LocalDateTime fecha = m.getFecha();
+                value = fecha.getDayOfMonth()+"/"+fecha.getMonthValue()+"/"+fecha.getYear();
                 break;
         }
         return value;
