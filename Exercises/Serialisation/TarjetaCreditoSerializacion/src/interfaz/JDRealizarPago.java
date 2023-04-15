@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import javax.swing.JOptionPane;
 import modelo.Movimiento;
 
 
@@ -12,19 +13,38 @@ import modelo.Movimiento;
  * @author josemaria
  */
 public class JDRealizarPago extends javax.swing.JDialog {
+    private static final int NUMERO_MOVIMINENTOS_MAXIMO = 50;
+    
+    private Movimiento nuevoMovimiento;
+    private boolean isMovimientoCreado;
+    private int numeroDeMovimientos;
     private double saldoDisponible;
 
     /**
      * Creates new form JDRealizarPago
      */
-    public JDRealizarPago(java.awt.Frame parent, boolean modal) {
+    public JDRealizarPago(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        isMovimientoCreado = false;
+        jlSaldoDisponibles.setText(String.valueOf(saldoDisponible));
     }
 
     public void setSaldoDisponible (double saldoDisponible) {
         this.saldoDisponible = saldoDisponible;
+        jlSaldoDisponibles.setText(String.valueOf(saldoDisponible));
     }
+    public void setNumeroMovimientosDeTarjeta (int numeroDeMovimientos) {
+        this.numeroDeMovimientos = numeroDeMovimientos;
+    }
+    public Movimiento getMovimiento () {
+        return nuevoMovimiento;
+    }
+    public boolean isMovimientoCreado() {
+        return isMovimientoCreado;
+    }
+    
+    
     
     
     /**
@@ -88,7 +108,7 @@ public class JDRealizarPago extends javax.swing.JDialog {
                             .addComponent(jlTituloConcepto)
                             .addComponent(jtfConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlCantidad)
-                            .addComponent(jtfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jtfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +154,34 @@ public class JDRealizarPago extends javax.swing.JDialog {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
+        boolean validConcepto = true;
+        boolean validCantidad = true;
+        boolean validCantidadMovimientos = true;
         String concepto = jtfConcepto.getText();
+        String cantidad = jtfCantidad.getText().replace(",", ".");
+        
+        if (numeroDeMovimientos+1 > NUMERO_MOVIMINENTOS_MAXIMO) {
+            JOptionPane.showMessageDialog(this, "Esta tarjeta ya posee "+NUMERO_MOVIMINENTOS_MAXIMO,"Advertencia", JOptionPane.WARNING_MESSAGE);
+            validCantidadMovimientos = false;
+        } else if (concepto.isBlank() || concepto.length() > 50) {
+            validConcepto = false;
+            JOptionPane.showMessageDialog(this, "El concepto no puede estar vacío o contener mas de 50 caracteres","Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else if (!cantidad.matches("^\\d+.{0,1}\\d*$")) {
+            validCantidad = false;
+            JOptionPane.showMessageDialog(this, "El valor de la Cantidad debe de ser numérico","Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else if (Double.parseDouble(cantidad) <= 0) {
+            validCantidad = false;
+            JOptionPane.showMessageDialog(this, "La cantidad no puede ser negativa o 0","Advertencia", JOptionPane.WARNING_MESSAGE);    
+        } else if (Double.parseDouble(cantidad) > saldoDisponible) {
+            validCantidad = false;
+            JOptionPane.showMessageDialog(this, "La cantidad ingresada es superior al Saldo Disponibles","Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        if (validConcepto && validCantidad && validCantidadMovimientos) {
+            nuevoMovimiento = new Movimiento(Double.parseDouble(cantidad), concepto);
+            isMovimientoCreado = true;
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     /**
@@ -167,7 +214,7 @@ public class JDRealizarPago extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDRealizarPago dialog = new JDRealizarPago(new javax.swing.JFrame(), true);
+                JDRealizarPago dialog = new JDRealizarPago(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

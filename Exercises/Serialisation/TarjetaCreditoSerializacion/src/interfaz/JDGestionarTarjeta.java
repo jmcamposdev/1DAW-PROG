@@ -5,6 +5,7 @@
 package interfaz;
 
 import javax.swing.JOptionPane;
+import modelo.Movimiento;
 import modelo.TarjetaCredito;
 
 /**
@@ -196,7 +197,19 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
     }//GEN-LAST:event_jmiModificarPINActionPerformed
 
     private void jmiRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRealizarPagoActionPerformed
-        // TODO add your handling code here:
+        JDRealizarPago jDRealizarPago = new JDRealizarPago(this, true);
+        
+        jDRealizarPago.setSaldoDisponible(tarjetaCredito.getLimite()-tarjetaCredito.gastado());
+        jDRealizarPago.setNumeroMovimientosDeTarjeta(tarjetaCredito.numeroMovimientos());
+        
+        jDRealizarPago.setVisible(true);
+        
+       
+        if (jDRealizarPago.isMovimientoCreado()) {
+            Movimiento nuevoMovimiento = jDRealizarPago.getMovimiento();
+            tarjetaCredito.pagar(nuevoMovimiento.getCantidad(),nuevoMovimiento.getConcepto());
+            jlGastosTotales.setText(String.valueOf(tarjetaCredito.gastado()));
+        }
     }//GEN-LAST:event_jmiRealizarPagoActionPerformed
 
     /**

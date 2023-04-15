@@ -35,7 +35,7 @@
                           <Component id="jlTituloConcepto" min="-2" max="-2" attributes="0"/>
                           <Component id="jtfConcepto" min="-2" pref="151" max="-2" attributes="0"/>
                           <Component id="jlCantidad" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfCantidad" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfCantidad" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
