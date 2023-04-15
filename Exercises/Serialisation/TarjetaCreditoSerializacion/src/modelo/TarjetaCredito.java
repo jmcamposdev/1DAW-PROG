@@ -1,20 +1,19 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Clase que representa una Tarjeta de Crédito.
- * Contiene información sobre el titular, el número de identificación, el pin, el límite,
- * la fecha de caducidad, el número de la tarjeta, el cvv y los movimientos realizados con la tarjeta.
- * El CVV se genera aleatoriamente un número de 3 dígitos.
- * La clase puede efectuar pagos y cada pago se representa como un Movimiento.
+ * Contiene información sobre el titular, el número de identificación, el pin, el límite, la fecha de caducidad, el número de la tarjeta, el cvv y los movimientos realizados con la tarjeta.
  * @author José María Campos Trujillo
  * @version 1.0
- * @see Movimiento
  */
-public class TarjetaCredito {
+public class TarjetaCredito implements Comparable<TarjetaCredito>{
     private static final String NIF_PATTERN = "^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke]$";
     private static final char[] LETRAS_NIF = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
     private static final String NIE_PATTERN = "^[XYZxyz][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke]$";
@@ -31,8 +30,9 @@ public class TarjetaCredito {
     private final int mesCaducidad;
     private final int añoCaducidad;
     private final String numeroTarjeta;
-    private String cvv;
+    private final String cvv;
     private final Movimiento[] movimientos;
+    private ArrayList<Movimiento> movimientosOrdenadosCantidad;
     private int posicionSiguienteMovimiento = 0;
     private double totalGastado = 0;
 
@@ -40,23 +40,16 @@ public class TarjetaCredito {
      * Constructor principal de la clase TarjetaCredito.
      * Recibe el nombre del titular, el nif, el pin, el límite y el número de la tarjeta.
      * Valida que los campos sean correctos antes de asignarlos.
-     * @param nombre Nombre del titular de la tarjeta, Debe de contener exclusivamente caracteres alfabéticos,
-     * no empezar o terminar por espacios y tener una longitud entre 15 y 80 caracteres ambos incluidos.
-     * @param nif NIF del titular de la tarjeta, debe de ser un NIE, DNI o CIF formado correctamente
-     * sin espacios al principio ni al final, también debe ser un NIE, DNI o CIF correcto, ya que se
-     * realizará los cálculos necesarios para validarlo.
-     * @param pin PIN de la tarjeta, debe de ser un número de mínimo 4 cifras.
-     * @param limite Límite de la tarjeta, debe de ser un número comprendido entre 500 - 5000 ambos incluidos
-     * @param numeroTarjeta Número de la tarjeta, debe de ser un número de 16 dígitos y se comprobará su
-     * validez realizando el Algoritmo de Luhn.
-     * @throws IllegalArgumentException Lanzará la Excepción si el nombre del titular no contiene exclusivamente caracteres alfabéticos,
-     * empieza o termina con espacios o tiene una longitud menor a 15 caracteres o mayor a 80 caracteres.
-     * @throws IllegalArgumentException Lanzará la Excepción si el NIF no es un NIE, DNI o CIF válido tanto de forma,
-     * como de cálculo (Se realizará los cálculos necesarios para comprobar la validez del NIF)
-     * @throws IllegalArgumentException Si el PIN no es un número de 4 dígitos
+     * @param nombre Nombre del titular de la tarjeta
+     * @param nif NIF del titular de la tarjeta
+     * @param pin PIN de la tarjeta
+     * @param limite Límite de la tarjeta
+     * @param numeroTarjeta Numero de la tarjeta
+     * @throws IllegalArgumentException Si el nombre del titular no es válido
+     * @throws IllegalArgumentException Si el NIF no es válido.
+     * @throws IllegalArgumentException Si el PIN no es válido.
      * @throws IllegalArgumentException Si el límite de la tarjeta está fuera del rango 500 - 5000.
-     * @throws IllegalArgumentException Si el número de la tarjeta no es un dígito de 16 dígitos o no es válido
-     * realizando el Algoritmo de Luhn.
+     * @throws IllegalArgumentException Si el número de la tarjeta no es válido.
      */
      public TarjetaCredito(String nombre, String nif, String pin,int limite, String numeroTarjeta){
         if (!validarTitular(nombre)) // Valida el Titular
@@ -79,11 +72,12 @@ public class TarjetaCredito {
         this.numeroTarjeta = numeroTarjeta;
         this.cvv = crearCVV();
         this.movimientos = new Movimiento[50];
+        this.movimientosOrdenadosCantidad = new ArrayList<>();
     }
 
     /**
      * Constructor de copia de la clase TarjetaCredito.
-     * Recibe un objeto TarjetaCredito y crea una copia profunda con los mismos datos.
+     * Recibe un objeto TarjetaCredito y crea una copia con los mismos datos.
      * @param tarjeta Objeto TarjetaCredito a copiar.
      */
     public TarjetaCredito(TarjetaCredito tarjeta){
@@ -91,11 +85,13 @@ public class TarjetaCredito {
         this(tarjeta.titular,tarjeta.nif,tarjeta.pin,tarjeta.limite,tarjeta.numeroTarjeta);
         this.posicionSiguienteMovimiento = tarjeta.posicionSiguienteMovimiento;
         this.totalGastado = tarjeta.totalGastado;
-        this.cvv = tarjeta.cvv;
         // Asignamos los movimientos al nuevo array
-        for (int i = 0; i < posicionSiguienteMovimiento; i++) {
+        for (int i = 0; i < tarjeta.movimientos.length && tarjeta.movimientos[i] != null; i++) {
             this.movimientos[i] = new Movimiento(tarjeta.movimientos[i]);
         }
+        // Asignamos los movimientosOrdenados al nuevo array
+        this.movimientosOrdenadosCantidad = new ArrayList<>();
+        movimientosOrdenadosCantidad.addAll(tarjeta.movimientosOrdenadosCantidad);
     }
 
     /**
@@ -124,8 +120,7 @@ public class TarjetaCredito {
 
     /**
      * Método para establecer un nuevo pin en la tarjeta.
-     * El nuevo PIN debe de ser un número de al menos 4 cifras.
-     * @param pin El nuevo pin de la tarjeta. Debe de ser un número de 4 cifras
+     * @param pin El nuevo pin de la tarjeta.
      */
     public void setPin(String pin) {
         if (validarPin(pin)) // Validamos que el PIN sea correcto
@@ -142,8 +137,7 @@ public class TarjetaCredito {
 
     /**
      * Método para establecer un nuevo límite en la tarjeta.
-     * El nuevo Límite debe de estar entre 500 - 5000 ambos incluidos
-     * @param limite el nuevo límite de la tarjeta, comprendido entre 500 - 5000 ambos incluidos
+     * @param limite el nuevo límite de la tarjeta.
      */
     public void setLimite(int limite) {
         if (validarLimite(limite))
@@ -184,12 +178,10 @@ public class TarjetaCredito {
 
     /**
      * Método que permite realizar un pago con la tarjeta de crédito.
-     * El pago se representará como un movimiento en la Tarjeta.
-     * Se realizará el pago si la suma de todos los pagos anteriores mas el actual no sobrepase el Límite de la Tarjeta
-     * @param cantidad La cantidad a pagar, debe de ser un valor positivo
-     * @param concepto Concepto del pago, no puede estar vacío y no debe de sobrepasar los 50 caracteres
-     * @throws IllegalArgumentException Lanza la Excepción si la cantidad es un valor negativo.
-     * @throws IllegalArgumentException Lanza la Excepción si el concepto está vacío o posee más de 50 caracteres
+     * @param cantidad La cantidad a pagar.
+     * @param concepto Concepto del pago.
+     * @throws IllegalArgumentException Si la cantidad es negativa
+     * @throws IllegalArgumentException Si el concepto está vacío o posee más de 50 caracteres
      * @return true si el pago fue realizado exitosamente, false en caso contrario.
      */
     public boolean pagar(double cantidad, String concepto){
@@ -203,6 +195,8 @@ public class TarjetaCredito {
         // Comprobamos que no exceda el límite sumando el gasto actual + los gastos anteriores y que exista espacio para guardar movimientos
         if (gastado()+cantidad <= limite && posicionSiguienteMovimiento != movimientos.length){
             this.movimientos[posicionSiguienteMovimiento++] = new Movimiento(cantidad,concepto); // Añadimos el movimiento e incrementamos el contador
+            this.movimientosOrdenadosCantidad.add(new Movimiento(cantidad,concepto)); // Añadimos el movimiento
+            movimientosOrdenadosCantidad.sort(new OrdenarMovientosMayorCantidad()); // Ordenamos
             totalGastado += cantidad; // Sumamos el pago
             movimientoRealizado = true;
         }
@@ -211,7 +205,6 @@ public class TarjetaCredito {
 
     /**
      * Calcula el total gastado en la tarjeta.
-     * Basándose en los movimientos realizados
      * @return El total gastado en la tarjeta.
      */
     public double gastado(){
@@ -220,12 +213,12 @@ public class TarjetaCredito {
 
     /**
      * Este método devuelve una cadena que contiene los últimos movimientos realizados en la tarjeta.
-     * @param numero Este parámetro especifica cuántos movimientos se deben mostrar. Debe ser un valor entero mayor a cero y menor o igual a número de movimientos.
-     * @return Devuelve una cadena con los últimos movimientos realizados en la tarjeta.
-     * @throws IllegalArgumentException Lanza la Excepción si el valor del parámetro número es menor o igual a cero o mayor al número de movimientos realizados.
+     * @param numero Este parámetro especifica cuántos movimientos se deben mostrar. Debe ser un valor entero mayor o igual a cero.
+     * @return Devuelve una cadena con los últimos movimientos realizados en la tarjeta. Si no se han actuado movimientos, devuelve un mensaje indicando tal situación.
+     * @throws IllegalArgumentException si el valor del parámetro número es menor a cero o mayor al número de movimientos realizados.
      */
 
-    public String movimientos(int numero){
+    public ArrayList<Movimiento> movimientos(int numero){
         // Validamos que el número no sea negativo y que poseemos tantos movimientos como el número insertado
         if (numero <= 0 || numero > posicionSiguienteMovimiento){
             throw new IllegalArgumentException("Valor fuera del rango");
@@ -233,10 +226,19 @@ public class TarjetaCredito {
         int posicionInicio = posicionSiguienteMovimiento - numero; // Calculamos la posición para recorrer el array
         StringBuilder movimientosString = new StringBuilder();
         // Si existen los añadimos al StringBuilder
-        for (int i = posicionInicio; i < posicionSiguienteMovimiento; i++) {
-            movimientosString.append(this.movimientos[i]).append("-------------------").append("\n");
+        ArrayList<Movimiento> movimientos = new ArrayList<>(Arrays.asList(this.movimientos).subList(posicionInicio, posicionSiguienteMovimiento));
+        return movimientos;
+    }
+
+    public String movimientosMayorCantidad(int numero) {
+        if (numero <= 0 || numero > posicionSiguienteMovimiento) {
+            throw new IllegalArgumentException("Valor fuera del rango");
         }
-        return movimientosString.toString();
+        StringBuilder movimientos = new StringBuilder();
+        for (int i = 0; i < numero; i++) {
+            movimientos.append(movimientosOrdenadosCantidad.get(i)).append("-------------------").append("\n");
+        }
+        return movimientos.toString();
     }
 
     /**
@@ -255,8 +257,7 @@ public class TarjetaCredito {
 
     /**
      * Método para validar el nombre del titular de la tarjeta.
-     * Comprueba que el nombre tenga al menos 15 caracteres y un máximo de 80 y que este compuesto
-     * exclusivamente de caracteres alfabéticos.
+     * Comprueba que el nombre tenga al menos 15 caracteres y un máximo de 80.
      * @param titular Nombre del titular de la tarjeta
      * @return true si el nombre es válido, false en caso contrario
      */
@@ -266,7 +267,7 @@ public class TarjetaCredito {
 
     /**
      * Método para validar el pin de la tarjeta.
-     * Comprueba que el pin tenga al menos 4 cifras.
+     * Comprueba que el pin tenga al menos 4 dígitos.
      * @param pin Pin de la tarjeta
      * @return true si el pin es válido, false en caso contrario
      */
@@ -297,8 +298,7 @@ public class TarjetaCredito {
 
     /**
      * Método para validar el número de la tarjeta.
-     * Comprueba que el número tenga 16 dígitos y si es válido obteniendo el dígito de control y comparándolo con el último dígito de la tarjeta.
-     * Se realiza a través del algoritmo de Luhn.
+     * Comprueba que el número tenga 16 dígitos y si es válido con el algoritmo de Luhn.
      * @param numero Número de la tarjeta
      * @return true si el número es válido, false en caso contrario
      */
@@ -314,11 +314,9 @@ public class TarjetaCredito {
 
     /**
      * Método para obtener el dígito de control de la tarjeta
-     * Se le pasa la tarjeta con el último dígito sustituido por un 0.
-     * Valida que el número de la Tarjeta tenga 16 dígitos si no lanzará una Excepción
+     * Se le pasa la tarjeta con el último dígito sustituido por un 0
      * @param numero Número de la tarjeta
      * @return Devuelve el Dígito de Control de la tarjeta introducida
-     * @throws IllegalArgumentException Lanzará la Excepción si el número de la Tarjeta no posea 16 dígitos
      */
     public static String obtenerDigitoControl(String numero){
         // Validamos que tenga 16 dígitos y que el último dígito sea un 0
@@ -349,8 +347,8 @@ public class TarjetaCredito {
     }
 
     /**
-     * Método para validar si es NIF, NIE o CIF
-     * Se le pasa un NIF, NIE o CIF y comprueba si es válido sintácticamente y si es válido realizando los algoritmos necesarios
+     * Método para válidar si es NIF,NIE o CIF
+     * Se le pasa un NIF,NIE o CIF y comprueba si es válido
      * @param nif El NIF, NIE o CIF
      * @return True si es válido y false en el caso contrario
      */
@@ -463,19 +461,18 @@ public class TarjetaCredito {
                 "Cantidad Gastada: "+this.gastado();
     }
 
-
     /**
      * Compara si dos objetos TarjetaCredito son idénticos en cuanto a sus valores de atributos.
      * Se considera que dos objetos son iguales si el número de la tarjeta es igual.
-     * @param obj El objeto TarjetaCredito con el cual se comparará el objeto actual.
+     * @param j El objeto TarjetaCredito con el cual se comparará el objeto actual.
      * @return True si los objetos son iguales, false en caso contrario.
      */
+    public boolean equals(TarjetaCredito j) {
+        return this.numeroTarjeta.equals(j.numeroTarjeta);
+    }
+
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        TarjetaCredito tarjetaCreditoAComparar = (TarjetaCredito)  obj;
-        return this.numeroTarjeta.equals(tarjetaCreditoAComparar.numeroTarjeta);
+    public int compareTo(TarjetaCredito o) {
+        return (int) ((Long.parseLong(this.numeroTarjeta) - Long.parseLong(o.numeroTarjeta)) * -1);
     }
 }
