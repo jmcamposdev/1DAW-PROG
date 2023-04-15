@@ -5,6 +5,19 @@
 package interfaz;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import modelo.ModeloListaTarjetasCredito;
 import modelo.TarjetaCredito;
@@ -14,15 +27,16 @@ import modelo.TarjetaCredito;
  * @author josemaria
  */
 public class InterfazJF extends javax.swing.JFrame {
+    ArrayList<TarjetaCredito> listaTarjetas;
 
     /**
      * Creates new form JFInterfaz
      */
     public InterfazJF() {
         initComponents();
+        listaTarjetas = new ArrayList<>();
         // Creamos el Modelo de la Lista
         modelo = new ModeloListaTarjetasCredito();
-        modelo.añadirTarjeta(new TarjetaCredito("Jose Maria Campos","54530823P","1111",4000,"4275060355274659"));
         // Actualizamos JTable para que use el Modelo de Tarjetas de Credito
         jtListaTarjetasCredito.setModel(modelo);
     }
@@ -78,9 +92,19 @@ public class InterfazJF extends javax.swing.JFrame {
         jmArchivo.setText("Archivo");
 
         jmiGuardar.setText("Guardar");
+        jmiGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGuardarActionPerformed(evt);
+            }
+        });
         jmArchivo.add(jmiGuardar);
 
         jmiCargar.setText("Cargar");
+        jmiCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCargarActionPerformed(evt);
+            }
+        });
         jmArchivo.add(jmiCargar);
 
         jmbMenu.add(jmArchivo);
@@ -125,6 +149,7 @@ public class InterfazJF extends javax.swing.JFrame {
         
         if (jDCrearTarejeta.isCreada()) {
             TarjetaCredito nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
+            listaTarjetas.add(nuevaTarjeta);
             modelo.añadirTarjeta(nuevaTarjeta);
         }
         
@@ -137,17 +162,9 @@ public class InterfazJF extends javax.swing.JFrame {
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
             
             int index = jtListaTarjetasCredito.getSelectedRow(); // Obtenemos el indice de la Tarjeta seleccionada (JTable)
-            TarjetaCredito selectedTarjeta = modelo.getTarjetaCredito(index);
+            TarjetaCredito selectedTarjeta = listaTarjetas.get(index);
             JDGestionarTarjeta jDGestionarTarjeta = new JDGestionarTarjeta(this, true, selectedTarjeta); // Creamos el JDialog para modificar la Tarjeta
             jDGestionarTarjeta.setVisible(true); // Hacemos Visible el JDialog
-            
-            /*if (jdCancion.isAceptada()) { // Si la película ha sido aceptada
-                Cancion cancionModificada = jdCancion.getCancion(); // Obteneos la canción modificada
-                modelo.setNombre(index,cancionModificada.getNombre()); // Modificamos el Nombre
-                modelo.setAutor(index, cancionModificada.getAutor()); // Modificamos el Autor
-                modelo.setDuracion(index, cancionModificada.getDuracion()); // Modificamos la Duración
-                modelo.fireTableRowsUpdated(index, index);
-            }*/
         }
     }//GEN-LAST:event_jtListaTarjetasCreditoMouseClicked
 
@@ -156,10 +173,46 @@ public class InterfazJF extends javax.swing.JFrame {
         
         if (result == JOptionPane.YES_OPTION) {
             int indexSelectedTarjeta = jtListaTarjetasCredito.getSelectedRow();
-            System.out.println(indexSelectedTarjeta);
-            System.out.println(modelo.eliminarTarjeta(indexSelectedTarjeta));
+            listaTarjetas.remove(indexSelectedTarjeta);
+            modelo.eliminarTarjeta(indexSelectedTarjeta);
         }
     }//GEN-LAST:event_jmiEliminarTarjetaActionPerformed
+
+    private void jmiGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGuardarActionPerformed
+        JFileChooser gestorArchivos = new JFileChooser();
+        int option = gestorArchivos.showSaveDialog(this);
+        
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = gestorArchivos.getSelectedFile();
+            
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile))) {
+                oos.writeObject(listaTarjetas);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "No se ha podido escribir en el fichero","Error",JOptionPane.ERROR);
+            }
+        }
+    }//GEN-LAST:event_jmiGuardarActionPerformed
+
+    private void jmiCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCargarActionPerformed
+        JFileChooser gestorArchivos = new JFileChooser();
+        int option = gestorArchivos.showSaveDialog(this);
+        
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = gestorArchivos.getSelectedFile();
+            
+            try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(selectedFile))) {
+                this.listaTarjetas = (ArrayList<TarjetaCredito>) oos.readObject();
+                
+                for (TarjetaCredito t : listaTarjetas) {
+                    modelo.añadirTarjeta(t);
+                }
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "El fichero aportado no posee los datos necesarios","Error",JOptionPane.ERROR);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "No se ha podido escribir en el fichero","Error",JOptionPane.ERROR);
+            }
+        }
+    }//GEN-LAST:event_jmiCargarActionPerformed
 
     /**
      * @param args the command line arguments
