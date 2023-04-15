@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
  * @author José María Campos Trujillo
  * @version 1.0
  */
-public class TarjetaCredito implements Comparable<TarjetaCredito>{
+public class TarjetaCredito implements Comparable<TarjetaCredito>, Serializable{
     private static final String NIF_PATTERN = "^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke]$";
     private static final char[] LETRAS_NIF = {'T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E'};
     private static final String NIE_PATTERN = "^[XYZxyz][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke]$";

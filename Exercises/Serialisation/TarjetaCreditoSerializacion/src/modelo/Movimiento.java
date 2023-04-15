@@ -1,8 +1,8 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 /**
  * Clase que representa un movimiento en una tarjeta de crédito.
@@ -16,7 +16,7 @@ import java.util.Calendar;
  * @see TarjetaCredito
  *
  */
-public class Movimiento {
+public class Movimiento implements Serializable{
 
     /**
      * Formato de fecha y hora para el movimiento.
