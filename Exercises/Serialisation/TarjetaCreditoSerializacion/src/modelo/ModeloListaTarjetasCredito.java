@@ -24,6 +24,7 @@ public class ModeloListaTarjetasCredito extends AbstractTableModel{
         if (index >= 0 && index < listaTarjetas.size()) {
             listaTarjetas.remove(index);
             tarjetaEliminada = true;
+            this.fireTableDataChanged();
         }
         return  tarjetaEliminada;
     }

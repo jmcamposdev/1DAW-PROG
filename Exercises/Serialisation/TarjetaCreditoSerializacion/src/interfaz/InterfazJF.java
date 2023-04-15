@@ -4,6 +4,8 @@
  */
 package interfaz;
 
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import modelo.ModeloListaTarjetasCredito;
 import modelo.TarjetaCredito;
 
@@ -20,6 +22,7 @@ public class InterfazJF extends javax.swing.JFrame {
         initComponents();
         // Creamos el Modelo de la Lista
         modelo = new ModeloListaTarjetasCredito();
+        modelo.añadirTarjeta(new TarjetaCredito("Jose Maria Campos","54530823P","1111",4000,"4275060355274659"));
         // Actualizamos JTable para que use el Modelo de Tarjetas de Credito
         jtListaTarjetasCredito.setModel(modelo);
     }
@@ -33,6 +36,8 @@ public class InterfazJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpmEliminarMenu = new javax.swing.JPopupMenu();
+        jmiEliminarTarjeta = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListaTarjetasCredito = new javax.swing.JTable();
         jmbMenu = new javax.swing.JMenuBar();
@@ -42,6 +47,14 @@ public class InterfazJF extends javax.swing.JFrame {
         jmAcciones = new javax.swing.JMenu();
         jmiAñadirTarjeta = new javax.swing.JMenuItem();
         jmiModificarTarjeta = new javax.swing.JMenuItem();
+
+        jmiEliminarTarjeta.setText("Eliminar");
+        jmiEliminarTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminarTarjetaActionPerformed(evt);
+            }
+        });
+        jpmEliminarMenu.add(jmiEliminarTarjeta);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +69,11 @@ public class InterfazJF extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtListaTarjetasCredito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListaTarjetasCreditoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtListaTarjetasCredito);
 
         jmArchivo.setText("Archivo");
@@ -116,6 +134,41 @@ public class InterfazJF extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmiAñadirTarjetaActionPerformed
 
+    private void jtListaTarjetasCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaTarjetasCreditoMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) { // Si es Click Derecho
+            // Mostramos  el Menú
+            jpmEliminarMenu.show(jtListaTarjetasCredito, evt.getX(), evt.getY());
+        } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
+            /*
+            int index = jtListaCanciones.getSelectedRow(); // Obtenemos el indice de la canción seleccionada (JTable)
+            JDCancion jdCancion = new JDCancion(this, true); // Creamos el JDialog para modificar la Canción
+            Cancion cancionAModificar = modelo.getCancion(index); //Obtenemos la Canción seleccionada por el Usuario
+            jdCancion.setNombreCancion(cancionAModificar.getNombre()); // Insertamos en el JDialog el Nombre de la Canción
+            jdCancion.setAutorCancion(cancionAModificar.getAutor()); // Insertamos en el JDialog el Autor de la Canción
+            jdCancion.setDuracionCancion(cancionAModificar.getDuracion()); // Insetamos en el JDialog la Duracion de la Canción
+            jdCancion.setVisible(true); // Hacemos Visible el JDialog
+            
+            if (jdCancion.isAceptada()) { // Si la película ha sido aceptada
+                Cancion cancionModificada = jdCancion.getCancion(); // Obteneos la canción modificada
+                modelo.setNombre(index,cancionModificada.getNombre()); // Modificamos el Nombre
+                modelo.setAutor(index, cancionModificada.getAutor()); // Modificamos el Autor
+                modelo.setDuracion(index, cancionModificada.getDuracion()); // Modificamos la Duración
+                modelo.fireTableRowsUpdated(index, index);
+            }
+            */
+        }
+    }//GEN-LAST:event_jtListaTarjetasCreditoMouseClicked
+
+    private void jmiEliminarTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarTarjetaActionPerformed
+        int result = JOptionPane.showConfirmDialog(this, "Esta seguro que deseas eliminar la Tajeta.");
+        
+        if (result == JOptionPane.YES_OPTION) {
+            int indexSelectedTarjeta = jtListaTarjetasCredito.getSelectedRow();
+            System.out.println(indexSelectedTarjeta);
+            System.out.println(modelo.eliminarTarjeta(indexSelectedTarjeta));
+        }
+    }//GEN-LAST:event_jmiEliminarTarjetaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -160,8 +213,10 @@ public class InterfazJF extends javax.swing.JFrame {
     private javax.swing.JMenuBar jmbMenu;
     private javax.swing.JMenuItem jmiAñadirTarjeta;
     private javax.swing.JMenuItem jmiCargar;
+    private javax.swing.JMenuItem jmiEliminarTarjeta;
     private javax.swing.JMenuItem jmiGuardar;
     private javax.swing.JMenuItem jmiModificarTarjeta;
+    private javax.swing.JPopupMenu jpmEliminarMenu;
     private javax.swing.JTable jtListaTarjetasCredito;
     // End of variables declaration//GEN-END:variables
 }

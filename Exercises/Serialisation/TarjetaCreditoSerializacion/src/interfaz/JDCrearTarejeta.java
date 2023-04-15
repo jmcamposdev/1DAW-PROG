@@ -198,15 +198,15 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
             errorMessage = "El PIN es inválido debe de poseer 4 dígitos o mas";
             validInput = false;
         }
-        if (validInput && !TarjetaCredito.validarDigitosTarjeta(numeroTarjeta)) {
+        /*if (validInput && !TarjetaCredito.validarDigitosTarjeta(numeroTarjeta)) {
             errorMessage = "El número de la Tarjeta no es válido";
             validInput = false;
-        }
+        }*/
         
         if (!validInput) {
             JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            nuevaTarjetaCredito = new TarjetaCredito(titular,nif,pin,limite,numeroTarjeta);
+            nuevaTarjetaCredito = new TarjetaCredito(titular,nif,pin,limite,"4275060355274659");
             isCreada = true;
             this.setVisible(false);
         }
