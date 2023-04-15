@@ -133,7 +133,6 @@ public class JFMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAñadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAñadirTarjetaActionPerformed
-        // TODO add your handling code here:
         JDCrearTarejeta jDCrearTarejeta = new JDCrearTarejeta(this, true);
         jDCrearTarejeta.setVisible(true);
         
