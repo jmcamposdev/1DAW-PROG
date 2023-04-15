@@ -148,9 +148,19 @@ public class InterfazJF extends javax.swing.JFrame {
         jDCrearTarejeta.setVisible(true);
         
         if (jDCrearTarejeta.isCreada()) {
+            boolean validTarjeta = true;
             TarjetaCredito nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
-            listaTarjetas.add(nuevaTarjeta);
-            modelo.añadirTarjeta(nuevaTarjeta);
+            for (TarjetaCredito t : listaTarjetas) {
+                if (t.getNif().equals(nuevaTarjeta.getNif())) {
+                    validTarjeta = false;
+                    JOptionPane.showMessageDialog(this, "No se ha creado la Tarjeta ya que esta en uso el DNI insertado");
+                }
+            }
+            if (validTarjeta) {
+                listaTarjetas.add(nuevaTarjeta);
+                modelo.añadirTarjeta(nuevaTarjeta);
+            }
+            
         }
         
     }//GEN-LAST:event_jmiAñadirTarjetaActionPerformed
