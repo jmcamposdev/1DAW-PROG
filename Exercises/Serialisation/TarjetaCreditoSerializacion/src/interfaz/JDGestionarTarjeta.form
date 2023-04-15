@@ -4,20 +4,30 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jmbMenu">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jmModificarPIN">
+        <Menu class="javax.swing.JMenu" name="jmAcciones">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Modificar PIN"/>
+            <Property name="text" type="java.lang.String" value="Acciones"/>
           </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jmRealizarPago">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Realizar Pago"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jmConsultarMovimientos">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Consultar Movimientos"/>
-          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiModificarPIN">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modificar PIN"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiModificarPINActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiRealizarPago">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Realizar Pago"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultarMovimientos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar Movimientos"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

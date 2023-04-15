@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import javax.swing.JOptionPane;
 import modelo.TarjetaCredito;
 
 /**
@@ -51,9 +52,10 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         jlGastosTotales = new javax.swing.JLabel();
         jbSalir = new javax.swing.JButton();
         jmbMenu = new javax.swing.JMenuBar();
-        jmModificarPIN = new javax.swing.JMenu();
-        jmRealizarPago = new javax.swing.JMenu();
-        jmConsultarMovimientos = new javax.swing.JMenu();
+        jmAcciones = new javax.swing.JMenu();
+        jmiModificarPIN = new javax.swing.JMenuItem();
+        jmiRealizarPago = new javax.swing.JMenuItem();
+        jmiConsultarMovimientos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -83,14 +85,23 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
             }
         });
 
-        jmModificarPIN.setText("Modificar PIN");
-        jmbMenu.add(jmModificarPIN);
+        jmAcciones.setText("Acciones");
 
-        jmRealizarPago.setText("Realizar Pago");
-        jmbMenu.add(jmRealizarPago);
+        jmiModificarPIN.setText("Modificar PIN");
+        jmiModificarPIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiModificarPINActionPerformed(evt);
+            }
+        });
+        jmAcciones.add(jmiModificarPIN);
 
-        jmConsultarMovimientos.setText("Consultar Movimientos");
-        jmbMenu.add(jmConsultarMovimientos);
+        jmiRealizarPago.setText("Realizar Pago");
+        jmAcciones.add(jmiRealizarPago);
+
+        jmiConsultarMovimientos.setText("Consultar Movimientos");
+        jmAcciones.add(jmiConsultarMovimientos);
+
+        jmbMenu.add(jmAcciones);
 
         setJMenuBar(jmbMenu);
 
@@ -158,6 +169,27 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jmiModificarPINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiModificarPINActionPerformed
+        boolean validPin = false;
+        boolean exit = false;
+        String newPin;
+        do {
+            newPin = JOptionPane.showInputDialog(this,"Ingresa su nuevo PIN.","Nuevo PIN",1);
+            if (newPin != null && newPin.matches("^\\d{4,}$")) {
+                validPin = true;
+            } else if (newPin != null) {
+                JOptionPane.showMessageDialog(this, "El PIN insertado es erroneo");
+                validPin = false;
+            } else {
+                exit = true;
+            }
+        } while (!validPin && !exit);
+        
+        if (validPin) {
+            tarjetaCredito.setPin(newPin);
+        }
+    }//GEN-LAST:event_jmiModificarPINActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,10 +246,11 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
     private javax.swing.JLabel jlTituloGastosTotales;
     private javax.swing.JLabel jlTituloNumeroTarjeta;
     private javax.swing.JLabel jlTituloTitular;
-    private javax.swing.JMenu jmConsultarMovimientos;
-    private javax.swing.JMenu jmModificarPIN;
-    private javax.swing.JMenu jmRealizarPago;
+    private javax.swing.JMenu jmAcciones;
     private javax.swing.JMenuBar jmbMenu;
+    private javax.swing.JMenuItem jmiConsultarMovimientos;
+    private javax.swing.JMenuItem jmiModificarPIN;
+    private javax.swing.JMenuItem jmiRealizarPago;
     // End of variables declaration//GEN-END:variables
 
     
