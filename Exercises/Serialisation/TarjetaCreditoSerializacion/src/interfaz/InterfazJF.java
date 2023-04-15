@@ -4,6 +4,8 @@
  */
 package interfaz;
 
+import modelo.ModeloListaTarjetasCredito;
+
 /**
  *
  * @author josemaria
@@ -15,6 +17,10 @@ public class InterfazJF extends javax.swing.JFrame {
      */
     public InterfazJF() {
         initComponents();
+        // Creamos el Modelo de la Lista
+        modelo = new ModeloListaTarjetasCredito();
+        // Actualizamos JTable para que use el Modelo de Tarjetas de Credito
+        jtListaTarjetasCredito.setModel(modelo);
     }
 
     /**
@@ -27,11 +33,18 @@ public class InterfazJF extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtListaTarjetasCredito = new javax.swing.JTable();
+        jmbMenu = new javax.swing.JMenuBar();
+        jmArchivo = new javax.swing.JMenu();
+        jmiGuardar = new javax.swing.JMenuItem();
+        jmiCargar = new javax.swing.JMenuItem();
+        jmAcciones = new javax.swing.JMenu();
+        jmiAñadirTarjeta = new javax.swing.JMenuItem();
+        jmiModificarTarjeta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtListaTarjetasCredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -42,7 +55,29 @@ public class InterfazJF extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtListaTarjetasCredito);
+
+        jmArchivo.setText("Archivo");
+
+        jmiGuardar.setText("Guardar");
+        jmArchivo.add(jmiGuardar);
+
+        jmiCargar.setText("Cargar");
+        jmArchivo.add(jmiCargar);
+
+        jmbMenu.add(jmArchivo);
+
+        jmAcciones.setText("Acciones");
+
+        jmiAñadirTarjeta.setText("Añadir Tarjeta");
+        jmAcciones.add(jmiAñadirTarjeta);
+
+        jmiModificarTarjeta.setText("Modificar Tarjeta");
+        jmAcciones.add(jmiModificarTarjeta);
+
+        jmbMenu.add(jmAcciones);
+
+        setJMenuBar(jmbMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,9 +91,9 @@ public class InterfazJF extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,8 +135,16 @@ public class InterfazJF extends javax.swing.JFrame {
         });
     }
 
+    private ModeloListaTarjetasCredito modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JMenu jmAcciones;
+    private javax.swing.JMenu jmArchivo;
+    private javax.swing.JMenuBar jmbMenu;
+    private javax.swing.JMenuItem jmiAñadirTarjeta;
+    private javax.swing.JMenuItem jmiCargar;
+    private javax.swing.JMenuItem jmiGuardar;
+    private javax.swing.JMenuItem jmiModificarTarjeta;
+    private javax.swing.JTable jtListaTarjetasCredito;
     // End of variables declaration//GEN-END:variables
 }
