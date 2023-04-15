@@ -5,6 +5,7 @@
 package interfaz;
 
 import modelo.ModeloListaTarjetasCredito;
+import modelo.TarjetaCredito;
 
 /**
  *
@@ -70,6 +71,11 @@ public class InterfazJF extends javax.swing.JFrame {
         jmAcciones.setText("Acciones");
 
         jmiAñadirTarjeta.setText("Añadir Tarjeta");
+        jmiAñadirTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAñadirTarjetaActionPerformed(evt);
+            }
+        });
         jmAcciones.add(jmiAñadirTarjeta);
 
         jmiModificarTarjeta.setText("Modificar Tarjeta");
@@ -98,6 +104,17 @@ public class InterfazJF extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmiAñadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAñadirTarjetaActionPerformed
+        JDCrearTarejeta jDCrearTarejeta = new JDCrearTarejeta(this,true);
+        jDCrearTarejeta.setVisible(true);
+        
+        if (jDCrearTarejeta.isCreada()) {
+            TarjetaCredito nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
+            modelo.añadirTarjeta(nuevaTarjeta);
+        }
+        
+    }//GEN-LAST:event_jmiAñadirTarjetaActionPerformed
 
     /**
      * @param args the command line arguments
