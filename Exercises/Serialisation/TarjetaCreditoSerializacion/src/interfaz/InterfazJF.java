@@ -46,7 +46,6 @@ public class InterfazJF extends javax.swing.JFrame {
         jmiCargar = new javax.swing.JMenuItem();
         jmAcciones = new javax.swing.JMenu();
         jmiAñadirTarjeta = new javax.swing.JMenuItem();
-        jmiModificarTarjeta = new javax.swing.JMenuItem();
 
         jmiEliminarTarjeta.setText("Eliminar");
         jmiEliminarTarjeta.addActionListener(new java.awt.event.ActionListener() {
@@ -95,9 +94,6 @@ public class InterfazJF extends javax.swing.JFrame {
             }
         });
         jmAcciones.add(jmiAñadirTarjeta);
-
-        jmiModificarTarjeta.setText("Modificar Tarjeta");
-        jmAcciones.add(jmiModificarTarjeta);
 
         jmbMenu.add(jmAcciones);
 
@@ -211,7 +207,6 @@ public class InterfazJF extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCargar;
     private javax.swing.JMenuItem jmiEliminarTarjeta;
     private javax.swing.JMenuItem jmiGuardar;
-    private javax.swing.JMenuItem jmiModificarTarjeta;
     private javax.swing.JPopupMenu jpmEliminarMenu;
     private javax.swing.JTable jtListaTarjetasCredito;
     // End of variables declaration//GEN-END:variables
