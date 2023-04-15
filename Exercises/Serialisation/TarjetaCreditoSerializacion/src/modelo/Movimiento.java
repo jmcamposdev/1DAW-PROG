@@ -3,6 +3,7 @@ package modelo;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Clase que representa un movimiento en una tarjeta de crédito.
@@ -117,19 +118,34 @@ public class Movimiento implements Serializable{
                 "Fecha realizado: "+DATE_TIME_FORMATTER.format(this.fecha)+"\n"; // Le damos un buen formato a la fecha
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.cantidad) ^ (Double.doubleToLongBits(this.cantidad) >>> 32));
+        hash = 89 * hash + Objects.hashCode(this.concepto);
+        hash = 89 * hash + Objects.hashCode(this.fecha);
+        return hash;
+    }
+
     /**
      * Compara si dos objetos Movimiento son idénticos en cuanto a sus valores de atributos.
      * Se considera que dos objetos son iguales si su "concepto", "cantidad" y "fecha" son iguales.
-     * @param obj El objeto Movimiento con el cual se comparará el objeto actual.
+     * @param m El objeto Movimiento con el cual se comparará el objeto actual.
      * @return true si los objetos son iguales, false en caso contrario.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Movimiento movimientoAComparar = (Movimiento)  obj;
-        return this.concepto.equalsIgnoreCase(movimientoAComparar.concepto) && this.cantidad == movimientoAComparar.cantidad && this.fecha.equals(movimientoAComparar.fecha);
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Movimiento other = (Movimiento) obj;
+        return this.concepto.equalsIgnoreCase(other.concepto) && this.cantidad == other.cantidad && this.fecha == other.fecha;
     }
 
     /**
