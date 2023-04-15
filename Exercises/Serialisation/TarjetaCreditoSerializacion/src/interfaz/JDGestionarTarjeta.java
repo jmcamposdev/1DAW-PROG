@@ -4,20 +4,33 @@
  */
 package interfaz;
 
+import modelo.TarjetaCredito;
+
 /**
  *
  * @author josemaria
  */
 public class JDGestionarTarjeta extends javax.swing.JDialog {
-
     /**
      * Creates new form JDGestionarTarjeta
      */
-    public JDGestionarTarjeta(java.awt.Frame parent, boolean modal) {
+    public JDGestionarTarjeta(java.awt.Frame parent, boolean modal, TarjetaCredito tarjetaCredito) {
         super(parent, modal);
         initComponents();
+        this.tarjetaCredito = tarjetaCredito;
+        inicializar();
     }
 
+    private void inicializar() {
+        jlNumeroTarjeta.setText(tarjetaCredito.getNumeroTarjeta());
+        jlTitular.setText(tarjetaCredito.getTitular());
+        jlFechaCaducidad.setText(tarjetaCredito.getMesCaducidad()+"/"+tarjetaCredito.getAñoCaducidad());
+        jlGastosTotales.setText(String.valueOf(tarjetaCredito.gastado()));
+    }
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +40,123 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jlTitulo = new javax.swing.JLabel();
+        jlTituloNumeroTarjeta = new javax.swing.JLabel();
+        jlTituloTitular = new javax.swing.JLabel();
+        jlTituloFechaCaducidad = new javax.swing.JLabel();
+        jlTituloGastosTotales = new javax.swing.JLabel();
+        jlNumeroTarjeta = new javax.swing.JLabel();
+        jlTitular = new javax.swing.JLabel();
+        jlFechaCaducidad = new javax.swing.JLabel();
+        jlGastosTotales = new javax.swing.JLabel();
+        jbSalir = new javax.swing.JButton();
+        jmbMenu = new javax.swing.JMenuBar();
+        jmModificarPIN = new javax.swing.JMenu();
+        jmRealizarPago = new javax.swing.JMenu();
+        jmConsultarMovimientos = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jlTitulo.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jlTitulo.setText("GESTIONAR TARJETA");
+
+        jlTituloNumeroTarjeta.setText("Número Tarjeta: ");
+
+        jlTituloTitular.setText("Titular: ");
+
+        jlTituloFechaCaducidad.setText("Fecha Caducidad:");
+
+        jlTituloGastosTotales.setText("Gastos Totales:");
+
+        jlNumeroTarjeta.setText(" ");
+
+        jlTitular.setText(" ");
+
+        jlFechaCaducidad.setText(" ");
+
+        jlGastosTotales.setText(" ");
+
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        jmModificarPIN.setText("Modificar PIN");
+        jmbMenu.add(jmModificarPIN);
+
+        jmRealizarPago.setText("Realizar Pago");
+        jmbMenu.add(jmRealizarPago);
+
+        jmConsultarMovimientos.setText("Consultar Movimientos");
+        jmbMenu.add(jmConsultarMovimientos);
+
+        setJMenuBar(jmbMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlTitulo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlTituloNumeroTarjeta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jlNumeroTarjeta))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlTituloTitular)
+                            .addComponent(jlTituloFechaCaducidad)
+                            .addComponent(jlTituloGastosTotales))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlTitular)
+                            .addComponent(jlFechaCaducidad)
+                            .addComponent(jlGastosTotales))))
+                .addContainerGap(111, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jbSalir)
+                .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlTitulo)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloNumeroTarjeta)
+                    .addComponent(jlNumeroTarjeta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloTitular)
+                    .addComponent(jlTitular))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloFechaCaducidad)
+                    .addComponent(jlFechaCaducidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloGastosTotales)
+                    .addComponent(jlGastosTotales))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jbSalir)
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jbSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,7 +188,7 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDGestionarTarjeta dialog = new JDGestionarTarjeta(new javax.swing.JFrame(), true);
+                JDGestionarTarjeta dialog = new JDGestionarTarjeta(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -85,6 +200,25 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         });
     }
 
+    
+    
+    private TarjetaCredito tarjetaCredito;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JLabel jlFechaCaducidad;
+    private javax.swing.JLabel jlGastosTotales;
+    private javax.swing.JLabel jlNumeroTarjeta;
+    private javax.swing.JLabel jlTitular;
+    private javax.swing.JLabel jlTitulo;
+    private javax.swing.JLabel jlTituloFechaCaducidad;
+    private javax.swing.JLabel jlTituloGastosTotales;
+    private javax.swing.JLabel jlTituloNumeroTarjeta;
+    private javax.swing.JLabel jlTituloTitular;
+    private javax.swing.JMenu jmConsultarMovimientos;
+    private javax.swing.JMenu jmModificarPIN;
+    private javax.swing.JMenu jmRealizarPago;
+    private javax.swing.JMenuBar jmbMenu;
     // End of variables declaration//GEN-END:variables
+
+    
 }

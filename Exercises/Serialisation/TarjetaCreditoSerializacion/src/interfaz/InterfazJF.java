@@ -139,23 +139,19 @@ public class InterfazJF extends javax.swing.JFrame {
             // Mostramos  el Menú
             jpmEliminarMenu.show(jtListaTarjetasCredito, evt.getX(), evt.getY());
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
-            /*
-            int index = jtListaCanciones.getSelectedRow(); // Obtenemos el indice de la canción seleccionada (JTable)
-            JDCancion jdCancion = new JDCancion(this, true); // Creamos el JDialog para modificar la Canción
-            Cancion cancionAModificar = modelo.getCancion(index); //Obtenemos la Canción seleccionada por el Usuario
-            jdCancion.setNombreCancion(cancionAModificar.getNombre()); // Insertamos en el JDialog el Nombre de la Canción
-            jdCancion.setAutorCancion(cancionAModificar.getAutor()); // Insertamos en el JDialog el Autor de la Canción
-            jdCancion.setDuracionCancion(cancionAModificar.getDuracion()); // Insetamos en el JDialog la Duracion de la Canción
-            jdCancion.setVisible(true); // Hacemos Visible el JDialog
             
-            if (jdCancion.isAceptada()) { // Si la película ha sido aceptada
+            int index = jtListaTarjetasCredito.getSelectedRow(); // Obtenemos el indice de la Tarjeta seleccionada (JTable)
+            TarjetaCredito selectedTarjeta = modelo.getTarjetaCredito(index);
+            JDGestionarTarjeta jDGestionarTarjeta = new JDGestionarTarjeta(this, true, selectedTarjeta); // Creamos el JDialog para modificar la Tarjeta
+            jDGestionarTarjeta.setVisible(true); // Hacemos Visible el JDialog
+            
+            /*if (jdCancion.isAceptada()) { // Si la película ha sido aceptada
                 Cancion cancionModificada = jdCancion.getCancion(); // Obteneos la canción modificada
                 modelo.setNombre(index,cancionModificada.getNombre()); // Modificamos el Nombre
                 modelo.setAutor(index, cancionModificada.getAutor()); // Modificamos el Autor
                 modelo.setDuracion(index, cancionModificada.getDuracion()); // Modificamos la Duración
                 modelo.fireTableRowsUpdated(index, index);
-            }
-            */
+            }*/
         }
     }//GEN-LAST:event_jtListaTarjetasCreditoMouseClicked
 

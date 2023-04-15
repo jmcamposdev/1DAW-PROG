@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="jmbMenu">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jmModificarPIN">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Modificar PIN"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmRealizarPago">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Realizar Pago"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmConsultarMovimientos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consultar Movimientos"/>
+          </Properties>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jmbMenu"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
@@ -23,13 +45,131 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlTitulo" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jlTituloNumeroTarjeta" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jlNumeroTarjeta" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jlTituloTitular" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlTituloFechaCaducidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlTituloGastosTotales" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlTitular" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlFechaCaducidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlGastosTotales" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="111" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jlTitulo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jlTituloNumeroTarjeta" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlNumeroTarjeta" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jlTituloTitular" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlTitular" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jlTituloFechaCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlFechaCaducidad" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jlTituloGastosTotales" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlGastosTotales" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="jlTitulo">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Helvetica Neue" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="GESTIONAR TARJETA"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTituloNumeroTarjeta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="N&#xfa;mero Tarjeta: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTituloTitular">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Titular: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTituloFechaCaducidad">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fecha Caducidad:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTituloGastosTotales">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gastos Totales:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlNumeroTarjeta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=" "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlTitular">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=" "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlFechaCaducidad">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=" "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlGastosTotales">
+      <Properties>
+        <Property name="text" type="java.lang.String" value=" "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbSalir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSalirActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
 </Form>
