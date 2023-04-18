@@ -66,6 +66,13 @@ public class Utilities {
         return d != null;
     }
     
+    public static LocalDate convertToLocalDate (String localDateString) {
+        // Convertimos el String Fecha en un Array separándolo por "/"
+        String[] splitFecha = localDateString.split("/");
+        // Devolvemos un LocalDate formada gracia al Array (año,mes,día)
+        return LocalDate.of(Integer.parseInt(splitFecha[2]),Integer.parseInt(splitFecha[1]),Integer.parseInt(splitFecha[0]));
+    }
+    
     /**
      * Method that generate a random number in a range, using Random Class.
      * @param minValue The minimum value (included)
