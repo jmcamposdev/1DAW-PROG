@@ -10,8 +10,11 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="jmiEliminarTemporada">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiEliminarTemporadaActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>

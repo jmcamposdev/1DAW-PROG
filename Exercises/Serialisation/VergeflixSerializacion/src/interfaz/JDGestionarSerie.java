@@ -77,7 +77,12 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         jmVisualizar = new javax.swing.JMenu();
         jmiVisualizarTemporadas = new javax.swing.JMenuItem();
 
-        jmiEliminarTemporada.setText("jMenuItem1");
+        jmiEliminarTemporada.setText("Eliminar");
+        jmiEliminarTemporada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminarTemporadaActionPerformed(evt);
+            }
+        });
         jpmEliminarTemporada.add(jmiEliminarTemporada);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -342,6 +347,14 @@ public class JDGestionarSerie extends javax.swing.JDialog {
             }*/
         }
     }//GEN-LAST:event_jtListaTemporadasMouseClicked
+
+    private void jmiEliminarTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarTemporadaActionPerformed
+        int index = jtListaTemporadas.getSelectedRow();
+        if (serieSeleccionada.eliminarTemporada(index)) {
+            modelo.eliminarTemporada(index);
+        }
+        
+    }//GEN-LAST:event_jmiEliminarTemporadaActionPerformed
 
     /**
      * @param args the command line arguments
