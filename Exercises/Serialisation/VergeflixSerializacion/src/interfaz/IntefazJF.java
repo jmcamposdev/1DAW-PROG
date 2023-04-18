@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import modelo.Media;
 import modelo.ModeloListaMedia;
 import modelo.Pelicula;
+import modelo.Serie;
 
 /**
  *
@@ -129,7 +130,14 @@ public class IntefazJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCrearSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearSerieActionPerformed
-        // TODO add your handling code here:
+        JDCrearSerie jDCrearSerie = new JDCrearSerie(this, rootPaneCheckingEnabled, listaMedia);
+        jDCrearSerie.setVisible(true);
+        
+        if (jDCrearSerie.isCreada()) {
+            Serie nuevaSerie = jDCrearSerie.getSerie();
+            this.listaMedia.add(nuevaSerie);
+            this.modelo.añadirMedia(nuevaSerie);
+        }
     }//GEN-LAST:event_jmiCrearSerieActionPerformed
 
     private void jmiCrearPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearPeliculaActionPerformed
