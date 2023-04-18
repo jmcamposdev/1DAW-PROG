@@ -4,11 +4,14 @@
  */
 package interfaz;
 
+import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import modelo.Media;
 import modelo.ModeloListaMedia;
 import modelo.Pelicula;
 import modelo.Serie;
+import modelo.Tematica;
 
 /**
  *
@@ -32,6 +35,7 @@ public class IntefazJF extends javax.swing.JFrame {
                 
         // Actualizamos JTable para que use el Modelo de Canción
         jtListaMedia.setModel(modelo);
+        modelo.añadirMedia(new Pelicula("Prueba", 10, LocalDate.of(2022, 10, 1), true, "Paco", "Alvaro", 90, Tematica.CIENCIA_FICCION));
     }
 
     /**
@@ -43,9 +47,8 @@ public class IntefazJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        jpmEliminar = new javax.swing.JPopupMenu();
+        jmiEliminar = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListaMedia = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -56,11 +59,13 @@ public class IntefazJF extends javax.swing.JFrame {
         jmiCrearPelicula = new javax.swing.JMenuItem();
         jmiCrearSerie = new javax.swing.JMenuItem();
 
-        jMenu3.setText("File");
-        jMenuBar2.add(jMenu3);
-
-        jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
+        jmiEliminar.setText("Eliminar");
+        jmiEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminarActionPerformed(evt);
+            }
+        });
+        jpmEliminar.add(jmiEliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +80,11 @@ public class IntefazJF extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtListaMedia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListaMediaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtListaMedia);
 
         jmArchivo.setText("Archivo");
@@ -151,6 +161,36 @@ public class IntefazJF extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiCrearPeliculaActionPerformed
 
+    private void jtListaMediaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaMediaMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) { // Si es Click Derecho
+            // Mostramos  el Menú
+            jpmEliminar.show(jtListaMedia, evt.getX(), evt.getY());
+        } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
+            /*int index = jtListaCanciones.getSelectedRow(); // Obtenemos el indice de la canción seleccionada (JTable)
+            JDCancion jdCancion = new JDCancion(this, true); // Creamos el JDialog para modificar la Canción
+            Cancion cancionAModificar = modelo.getCancion(index); //Obtenemos la Canción seleccionada por el Usuario
+            jdCancion.setNombreCancion(cancionAModificar.getNombre()); // Insertamos en el JDialog el Nombre de la Canción
+            jdCancion.setAutorCancion(cancionAModificar.getAutor()); // Insertamos en el JDialog el Autor de la Canción
+            jdCancion.setDuracionCancion(cancionAModificar.getDuracion()); // Insetamos en el JDialog la Duracion de la Canción
+            jdCancion.setVisible(true); // Hacemos Visible el JDialog
+            
+            if (jdCancion.isAceptada()) { // Si la película ha sido aceptada
+                Cancion cancionModificada = jdCancion.getCancion(); // Obteneos la canción modificada
+                modelo.setNombre(index,cancionModificada.getNombre()); // Modificamos el Nombre
+                modelo.setAutor(index, cancionModificada.getAutor()); // Modificamos el Autor
+                modelo.setDuracion(index, cancionModificada.getDuracion()); // Modificamos la Duración
+                modelo.fireTableRowsUpdated(index, index);
+            }
+            */
+        }
+    }//GEN-LAST:event_jtListaMediaMouseClicked
+
+    private void jmiEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarActionPerformed
+        int index = jtListaMedia.getSelectedRow(); // Obteenos el indice        
+        this.listaMedia.remove(index); // Lo eliminamos de la lista
+        modelo.eliminarMedia(index); // Lo eliminamos de la Tabla
+    }//GEN-LAST:event_jmiEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,17 +229,16 @@ public class IntefazJF extends javax.swing.JFrame {
     private ArrayList<Media> listaMedia;
     private ModeloListaMedia modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu jmArchivo;
     private javax.swing.JMenu jmCrear;
     private javax.swing.JMenuItem jmiCargar;
     private javax.swing.JMenuItem jmiCrearPelicula;
     private javax.swing.JMenuItem jmiCrearSerie;
+    private javax.swing.JMenuItem jmiEliminar;
     private javax.swing.JMenuItem jmiGuardar;
+    private javax.swing.JPopupMenu jpmEliminar;
     private javax.swing.JTable jtListaMedia;
     // End of variables declaration//GEN-END:variables
 }
