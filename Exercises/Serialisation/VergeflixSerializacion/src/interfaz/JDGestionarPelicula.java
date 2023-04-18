@@ -61,7 +61,7 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
         jlTituloDuracion = new javax.swing.JLabel();
         jcbTematica = new javax.swing.JComboBox<>();
         jlTituloTematica = new javax.swing.JLabel();
-        jbAceptar = new javax.swing.JButton();
+        jbActualizar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
         jtfNombre = new javax.swing.JTextField();
         jtfCalificacionDeEdad = new javax.swing.JTextField();
@@ -90,10 +90,10 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
 
         jlTituloTematica.setText("Tematica");
 
-        jbAceptar.setText("Aceptar");
-        jbAceptar.addActionListener(new java.awt.event.ActionListener() {
+        jbActualizar.setText("Actualizar");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAceptarActionPerformed(evt);
+                jbActualizarActionPerformed(evt);
             }
         });
 
@@ -146,7 +146,7 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
                                 .addComponent(jcbDisponibilidad)
                                 .addContainerGap(178, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbAceptar)
+                                .addComponent(jbActualizar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbCancelar)
                                 .addGap(65, 65, 65))))
@@ -219,7 +219,7 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
                     .addComponent(jcbTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbAceptar)
+                    .addComponent(jbActualizar)
                     .addComponent(jbCancelar))
                 .addGap(54, 54, 54))
         );
@@ -227,7 +227,7 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
         boolean isValidInput = true;
         String nombre = jtfNombre.getText();
         String calificacionEdadString = jtfCalificacionDeEdad.getText();
@@ -312,7 +312,7 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
                 this.setVisible(false);
             }
         }
-    }//GEN-LAST:event_jbAceptarActionPerformed
+    }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         setVisible(false);
@@ -387,7 +387,7 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
     private Pelicula peliculaSeleccionada;
     private ArrayList<Media> listaMedias;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbAceptar;
+    private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JCheckBox jcbDisponibilidad;
     private javax.swing.JComboBox<String> jcbTematica;
