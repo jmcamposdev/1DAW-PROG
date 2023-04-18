@@ -74,8 +74,6 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         jmCrear = new javax.swing.JMenu();
         jmiCrearTemporada = new javax.swing.JMenuItem();
         jmiCrearCapitulo = new javax.swing.JMenuItem();
-        jmVisualizar = new javax.swing.JMenu();
-        jmiVisualizarTemporadas = new javax.swing.JMenuItem();
 
         jmiEliminarTemporada.setText("Eliminar");
         jmiEliminarTemporada.addActionListener(new java.awt.event.ActionListener() {
@@ -146,13 +144,6 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         jmCrear.add(jmiCrearCapitulo);
 
         jmbMenu.add(jmCrear);
-
-        jmVisualizar.setText("Visualizar");
-
-        jmiVisualizarTemporadas.setText("Visualizar Temporadas");
-        jmVisualizar.add(jmiVisualizarTemporadas);
-
-        jmbMenu.add(jmVisualizar);
 
         setJMenuBar(jmbMenu);
 
@@ -425,12 +416,10 @@ public class JDGestionarSerie extends javax.swing.JDialog {
     private javax.swing.JLabel jlTituloFechaIncorporacion;
     private javax.swing.JLabel jlTituloNombre;
     private javax.swing.JMenu jmCrear;
-    private javax.swing.JMenu jmVisualizar;
     private javax.swing.JMenuBar jmbMenu;
     private javax.swing.JMenuItem jmiCrearCapitulo;
     private javax.swing.JMenuItem jmiCrearTemporada;
     private javax.swing.JMenuItem jmiEliminarTemporada;
-    private javax.swing.JMenuItem jmiVisualizarTemporadas;
     private javax.swing.JPopupMenu jpmEliminarTemporada;
     private javax.swing.JTable jtListaTemporadas;
     private javax.swing.JTextField jtfCalificacionEdad;

@@ -40,18 +40,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jmVisualizar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Visualizar"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiVisualizarTemporadas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Visualizar Temporadas"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
