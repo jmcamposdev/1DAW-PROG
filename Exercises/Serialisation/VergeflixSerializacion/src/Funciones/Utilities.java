@@ -1,5 +1,7 @@
 package Funciones;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -52,7 +54,18 @@ public class Utilities {
     public static boolean validateLocaDateIsAfterOrEquals (LocalDate localDateToValidate, LocalDate localDateBase) {
         return localDateToValidate.isAfter(localDateBase) || localDateToValidate.equals(localDateBase);
     }
-
+    
+    public static boolean validateLocalDate (String localDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        // Seleccionamos que el analizador sea estricto por lo cual debe de coincidir con el formato que le hemos puesto
+        sdf.setLenient(false);
+        // Indicamos que el análisis lo realize desde el index 0 en adelante
+        ParsePosition pp = new ParsePosition(0);
+        // Intentamos convertir el String de la Fecha en un Date si no puede devuelve null
+        java.util.Date d = sdf.parse(localDate, pp);
+        return d != null;
+    }
+    
     /**
      * Method that generate a random number in a range, using Random Class.
      * @param minValue The minimum value (included)
