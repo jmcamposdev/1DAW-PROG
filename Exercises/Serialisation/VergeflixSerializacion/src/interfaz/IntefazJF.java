@@ -36,8 +36,11 @@ public class IntefazJF extends javax.swing.JFrame {
         // Actualizamos JTable para que use el Modelo de Canción
         jtListaMedia.setModel(modelo);
         Pelicula p = new Pelicula("Prueba", 10, LocalDate.of(2022, 10, 1), true, "Paco", "Alvaro", 90, Tematica.CIENCIA_FICCION);
+        Serie s = new Serie("Prueba", 10, LocalDate.of(2022, 10, 1), true, LocalDate.of(2022, 10, 1));
         modelo.añadirMedia(p);
+        modelo.añadirMedia(s);
         listaMedia.add(p);
+        listaMedia.add(s);
     }
 
     /**
@@ -174,6 +177,10 @@ public class IntefazJF extends javax.swing.JFrame {
             if (mediaSeleccionada instanceof Pelicula) {
                 JDGestionarPelicula jDGestionarPelicula = new JDGestionarPelicula(this, true, (Pelicula) mediaSeleccionada,listaMedia);
                 jDGestionarPelicula.setVisible(true);
+                modelo.fireTableDataChanged();
+            } else if (mediaSeleccionada instanceof Serie) {
+                JDGestionarSerie jDGestionarSerie = new JDGestionarSerie(this, true, (Serie) mediaSeleccionada, listaMedia);
+                jDGestionarSerie.setVisible(true);
                 modelo.fireTableDataChanged();
             }
         }
