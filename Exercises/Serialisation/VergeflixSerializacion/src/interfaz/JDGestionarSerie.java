@@ -324,18 +324,9 @@ public class JDGestionarSerie extends javax.swing.JDialog {
             // Mostramos  el Menú
             jpmEliminarTemporada.show(jtListaTemporadas, evt.getX(), evt.getY());
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
-            /*int index = jtListaMedia.getSelectedRow(); // Obtenemos el indice de la canción seleccionada (JTable)
-            Media mediaSeleccionada = listaMedia.get(index); // Creamos el JDialog para modificar la Canción
-            
-            if (mediaSeleccionada instanceof Pelicula) {
-                JDGestionarPelicula jDGestionarPelicula = new JDGestionarPelicula(this, true, (Pelicula) mediaSeleccionada,listaMedia);
-                jDGestionarPelicula.setVisible(true);
-                modelo.fireTableDataChanged();
-            } else if (mediaSeleccionada instanceof Serie) {
-                JDGestionarSerie jDGestionarSerie = new JDGestionarSerie(this, true, (Serie) mediaSeleccionada, listaMedia);
-                jDGestionarSerie.setVisible(true);
-                modelo.fireTableDataChanged();
-            }*/
+            int index = jtListaTemporadas.getSelectedRow(); // Obtenemos el indice de la temporada seleccionada (JTable)
+            JDGestionarTemporada jDGestionarTemporada = new JDGestionarTemporada(this, true, serieSeleccionada, index);
+            jDGestionarTemporada.setVisible(true);
         }
     }//GEN-LAST:event_jtListaTemporadasMouseClicked
 
