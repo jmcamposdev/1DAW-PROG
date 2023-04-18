@@ -7,6 +7,7 @@ package interfaz;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelo.Media;
 import modelo.ModeloListaMedia;
 import modelo.Pelicula;
@@ -157,13 +158,30 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCrearSerieActionPerformed
 
     private void jmiCrearPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearPeliculaActionPerformed
-        JDCrearPelicula jDCrearPelicula = new JDCrearPelicula(this, rootPaneCheckingEnabled, listaMedia);
+        JDCrearPelicula jDCrearPelicula = new JDCrearPelicula(this, rootPaneCheckingEnabled);
         jDCrearPelicula.setVisible(true);
         
         if (jDCrearPelicula.isCreada()) {
             Pelicula nuevaPelicula = jDCrearPelicula.getPelicula();
-            this.listaMedia.add(nuevaPelicula);
-            this.modelo.añadirMedia(nuevaPelicula);
+            boolean peliculaDuplicada = listaMedia.contains(nuevaPelicula);
+            boolean noCreada = false;
+            System.out.println(peliculaDuplicada +" "+ noCreada);
+            while (peliculaDuplicada && !noCreada) {
+                JOptionPane.showMessageDialog(rootPane, "Ya existe otra Película con el mismo Título y Calificación de Edad");
+                jDCrearPelicula.setVisible(true);
+                if (jDCrearPelicula.isCreada()) {
+                    nuevaPelicula = jDCrearPelicula.getPelicula();
+                    peliculaDuplicada = listaMedia.contains(nuevaPelicula);
+                    
+                } else {
+                    noCreada = true;
+                }
+            }
+            
+            if (!peliculaDuplicada) {
+                this.listaMedia.add(nuevaPelicula);
+                this.modelo.añadirMedia(nuevaPelicula);
+            }
         }
     }//GEN-LAST:event_jmiCrearPeliculaActionPerformed
 

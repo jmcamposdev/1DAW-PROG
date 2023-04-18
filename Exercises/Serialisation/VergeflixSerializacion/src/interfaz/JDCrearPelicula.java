@@ -26,13 +26,9 @@ public class JDCrearPelicula extends javax.swing.JDialog {
     public JDCrearPelicula(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-    }
-    
-    public JDCrearPelicula(java.awt.Frame parent, boolean modal, ArrayList<Media> listaMedias) {
-        this(parent, modal);
-        this.listaMedias = listaMedias;
         inicializar();
     }
+    
     
     private void inicializar() {
         jcbDisponibilidad.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -44,7 +40,7 @@ public class JDCrearPelicula extends javax.swing.JDialog {
     }
     
     public Pelicula getPelicula() {
-        return nuevaPelicula;
+        return new Pelicula(nuevaPelicula);
     }
     
 
@@ -258,20 +254,14 @@ public class JDCrearPelicula extends javax.swing.JDialog {
             int duracion = Integer.valueOf(duracionString);
             Pelicula pelicula = new Pelicula(nombre, calificacionEdad, fechaIncorporacion, disponibilidad, director, actorPrincipal, duracion, tematica);
             
-            if (this.listaMedias.contains(pelicula)) {
-                JOptionPane.showMessageDialog(this, "Ya existe una Película con el mismo nombre y calificación de edad", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                isCreada = true;
-                nuevaPelicula = pelicula;
-                this.setVisible(false);
-            }
-            
+            isCreada = true;
+            nuevaPelicula = pelicula;
+            this.setVisible(false);
         }
-        
-        
     }//GEN-LAST:event_jbAceptarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.isCreada = false;
         setVisible(false);
     }//GEN-LAST:event_jbCancelarActionPerformed
 
@@ -319,7 +309,6 @@ public class JDCrearPelicula extends javax.swing.JDialog {
 
     private boolean isCreada;
     private Pelicula nuevaPelicula;
-    private ArrayList<Media> listaMedias;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAceptar;
     private javax.swing.JButton jbCancelar;
