@@ -28,60 +28,60 @@
               <Component id="jlTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-              <Component id="jbAceptar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jbCancelar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jlTituloCalificacionDeEdad" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlTituloNombre" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jlTituloFechaIncorporación" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jlTituloTematica" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlTituloActorPrincipal" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlTituloDirector" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jlTituloDuracion" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jlTituloCalificacionDeEdad" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlTituloNombre" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jcbTematica" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfNombre" alignment="0" pref="100" max="32767" attributes="0"/>
-                          <Component id="jtfCalificacionDeEdad" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jtfFechaIncorporacion" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jtfDirector" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jtfActorPrincipal" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jtfDuracion" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jlTituloFechaIncorporación" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-                      <Component id="jcbDisponibilidad" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jlTituloTematica" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlTituloActorPrincipal" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlTituloDirector" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jlTituloDuracion" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jcbTematica" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtfNombre" alignment="0" pref="100" max="32767" attributes="0"/>
+                  <Component id="jtfCalificacionDeEdad" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jtfFechaIncorporacion" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jtfDirector" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jtfActorPrincipal" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jtfDuracion" alignment="0" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jcbDisponibilidad" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jbAceptar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jbCancelar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,9 +105,9 @@
                   <Component id="jlTituloFechaIncorporación" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jtfFechaIncorporacion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Component id="jcbDisponibilidad" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <Component id="jcbDisponibilidad" min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jlTituloDirector" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jtfDirector" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -210,7 +210,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jcbDisponibilidad">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Disponibilidad"/>
+        <Property name="text" type="java.lang.String" value="Se encuetra Disponible"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfDirector">

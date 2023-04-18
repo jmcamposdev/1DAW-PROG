@@ -4,7 +4,14 @@
  */
 package interfaz;
 
+import Funciones.Utilities;
 import java.awt.ComponentOrientation;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import modelo.Media;
+import modelo.Pelicula;
 import modelo.Tematica;
 
 /**
@@ -19,15 +26,25 @@ public class JDCrearPelicula extends javax.swing.JDialog {
     public JDCrearPelicula(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public JDCrearPelicula(java.awt.Frame parent, boolean modal, ArrayList<Media> listaMedias) {
+        this(parent, modal);
+        this.listaMedias = listaMedias;
         inicializar();
     }
     
     private void inicializar() {
         jcbDisponibilidad.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        jcbTematica.removeAllItems();
-        for (Tematica t : Tematica.values()) {
-            jcbTematica.addItem(t.getNombre());
-        }
+        jcbTematica.setModel(new DefaultComboBoxModel(Tematica.values()));
+    }
+    
+    public boolean isCreada() {
+        return isCreada;
+    }
+    
+    public Pelicula getPelicula() {
+        return nuevaPelicula;
     }
     
 
@@ -92,7 +109,7 @@ public class JDCrearPelicula extends javax.swing.JDialog {
             }
         });
 
-        jcbDisponibilidad.setText("Disponibilidad");
+        jcbDisponibilidad.setText("Se encuetra Disponible");
 
         jcbTematica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -105,46 +122,46 @@ public class JDCrearPelicula extends javax.swing.JDialog {
                 .addComponent(jlTitulo)
                 .addGap(127, 127, 127))
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jbAceptar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbCancelar)
-                .addGap(49, 49, 49))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(71, 71, 71)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jlTituloCalificacionDeEdad)
+                                .addComponent(jlTituloNombre)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jlTituloFechaIncorporación)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlTituloTematica)
+                            .addComponent(jlTituloActorPrincipal)
+                            .addComponent(jlTituloDirector)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlTituloDuracion)
+                                .addGap(10, 10, 10)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jcbTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jtfCalificacionDeEdad)
+                    .addComponent(jtfFechaIncorporacion)
+                    .addComponent(jtfDirector)
+                    .addComponent(jtfActorPrincipal)
+                    .addComponent(jtfDuracion))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(71, 71, 71)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jlTituloCalificacionDeEdad)
-                                        .addComponent(jlTituloNombre)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jlTituloFechaIncorporación)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jlTituloTematica)
-                                    .addComponent(jlTituloActorPrincipal)
-                                    .addComponent(jlTituloDirector)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlTituloDuracion)
-                                        .addGap(10, 10, 10)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jcbTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(jtfCalificacionDeEdad)
-                            .addComponent(jtfFechaIncorporacion)
-                            .addComponent(jtfDirector)
-                            .addComponent(jtfActorPrincipal)
-                            .addComponent(jtfDuracion)))
+                        .addComponent(jcbDisponibilidad)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(jcbDisponibilidad)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jbAceptar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbCancelar)
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,9 +180,9 @@ public class JDCrearPelicula extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloFechaIncorporación)
                     .addComponent(jtfFechaIncorporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addComponent(jcbDisponibilidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(11, 11, 11)
+                .addComponent(jcbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloDirector)
                     .addComponent(jtfDirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -195,6 +212,62 @@ public class JDCrearPelicula extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
+        boolean isValidInput = true;
+        String nombre = jtfNombre.getText();
+        String calificacionEdadString = jtfCalificacionDeEdad.getText();
+        String fechaIncorporacionString = jtfFechaIncorporacion.getText();
+        boolean disponibilidad = jcbDisponibilidad.isSelected();
+        String director = jtfDirector.getText();
+        String actorPrincipal = jtfActorPrincipal.getText();
+        String duracionString = jtfDuracion.getText();
+         Tematica tematica = (Tematica) jcbTematica.getSelectedItem();
+        
+        if (nombre.isBlank()) {
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        
+        if (isValidInput && (!calificacionEdadString.matches("\\d+") || !Utilities.validateRange(Integer.valueOf(calificacionEdadString), 0, 19))) {
+            JOptionPane.showMessageDialog(this, "La calificación de edad debe de estar entre 0 y 18", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        
+        if (isValidInput && !Utilities.validateLocalDate(fechaIncorporacionString)) {
+            JOptionPane.showMessageDialog(this, "Fecha de Incorporación es inválida", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        
+        if (isValidInput && director.isBlank()) {
+            JOptionPane.showMessageDialog(this, "El director no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        
+        if (isValidInput && actorPrincipal.isBlank()) {
+            JOptionPane.showMessageDialog(this, "El actor principal no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        
+        if (isValidInput && (!duracionString.matches("\\d+") || !Utilities.validateRange(Integer.valueOf(duracionString),60,241))) {
+            JOptionPane.showMessageDialog(this, "La duración debe de estar entre 60 y 240", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        
+        if (isValidInput) {
+            LocalDate fechaIncorporacion = Utilities.convertToLocalDate(fechaIncorporacionString);
+            int calificacionEdad = Integer.valueOf(calificacionEdadString);
+            int duracion = Integer.valueOf(duracionString);
+            Pelicula pelicula = new Pelicula(nombre, calificacionEdad, fechaIncorporacion, disponibilidad, director, actorPrincipal, duracion, tematica);
+            
+            if (this.listaMedias.contains(pelicula)) {
+                JOptionPane.showMessageDialog(this, "Ya existe una Película con el mismo nombre y calificación de edad", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                isCreada = true;
+                nuevaPelicula = pelicula;
+                this.setVisible(false);
+            }
+            
+        }
+        
         
     }//GEN-LAST:event_jbAceptarActionPerformed
 
@@ -244,6 +317,9 @@ public class JDCrearPelicula extends javax.swing.JDialog {
         });
     }
 
+    private boolean isCreada;
+    private Pelicula nuevaPelicula;
+    private ArrayList<Media> listaMedias;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAceptar;
     private javax.swing.JButton jbCancelar;

@@ -7,18 +7,18 @@ import javax.swing.table.AbstractTableModel;
 
 public class ModeloListaMedia extends AbstractTableModel { 
     private ArrayList<Media> listaMedia;
-    private final String[] nombresColumnas = {"Nombre", "Calificación de Edad","Puntuación"};
+    private final String[] nombresColumnas = {"Nombre", "Edad","Puntuación","Tipo"};
     
     public ModeloListaMedia() {
         this.listaMedia = new ArrayList<>();
     }
     
-    public void añadirTarjeta(Media media) {
+    public void añadirMedia(Media media) {
         this.listaMedia.add(media);
         this.fireTableDataChanged();
     }
     
-    public boolean eliminarTarjeta (int index) {
+    public boolean eliminarMedia (int index) {
         boolean tarjetaEliminada = false;
         
         if (index >= 0 && index < listaMedia.size()) {
@@ -29,7 +29,7 @@ public class ModeloListaMedia extends AbstractTableModel {
         return  tarjetaEliminada;
     }
     
-    public Media getTarjetaCredito (int index) {
+    public Media getMedia (int index) {
         Media media = null;
         
         if (index >= 0 && index < listaMedia.size()) {
@@ -62,6 +62,7 @@ public class ModeloListaMedia extends AbstractTableModel {
             case 0 -> value = c.getNombre();
             case 1 -> value = c.getCalificacionEdad();
             case 2 -> value = c.calcularPuntuacion();
+            case 3 -> value = c instanceof Pelicula ? "Pelicula" : "Serie";                
         }
         return value;
     }

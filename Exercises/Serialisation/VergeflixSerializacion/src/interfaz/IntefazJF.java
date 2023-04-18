@@ -7,6 +7,7 @@ package interfaz;
 import java.util.ArrayList;
 import modelo.Media;
 import modelo.ModeloListaMedia;
+import modelo.Pelicula;
 
 /**
  *
@@ -19,16 +20,17 @@ public class IntefazJF extends javax.swing.JFrame {
      */
     public IntefazJF() {
         initComponents();
-        // Creamos el Modelos de la Lista
-        modelo = new ModeloListaMedia();
-                
-        // Actualizamos JTable para que use el Modelo de Canción
-        jtListaMedia.setModel(modelo);
+        inicializar();
     }
     
     public void inicializar() {
         this.listaMedia = new ArrayList<>();
         
+        // Creamos el Modelos de la Lista
+        modelo = new ModeloListaMedia();
+                
+        // Actualizamos JTable para que use el Modelo de Canción
+        jtListaMedia.setModel(modelo);
     }
 
     /**
@@ -131,8 +133,14 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCrearSerieActionPerformed
 
     private void jmiCrearPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearPeliculaActionPerformed
-        JDCrearPelicula jDCrearPelicula = new JDCrearPelicula(this, rootPaneCheckingEnabled);
+        JDCrearPelicula jDCrearPelicula = new JDCrearPelicula(this, rootPaneCheckingEnabled, listaMedia);
         jDCrearPelicula.setVisible(true);
+        
+        if (jDCrearPelicula.isCreada()) {
+            Pelicula nuevaPelicula = jDCrearPelicula.getPelicula();
+            this.listaMedia.add(nuevaPelicula);
+            this.modelo.añadirMedia(nuevaPelicula);
+        }
     }//GEN-LAST:event_jmiCrearPeliculaActionPerformed
 
     /**
