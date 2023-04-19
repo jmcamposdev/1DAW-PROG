@@ -147,28 +147,31 @@ public class IntefazJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCrearSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearSerieActionPerformed
+        // Creamos el JDialog para crear la Serie
         JDCrearSerie jDCrearSerie = new JDCrearSerie(this, rootPaneCheckingEnabled);
         jDCrearSerie.setVisible(true);
         
+        // Si la serie se crea correctamente
         if (jDCrearSerie.isCreada()) {
-            Serie nuevaSerie = jDCrearSerie.getSerie();
-            boolean serieDuplicada = listaMedia.contains(nuevaSerie);
-            boolean seguirEditando = true;
+            Serie nuevaSerie = jDCrearSerie.getSerie(); // Obtenemos la Serie Creada
+            boolean serieDuplicada = listaMedia.contains(nuevaSerie); // Comprobamos que no exista otra serie igual
+            boolean seguirEditando = true; // Booleano para volver a iterar si la serie esta duplicada
 
-            while (serieDuplicada && seguirEditando) {
+            while (serieDuplicada && seguirEditando) { 
+                // Mostramos que la serie ya exite
                 JOptionPane.showMessageDialog(rootPane, "Ya existe otra Serie con el mismo Título y Calificación de Edad");
                 jDCrearSerie.setVisible(true);
-                if (jDCrearSerie.isCreada()) {
-                    nuevaSerie = jDCrearSerie.getSerie();
-                    serieDuplicada = listaMedia.contains(nuevaSerie);
-                } else {
-                    seguirEditando = false;
+                if (jDCrearSerie.isCreada()) { // Si vuelve a crearla
+                    nuevaSerie = jDCrearSerie.getSerie(); // Obtenemos la Serie Creada
+                    serieDuplicada = listaMedia.contains(nuevaSerie); // Comprobamos si se encuentra en listaMedia
+                } else { // Si no lo ha creado (Ha pulsado "Cancelar")
+                    seguirEditando = false; // Paramos de Editar el JDialog
                 }
             }
             
-            if (!serieDuplicada) {
-                this.listaMedia.add(nuevaSerie);
-                this.modelo.añadirMedia(nuevaSerie);
+            if (!serieDuplicada) { // Si la Serie no esta duplicada
+                this.listaMedia.add(nuevaSerie); // Añadimos la serie a la lista
+                this.modelo.añadirMedia(nuevaSerie); // Añadimos la serie al JTable
             }
         }
     }//GEN-LAST:event_jmiCrearSerieActionPerformed
