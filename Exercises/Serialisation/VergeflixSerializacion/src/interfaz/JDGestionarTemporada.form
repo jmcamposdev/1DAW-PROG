@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
-    <Container class="javax.swing.JPopupMenu" name="jpmEliminarCapitulo">
+    <Container class="javax.swing.JPopupMenu" name="jpmOpcionesCapitulo">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
@@ -14,6 +14,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiEliminarCapituloActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="jmiVotarCapitulo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Votar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiVotarCapituloActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>

@@ -63,8 +63,9 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpmEliminarCapitulo = new javax.swing.JPopupMenu();
+        jpmOpcionesCapitulo = new javax.swing.JPopupMenu();
         jmiEliminarCapitulo = new javax.swing.JMenuItem();
+        jmiVotarCapitulo = new javax.swing.JMenuItem();
         jlTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListaCapitulos = new javax.swing.JTable();
@@ -81,7 +82,15 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                 jmiEliminarCapituloActionPerformed(evt);
             }
         });
-        jpmEliminarCapitulo.add(jmiEliminarCapitulo);
+        jpmOpcionesCapitulo.add(jmiEliminarCapitulo);
+
+        jmiVotarCapitulo.setText("Votar");
+        jmiVotarCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVotarCapituloActionPerformed(evt);
+            }
+        });
+        jpmOpcionesCapitulo.add(jmiVotarCapitulo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -261,7 +270,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
     private void jtListaCapitulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaCapitulosMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) { // Si es Click Derecho
             // Mostramos  el Menú
-            jpmEliminarCapitulo.show(jtListaCapitulos, evt.getX(), evt.getY());
+            jpmOpcionesCapitulo.show(jtListaCapitulos, evt.getX(), evt.getY());
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
             /*int index = jtListaTemporadas.getSelectedRow(); // Obtenemos el indice de la temporada seleccionada (JTable)
             Serie copiaSerie = new Serie(serieSeleccionada);
@@ -287,6 +296,29 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jmiEliminarCapituloActionPerformed
 
+    private void jmiVotarCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVotarCapituloActionPerformed
+        boolean tipoVoto = false;
+        int indexCapitulo = jtListaCapitulos.getSelectedRow();
+        int voto = JOptionPane.showConfirmDialog(null, "Realizar voto al Capitulo (Si = Voto Positivo | No = Voto Negativo)", "Guardar archivo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        String mensaje = null;
+        if (indexCapitulo == -1) {
+            mensaje = "No has seleccionado ningún Capítulo";
+        } else if (voto == JOptionPane.OK_OPTION) {
+            tipoVoto = true;
+            mensaje = "Se ha realizado el voto positivo";
+        } else if (voto == JOptionPane.NO_OPTION) {
+            tipoVoto = false;
+            mensaje = "Se ha realizado el voto negativo"; 
+        }
+        
+        if (voto == JOptionPane.OK_OPTION || voto == JOptionPane.NO_OPTION) {
+            serieSeleccionada.meGusta(indiceTemporada, indexCapitulo, tipoVoto);
+        }
+        if (mensaje != null) {
+            JOptionPane.showMessageDialog(this, mensaje);
+        }
+    }//GEN-LAST:event_jmiVotarCapituloActionPerformed
+ 
    
     private void actualizarListaCapitulos() {
         modelo.eliminarTodo();
@@ -358,7 +390,8 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jlTituloFechaEstreno;
     private javax.swing.JMenuItem jmiEliminarCapitulo;
-    private javax.swing.JPopupMenu jpmEliminarCapitulo;
+    private javax.swing.JMenuItem jmiVotarCapitulo;
+    private javax.swing.JPopupMenu jpmOpcionesCapitulo;
     private javax.swing.JTable jtListaCapitulos;
     private javax.swing.JTextField jtfFechaEstreno;
     // End of variables declaration//GEN-END:variables
