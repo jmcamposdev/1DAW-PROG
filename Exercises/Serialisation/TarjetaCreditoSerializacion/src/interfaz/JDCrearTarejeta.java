@@ -170,6 +170,7 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
     }
     
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.isCreada = false;
         this.setVisible(false);
     }//GEN-LAST:event_jbCancelarActionPerformed
 
