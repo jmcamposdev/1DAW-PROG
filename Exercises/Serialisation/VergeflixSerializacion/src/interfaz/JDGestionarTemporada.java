@@ -51,7 +51,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         return this.isActualizado;
     }
     public Serie getSerie() {
-        System.out.println(serieSeleccionada.getCopiaTemporada(indiceTemporada));
+        serieSeleccionada.getCopiaTemporada(indiceTemporada);
         return new Serie(serieSeleccionada);
     }
     /**
@@ -221,7 +221,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                 this.isActualizado = true;
                 this.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Ya existe una Temporada el mismo mes.");
+                JOptionPane.showMessageDialog(this, "La Fecha de Estreno insertada es posterior a la Fecha de Emisión de un Capítulo.");
             }
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
@@ -238,7 +238,6 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         int option = JOptionPane.showConfirmDialog(this, message, "Crear Capítulo", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             String titulo = jtfTitulo.getText();
-            System.out.println(titulo);
             String fechaEmisionString= jtfFechaEmision.getText();
             if (titulo.isBlank()) {
                 JOptionPane.showMessageDialog(this, "El Título no puede estar vacío");
@@ -259,6 +258,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                 if (serieSeleccionada.añadirCapitulo(indiceTemporada, nuevoCapitulo)) {
                     JOptionPane.showMessageDialog(this, "Capítulo creado con exito");
                     this.isActualizado = true;
+                    this.temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
                     actualizarListaCapitulos();
                 } else {
                     JOptionPane.showMessageDialog(this, "El capítulo ya exite en la Temporada");
@@ -272,17 +272,68 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
             // Mostramos  el Menú
             jpmOpcionesCapitulo.show(jtListaCapitulos, evt.getX(), evt.getY());
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
-            /*int index = jtListaTemporadas.getSelectedRow(); // Obtenemos el indice de la temporada seleccionada (JTable)
-            Serie copiaSerie = new Serie(serieSeleccionada);
-            JDGestionarTemporada jDGestionarTemporada = new JDGestionarTemporada(this, true, copiaSerie, index);
-            jDGestionarTemporada.setVisible(true);
-            
-            if (jDGestionarTemporada.isActualizado()) {
-                Serie serieModificada = jDGestionarTemporada.getSerie();
-                serieSeleccionada = new Serie(serieModificada);
-                this.isActualizada = true;
-                actualizarTablaTemporadas();
-            }*/
+            int indexCapitulo = jtListaCapitulos.getSelectedRow();
+            if (indexCapitulo == -1) {
+                JOptionPane.showMessageDialog(this, "No has seleccionado ningun Capítulo.");
+            } else {
+                boolean isValido = true;
+                Capitulo capituloSeleccionado = temporadaSeleccionada.getCapitulo(indexCapitulo);
+                JTextField jtfTitulo = new JTextField();
+                JTextField jtfFechaEmision = new JTextField();
+                jtfTitulo.setText(capituloSeleccionado.getTitulo());
+                jtfFechaEmision.setText(formato.format(capituloSeleccionado.getFechaEmision()));
+                Object[] message = {
+                    "Titulo: ", jtfTitulo,
+                    "Fecha Emisión: ", jtfFechaEmision
+                };
+                
+                int opcion = JOptionPane.showConfirmDialog(this, message, "Modificar Capítulo", JOptionPane.OK_CANCEL_OPTION);
+                if (opcion == JOptionPane.OK_OPTION) {
+                    String titulo = jtfTitulo.getText();
+                    String fechaEmisionString= jtfFechaEmision.getText();
+                    if (titulo.isBlank()) {
+                        JOptionPane.showMessageDialog(this, "El Título no puede estar vacío");
+                        isValido = false;
+                    }
+                    if (isValido && !Utilities.validateLocalDate(fechaEmisionString)) {
+                        JOptionPane.showMessageDialog(this, "El formato de la Fecha de Emisión es erroneo debe de ser dd/mm/yyyy");
+                        isValido = false;
+                    }
+                    if (isValido && !Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fechaEmisionString), temporadaSeleccionada.getFechaEstreno())) {
+                        JOptionPane.showMessageDialog(this, "La fecha insertada es anterior a la Fecha de Estreno de la Temporada");
+                        isValido = false;
+                    }
+                    
+                    if (isValido) {
+                        LocalDate fechaEmision = Utilities.convertToLocalDate(fechaEmisionString);
+                        Capitulo capituloModificado = new Capitulo(titulo, fechaEmision);
+                        boolean capituloDuplicado = false;
+                        int contador = 0;
+                        Capitulo c = temporadaSeleccionada.getCapitulo(contador++);
+                        while (c != null && !capituloDuplicado) {
+                            if (c.equals(capituloModificado) && indexCapitulo != contador -1) {
+                                capituloDuplicado = true;
+                            }
+                            c = temporadaSeleccionada.getCapitulo(contador++);
+                        }
+                        
+                        if (!capituloDuplicado) {
+                            if (!capituloSeleccionado.getTitulo().equals(capituloModificado.getTitulo())) {
+                                serieSeleccionada.setCapitulo(indiceTemporada, indexCapitulo, titulo);
+                            }
+                            if (!capituloSeleccionado.getFechaEmision().equals(capituloModificado.getFechaEmision())) {
+                                serieSeleccionada.setCapitulo(indiceTemporada, indexCapitulo, fechaEmision);
+                            }
+                            temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
+                            actualizarListaCapitulos();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Ya existe otro Capítulo con el mismo Nombre");
+                        }
+                           
+                    }
+                }
+                
+            }
         }
     }//GEN-LAST:event_jtListaCapitulosMouseClicked
 
@@ -313,6 +364,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         
         if (voto == JOptionPane.OK_OPTION || voto == JOptionPane.NO_OPTION) {
             serieSeleccionada.meGusta(indiceTemporada, indexCapitulo, tipoVoto);
+            actualizarListaCapitulos();
         }
         if (mensaje != null) {
             JOptionPane.showMessageDialog(this, mensaje);

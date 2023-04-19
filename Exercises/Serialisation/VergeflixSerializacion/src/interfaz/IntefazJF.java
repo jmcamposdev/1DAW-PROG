@@ -39,6 +39,7 @@ public class IntefazJF extends javax.swing.JFrame {
         Pelicula p = new Pelicula("Prueba", 10, LocalDate.of(2022, 10, 1), true, "Paco", "Alvaro", 90, Tematica.CIENCIA_FICCION);
         Serie s = new Serie("Prueba", 10, LocalDate.of(2022, 10, 1), true, LocalDate.of(2022, 10, 1));
         s.añadirTemporada(LocalDate.of(2022, 10, 31));
+        s.añadirCapitulo(0, LocalDate.of(2022, 11, 11), "Capitulo 1");
         modelo.añadirMedia(p);
         modelo.añadirMedia(s);
         listaMedia.add(p);
