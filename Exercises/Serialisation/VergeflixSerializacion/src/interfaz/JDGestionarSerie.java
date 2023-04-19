@@ -323,9 +323,9 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         if (validFecha && serieSeleccionada.añadirTemporada(Utilities.convertToLocalDate(fecha))) {
             actualizarTablaTemporadas();
             JOptionPane.showMessageDialog(this, "Temporada Creada con exito");
+            isActualizada = true;
         } else {
             JOptionPane.showMessageDialog(this, "Ya existe una Temporada el mismo mes.");
-
         }
         
     }//GEN-LAST:event_jmiCrearTemporadaActionPerformed
@@ -345,6 +345,7 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         int index = jtListaTemporadas.getSelectedRow();
         if (serieSeleccionada.eliminarTemporada(index)) {
             modelo.eliminarTemporada(index);
+            isActualizada = true;
         }
         
     }//GEN-LAST:event_jmiEliminarTemporadaActionPerformed
