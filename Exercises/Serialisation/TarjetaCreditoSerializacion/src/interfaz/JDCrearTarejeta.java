@@ -166,7 +166,7 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
         return isCreada;
     }
     public TarjetaCredito getTarjetaCredito() {
-        return nuevaTarjetaCredito;
+        return new TarjetaCredito(nuevaTarjetaCredito);
     }
     
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed

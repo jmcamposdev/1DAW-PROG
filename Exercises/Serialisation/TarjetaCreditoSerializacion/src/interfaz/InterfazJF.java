@@ -148,21 +148,27 @@ public class InterfazJF extends javax.swing.JFrame {
         jDCrearTarejeta.setVisible(true);
         
         if (jDCrearTarejeta.isCreada()) {
-            boolean validTarjeta = true;
             TarjetaCredito nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
-            for (TarjetaCredito t : listaTarjetas) {
-                if (t.getNif().equals(nuevaTarjeta.getNif())) {
-                    validTarjeta = false;
-                    JOptionPane.showMessageDialog(this, "No se ha creado la Tarjeta ya que esta en uso el DNI insertado");
+            boolean tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
+            boolean seguirCreando = true;
+            
+            while (tarjetaDuplicada && seguirCreando) {
+                JOptionPane.showMessageDialog(rootPane, "Ya existe otra Tarjeta cono el mismo DNI");
+                jDCrearTarejeta.setVisible(true);
+                
+                if (jDCrearTarejeta.isCreada()) {
+                    nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
+                    tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
+                } else {
+                    seguirCreando = false;
                 }
             }
-            if (validTarjeta) {
+            
+            if (!tarjetaDuplicada) {
                 listaTarjetas.add(nuevaTarjeta);
                 modelo.añadirTarjeta(nuevaTarjeta);
             }
-            
         }
-        
     }//GEN-LAST:event_jmiAñadirTarjetaActionPerformed
 
     private void jtListaTarjetasCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaTarjetasCreditoMouseClicked
@@ -170,7 +176,6 @@ public class InterfazJF extends javax.swing.JFrame {
             // Mostramos  el Menú
             jpmEliminarMenu.show(jtListaTarjetasCredito, evt.getX(), evt.getY());
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
-            
             int index = jtListaTarjetasCredito.getSelectedRow(); // Obtenemos el indice de la Tarjeta seleccionada (JTable)
             TarjetaCredito selectedTarjeta = listaTarjetas.get(index);
             JDGestionarTarjeta jDGestionarTarjeta = new JDGestionarTarjeta(this, true, selectedTarjeta); // Creamos el JDialog para modificar la Tarjeta
