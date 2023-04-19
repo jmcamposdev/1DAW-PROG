@@ -271,6 +271,11 @@ public class JDGestionarSerie extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Fecha de Estreno es inválida", "Error", JOptionPane.ERROR_MESSAGE);
             isValidInput = false;
         }
+        
+        if (isValidInput && !validarFechaEstrenoConTemporadas(Utilities.convertToLocalDate(fechaEstrenoString))) {
+            JOptionPane.showMessageDialog(this, "La Fecha de Estreno es posterior a las Temporadas.", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
 
         if (isValidInput) {
             int calificacionEdad = Integer.valueOf(calificacionEdadString);
@@ -403,6 +408,18 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         }
     }
     
+    private boolean validarFechaEstrenoConTemporadas (LocalDate fechaEstrenoSerie) {
+        boolean isFechaValida = true;
+        int contador = 0;
+        Temporada temporada = serieSeleccionada.getCopiaTemporada(contador++);
+        while (temporada != null && isFechaValida) {
+            if (!Utilities.validateLocaDateIsAfterOrEquals(temporada.getFechaEstreno(), fechaEstrenoSerie)) {
+                isFechaValida = false;
+            }
+            temporada = serieSeleccionada.getCopiaTemporada(contador++);
+        }
+        return isFechaValida;
+    }
     
     private static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definir el formato deseado
     private ModeloListaTemporada modelo;
