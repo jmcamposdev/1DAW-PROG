@@ -214,62 +214,79 @@ public class IntefazJF extends javax.swing.JFrame {
             int index = jtListaMedia.getSelectedRow(); // Obtenemos el indice de la canción seleccionada (JTable)
             Media mediaSeleccionada = listaMedia.get(index); // Creamos el JDialog para modificar la Canción
             
-            if (mediaSeleccionada instanceof Pelicula) {
-                Pelicula copiaPelicula = new Pelicula((Pelicula) mediaSeleccionada);
+            if (mediaSeleccionada instanceof Pelicula) { // Si la media Seleccionada es una Pelicula
+                Pelicula copiaPelicula = new Pelicula((Pelicula) mediaSeleccionada); // Obtenemos una copia de la pelicula seleccionada
+                // Mostramos el JDialog para Gestionar la Pelicula
                 JDGestionarPelicula jDGestionarPelicula = new JDGestionarPelicula(this, true, copiaPelicula);
                 jDGestionarPelicula.setVisible(true);
                 
-                if (jDGestionarPelicula.isActualizada()) {
-                    Pelicula peliculaActualizada = jDGestionarPelicula.getPelicula();
+                if (jDGestionarPelicula.isActualizada()) { // Si ha realizado modificaciones a la Pelicula
+                    Pelicula peliculaActualizada = jDGestionarPelicula.getPelicula(); // Obtebemos la pelicula con las modificaciones
                     
+                    /*
+                        Lo primero se comprueba que se encuentre en el ArrayList ya que puede retornar true al no moficarse 
+                        el nombre ni la calificacion de edad , porque se encuentra a si misma, para prevenir este fallo
+                        posterior se valida que sea diferente si no es diferente seria false. Y por lo tanto no esta duplicada
+                        y se modificaría
+                    */
                     boolean peliculaDuplicada = listaMedia.contains(peliculaActualizada) && !peliculaActualizada.equals(mediaSeleccionada);
                     boolean seguirEditando = true;
 
-                    while (peliculaDuplicada && seguirEditando) {
+                    while (peliculaDuplicada && seguirEditando) { 
+                        // Mostramos al usuario que ya existe la pelicula
                         JOptionPane.showMessageDialog(rootPane, "Ya existe otra Película con el mismo Título y Calificación de Edad");
                         jDGestionarPelicula.setVisible(true);
                         
-                        if (jDGestionarPelicula.isActualizada()) {
-                            peliculaActualizada = jDGestionarPelicula.getPelicula();
+                        if (jDGestionarPelicula.isActualizada()) { // Si vuelve a realizar una modifiación
+                            peliculaActualizada = jDGestionarPelicula.getPelicula(); // Obtenemos la pelicula modificada
+                            // Comprobamos que no este duplicada
                             peliculaDuplicada = listaMedia.contains(peliculaActualizada) && !peliculaActualizada.equals(mediaSeleccionada);
-                               
-                        } else {
-                            seguirEditando = false;
+                        } else { // Si no ha realizado una moficación 
+                            seguirEditando = false; // Paramos de editar y se cierra el JDialog
                         }
                     }
 
-                    if (!peliculaDuplicada) {
-                        this.listaMedia.set(index, peliculaActualizada);
-                        this.modelo.setMedia(index, peliculaActualizada);
+                    if (!peliculaDuplicada) { // Si la pelicula modificada no esta duplicada
+                        this.listaMedia.set(index, peliculaActualizada); // Sustituimos la pelicula sin modificaciones por la que posee modificaciones
+                        this.modelo.setMedia(index, peliculaActualizada); // Sustiuimos la pelicula tambien en el JTable
                     }
                 }
                 
-            } else if (mediaSeleccionada instanceof Serie) {
-                Serie copiaSerie = new Serie((Serie) mediaSeleccionada);
+            } else if (mediaSeleccionada instanceof Serie) { // Si la media seleccionada es una Serie
+                Serie copiaSerie = new Serie((Serie) mediaSeleccionada); // Obtenemos una copia de la serie seleccionada
+                // Mostramos el JDialog para Gestionar la Serie
                 JDGestionarSerie jDGestionarSerie = new JDGestionarSerie(this, true, copiaSerie);
                 jDGestionarSerie.setVisible(true);
                 
-                if (jDGestionarSerie.isActualizada()) {
-                    Serie serieActualizada = jDGestionarSerie.getSerie();
+                if (jDGestionarSerie.isActualizada()) { // Si ha realizado modificaciones a la Serie
+                    Serie serieActualizada = jDGestionarSerie.getSerie(); // Obtebemos la serie con las modificaciones
                     
+                    /*
+                        Lo primero se comprueba que se encuentre en el ArrayList ya que puede retornar true al no moficarse 
+                        el nombre ni la calificacion de edad , porque se encuentra a si misma, para prevenir este fallo
+                        posterior se valida que sea diferente si no es diferente seria false. Y por lo tanto no esta duplicada
+                        y se modificaría
+                    */
                     boolean serieDuplicada = listaMedia.contains(serieActualizada) && !serieActualizada.equals(mediaSeleccionada);
                     boolean seguirEditando = true;
 
                     while (serieDuplicada && seguirEditando) {
+                        // Mostramos al usuario que ya existe la serie
                         JOptionPane.showMessageDialog(rootPane, "Ya existe otra Serie con el mismo Título y Calificación de Edad");
                         jDGestionarSerie.setVisible(true);
                         
                         if (jDGestionarSerie.isActualizada()) {
-                            serieActualizada = jDGestionarSerie.getSerie();
+                            serieActualizada = jDGestionarSerie.getSerie(); // Obtenemos la serie modificada
+                            // Comprobamos que no este duplicada
                             serieDuplicada = listaMedia.contains(serieActualizada) && !serieActualizada.equals(mediaSeleccionada);
-                        } else {
-                            seguirEditando = false;
+                        } else { // Si no ha realizado una moficación 
+                            seguirEditando = false; // Paramos de editar y se cierra el JDialog
                         }
                     }
 
-                    if (!serieDuplicada) {
-                        this.listaMedia.set(index, serieActualizada);
-                        this.modelo.setMedia(index, serieActualizada);
+                    if (!serieDuplicada) { // Si la serie modificada no esta duplicada
+                        this.listaMedia.set(index, serieActualizada); // Sustituimos la serie sin modificaciones por la que posee modificaciones
+                        this.modelo.setMedia(index, serieActualizada); // Sustiuimos la serie tambien en el JTable
                     }
                 }
             }
