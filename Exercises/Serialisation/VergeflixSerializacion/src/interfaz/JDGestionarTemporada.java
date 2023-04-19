@@ -4,8 +4,11 @@
  */
 package interfaz;
 
+import Funciones.Utilities;
 import java.awt.Dialog;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import modelo.Capitulo;
 import modelo.ModeloListaCapitulo;
 import modelo.Serie;
@@ -40,18 +43,12 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         jtfFechaEstreno.setText(formato.format(serieSeleccionada.getCopiaTemporada(indiceTemporada).getFechaEstreno()));
     }
     
-    
-    private void actualizarListaCapitulos() {
-        modelo.eliminarTodo();
-        Temporada temporada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
-        int contador = 0;
-        Capitulo capitulo = temporada.getCapitulo(contador++);
-        while (capitulo != null) {
-            modelo.añadirCapitulo(capitulo);
-            capitulo = temporada.getCapitulo(contador++);
-        }
+    public boolean isActualizado() {
+        return this.isActualizado;
     }
-
+    public Serie getSerie() {
+        return new Serie(serieSeleccionada);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,6 +64,8 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         jlNombreTemporada = new javax.swing.JLabel();
         jlTituloFechaEstreno = new javax.swing.JLabel();
         jtfFechaEstreno = new javax.swing.JTextField();
+        jbActualizar = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,6 +89,20 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
 
         jlTituloFechaEstreno.setText("Fecha Estreno:");
 
+        jbActualizar.setText("Actualizar");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
+
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,12 +112,19 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                 .addComponent(jlTitulo)
                 .addGap(195, 195, 195))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlNombreTemporada)
-                    .addComponent(jlTituloFechaEstreno))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlNombreTemporada)
+                            .addComponent(jlTituloFechaEstreno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jbActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbCancelar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
@@ -116,19 +136,67 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                 .addComponent(jlTitulo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlNombreTemporada)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlTituloFechaEstreno)
-                            .addComponent(jtfFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jtfFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbActualizar)
+                            .addComponent(jbCancelar))
+                        .addGap(46, 46, 46))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.isActualizado = false;
+        this.setVisible(false);
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+        boolean isValidInput = true;
+        String fechaEstrenoString = jtfFechaEstreno.getText();
+        
+        if (!Utilities.validateLocalDate(fechaEstrenoString)) {
+            JOptionPane.showMessageDialog(this, "La fecha de estreno es inválida", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        if (isValidInput && !Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fechaEstrenoString), serieSeleccionada.getFechaEstreno())) {
+            JOptionPane.showMessageDialog(this, "La fecha de estreno es anterior a la Fecha de Estreno de la Serie", "Error", JOptionPane.ERROR_MESSAGE);
+            isValidInput = false;
+        }
+        
+        if (isValidInput) {
+            LocalDate fechaEstrenoTemporada = Utilities.convertToLocalDate(fechaEstrenoString);
+            if (serieSeleccionada.setFechaEstrenoTemporada(this.indiceTemporada, fechaEstrenoTemporada)) {
+                this.isActualizado = true;
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ya existe una Temporada el mismo mes.");
+            }
+        }
+    }//GEN-LAST:event_jbActualizarActionPerformed
+
+    
+    private void actualizarListaCapitulos() {
+        modelo.eliminarTodo();
+        Temporada temporada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
+        int contador = 0;
+        Capitulo capitulo = temporada.getCapitulo(contador++);
+        while (capitulo != null) {
+            modelo.añadirCapitulo(capitulo);
+            capitulo = temporada.getCapitulo(contador++);
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -173,11 +241,14 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
 
     
     private static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definir el formato deseado
+    private boolean isActualizado;
     private Serie serieSeleccionada;
     private int indiceTemporada;
     private ModeloListaCapitulo modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbActualizar;
+    private javax.swing.JButton jbCancelar;
     private javax.swing.JLabel jlNombreTemporada;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jlTituloFechaEstreno;

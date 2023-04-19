@@ -253,8 +253,8 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         String fechaEstrenoString = jtfFechaEstreno.getText();
 
         if (nombre.isBlank()) {
-            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
-            isValidInput = false;
+        JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        isValidInput = false;
         }
 
         if (isValidInput && (!calificacionEdadString.matches("\\d+") || !Utilities.validateRange(Integer.valueOf(calificacionEdadString), 0, 19))) {
@@ -341,8 +341,16 @@ public class JDGestionarSerie extends javax.swing.JDialog {
             jpmEliminarTemporada.show(jtListaTemporadas, evt.getX(), evt.getY());
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
             int index = jtListaTemporadas.getSelectedRow(); // Obtenemos el indice de la temporada seleccionada (JTable)
-            JDGestionarTemporada jDGestionarTemporada = new JDGestionarTemporada(this, true, serieSeleccionada, index);
+            Serie copiaSerie = new Serie(serieSeleccionada);
+            JDGestionarTemporada jDGestionarTemporada = new JDGestionarTemporada(this, true, copiaSerie, index);
             jDGestionarTemporada.setVisible(true);
+            
+            if (jDGestionarTemporada.isActualizado()) {
+                Serie serieModificada = jDGestionarTemporada.getSerie();
+                serieSeleccionada = new Serie(copiaSerie);
+                this.isActualizada = true;
+                actualizarTablaTemporadas();
+            }
         }
     }//GEN-LAST:event_jtListaTemporadasMouseClicked
 
