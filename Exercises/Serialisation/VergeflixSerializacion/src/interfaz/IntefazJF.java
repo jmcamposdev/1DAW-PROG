@@ -245,9 +245,33 @@ public class IntefazJF extends javax.swing.JFrame {
                 }
                 
             } else if (mediaSeleccionada instanceof Serie) {
-                JDGestionarSerie jDGestionarSerie = new JDGestionarSerie(this, true, (Serie) mediaSeleccionada, listaMedia);
+                Serie copiaSerie = new Serie((Serie) mediaSeleccionada);
+                JDGestionarSerie jDGestionarSerie = new JDGestionarSerie(this, true, copiaSerie);
                 jDGestionarSerie.setVisible(true);
-                modelo.fireTableDataChanged();
+                
+                if (jDGestionarSerie.isActualizada()) {
+                    Serie serieActualizada = jDGestionarSerie.getSerie();
+                    
+                    boolean serieDuplicada = listaMedia.contains(serieActualizada) && !serieActualizada.equals(mediaSeleccionada);
+                    boolean seguirEditando = true;
+
+                    while (serieDuplicada && seguirEditando) {
+                        JOptionPane.showMessageDialog(rootPane, "Ya existe otra Serie con el mismo Título y Calificación de Edad");
+                        jDGestionarSerie.setVisible(true);
+                        
+                        if (jDGestionarSerie.isActualizada()) {
+                            serieActualizada = jDGestionarSerie.getSerie();
+                            serieDuplicada = listaMedia.contains(serieActualizada) && !serieActualizada.equals(mediaSeleccionada);
+                        } else {
+                            seguirEditando = false;
+                        }
+                    }
+
+                    if (!serieDuplicada) {
+                        this.listaMedia.set(index, serieActualizada);
+                        this.modelo.setMedia(index, serieActualizada);
+                    }
+                }
             }
         }
     }//GEN-LAST:event_jtListaMediaMouseClicked

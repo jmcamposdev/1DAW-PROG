@@ -19,10 +19,9 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    public JDGestionarSerie(java.awt.Frame parent, boolean modal, Serie serie, ArrayList<Media> listaMedias) {
+    public JDGestionarSerie(java.awt.Frame parent, boolean modal, Serie serie) {
         this(parent, modal);
         this.serieSeleccionada = serie;
-        this.listaMedias = listaMedias;
         inicializar();
     }
     
@@ -42,7 +41,20 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         jtfFechaEstreno.setText(formato.format(serieSeleccionada.getFechaEstreno()));
         
         actualizarTablaTemporadas();
-
+    }
+    
+    public boolean isActualizada() {
+        return this.isActualizada;
+    }
+    public boolean isActualizadoNombre() {
+        return this.isActualizadoNombre;
+    }
+    public boolean isActualizadoCalificacionEdad() {
+        return this.isActualizadoCalificacionEdad;
+    }
+    
+    public Serie getSerie() {
+        return new Serie(serieSeleccionada);
     }
 
     /**
@@ -228,6 +240,7 @@ public class JDGestionarSerie extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.isActualizada = false;
         this.setVisible(false);
     }//GEN-LAST:event_jbCancelarActionPerformed
 
@@ -260,36 +273,34 @@ public class JDGestionarSerie extends javax.swing.JDialog {
         }
 
         if (isValidInput) {
-            boolean validUpdate = true;
             int calificacionEdad = Integer.valueOf(calificacionEdadString);
             LocalDate fechaIncorporacion = Utilities.convertToLocalDate(fechaIncorporacionString);
             LocalDate fechaEstreno = Utilities.convertToLocalDate(fechaEstrenoString);
-
-            if (!serieSeleccionada.getNombre().equals(nombre) && serieSeleccionada.getCalificacionEdad() != calificacionEdad) {
-                Serie serie = new Serie(nombre, calificacionEdad, fechaIncorporacion, disponibilidad, fechaEstreno);
-                if (this.listaMedias.contains(serie)) {
-                    JOptionPane.showMessageDialog(this, "Ya existe una Serie con el mismo nombre y calificación de edad", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            
+            if (!serieSeleccionada.getNombre().equals(nombre)) {
+                serieSeleccionada.setNombre(nombre);
+                isActualizada = true;
+                isActualizadoNombre = true;
+            }
+            if (serieSeleccionada.getCalificacionEdad() != calificacionEdad) {
+                serieSeleccionada.setCalificacionEdad(calificacionEdad);
+                isActualizada = true;
+                isActualizadoCalificacionEdad = true;
+            }
+            if (!serieSeleccionada.getFechaIncorporacionAlCatalogo().equals(fechaIncorporacion)) {
+                serieSeleccionada.setFechaIncorporacionAlCatalogo(fechaIncorporacion);
+                isActualizada = true;
+            }
+            if (serieSeleccionada.isEstaDisponible() != disponibilidad) {
+                serieSeleccionada.setEstaDisponible(disponibilidad);
+                isActualizada = true;
+            }
+            if (!serieSeleccionada.getFechaEstreno().equals(fechaEstreno)) {
+                serieSeleccionada.setFechaEstreno(fechaEstreno);
+                isActualizada = true;
             }
             
-            if (validUpdate) {
-                if (!serieSeleccionada.getNombre().equals(nombre)) {
-                    serieSeleccionada.setNombre(nombre);
-                }
-                if (serieSeleccionada.getCalificacionEdad() != calificacionEdad) {
-                    serieSeleccionada.setCalificacionEdad(calificacionEdad);
-                }
-                if (!serieSeleccionada.getFechaIncorporacionAlCatalogo().equals(fechaIncorporacion)) {
-                    serieSeleccionada.setFechaIncorporacionAlCatalogo(fechaIncorporacion);
-                }
-                if (serieSeleccionada.isEstaDisponible() != disponibilidad) {
-                    serieSeleccionada.setEstaDisponible(disponibilidad);
-                }
-                if (!serieSeleccionada.getFechaEstreno().equals(fechaEstreno)) {
-                    serieSeleccionada.setFechaEstreno(fechaEstreno);
-                }
-                this.setVisible(false);
-            }
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
@@ -395,7 +406,9 @@ public class JDGestionarSerie extends javax.swing.JDialog {
     private static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definir el formato deseado
     private ModeloListaTemporada modelo;
     private Serie serieSeleccionada;
-    private ArrayList<Media> listaMedias;
+    private boolean isActualizada;
+    private boolean isActualizadoNombre;
+    private boolean isActualizadoCalificacionEdad;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
