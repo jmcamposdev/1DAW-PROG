@@ -174,29 +174,31 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCrearSerieActionPerformed
 
     private void jmiCrearPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearPeliculaActionPerformed
+        // Creamos el JDialog para crear la Pelicula
         JDCrearPelicula jDCrearPelicula = new JDCrearPelicula(this, rootPaneCheckingEnabled);
         jDCrearPelicula.setVisible(true);
         
+        // Si la pelicula se crea correctamente
         if (jDCrearPelicula.isCreada()) {
-            Pelicula nuevaPelicula = jDCrearPelicula.getPelicula();
-            boolean peliculaDuplicada = listaMedia.contains(nuevaPelicula);
-            boolean noCreada = false;
+            Pelicula nuevaPelicula = jDCrearPelicula.getPelicula(); // Obtenemos la Pelicula Creada
+            boolean peliculaDuplicada = listaMedia.contains(nuevaPelicula); // Comprobamos que no exista otra igual.
+            boolean seguirEditando = true; // Booleano para volver a iterar si la pelicula existe
 
-            while (peliculaDuplicada && !noCreada) {
+            while (peliculaDuplicada && seguirEditando) {
+                // Mostramos el mensaje de que la pelicula ya existe
                 JOptionPane.showMessageDialog(rootPane, "Ya existe otra Película con el mismo Título y Calificación de Edad");
-                jDCrearPelicula.setVisible(true);
-                if (jDCrearPelicula.isCreada()) {
-                    nuevaPelicula = jDCrearPelicula.getPelicula();
-                    peliculaDuplicada = listaMedia.contains(nuevaPelicula);
-                    
-                } else {
-                    noCreada = true;
+                jDCrearPelicula.setVisible(true); // Le volvemos a mostrar el JDialog de Crear Pelicula para que la edite
+                if (jDCrearPelicula.isCreada()) { // Si vuelve a crearla
+                    nuevaPelicula = jDCrearPelicula.getPelicula(); // Obtenemos la Pelicula Creada
+                    peliculaDuplicada = listaMedia.contains(nuevaPelicula); // Comprobamos si existe ya en la lista
+                } else { // Si no lo ha creado (Ha pulsado "Cancelar")
+                    seguirEditando = false; // Salimos del while
                 }
             }
             
-            if (!peliculaDuplicada) {
-                this.listaMedia.add(nuevaPelicula);
-                this.modelo.añadirMedia(nuevaPelicula);
+            if (!peliculaDuplicada) { // Si la pelicula no esta duplicada
+                this.listaMedia.add(nuevaPelicula); // Añadimos la pelicula a la lista
+                this.modelo.añadirMedia(nuevaPelicula); // Añaidmos la pelicula al Jtable
             }
         }
     }//GEN-LAST:event_jmiCrearPeliculaActionPerformed
