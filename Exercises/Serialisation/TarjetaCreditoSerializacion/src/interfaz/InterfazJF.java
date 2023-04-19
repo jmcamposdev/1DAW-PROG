@@ -7,16 +7,11 @@ package interfaz;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import modelo.ModeloListaTarjetasCredito;
@@ -128,16 +123,16 @@ public class InterfazJF extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(58, 58, 58)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,6 +141,7 @@ public class InterfazJF extends javax.swing.JFrame {
     private void jmiAñadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAñadirTarjetaActionPerformed
         JDCrearTarejeta jDCrearTarejeta = new JDCrearTarejeta(this,true);
         jDCrearTarejeta.setVisible(true);
+        
         
         if (jDCrearTarejeta.isCreada()) {
             TarjetaCredito nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
@@ -177,9 +173,14 @@ public class InterfazJF extends javax.swing.JFrame {
             jpmEliminarMenu.show(jtListaTarjetasCredito, evt.getX(), evt.getY());
         } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
             int index = jtListaTarjetasCredito.getSelectedRow(); // Obtenemos el indice de la Tarjeta seleccionada (JTable)
-            TarjetaCredito selectedTarjeta = listaTarjetas.get(index);
+            TarjetaCredito selectedTarjeta = new TarjetaCredito(listaTarjetas.get(index));
             JDGestionarTarjeta jDGestionarTarjeta = new JDGestionarTarjeta(this, true, selectedTarjeta); // Creamos el JDialog para modificar la Tarjeta
             jDGestionarTarjeta.setVisible(true); // Hacemos Visible el JDialog
+            
+            if (jDGestionarTarjeta.isActualizado()) {
+                TarjetaCredito tarjetaActualizada = jDGestionarTarjeta.getTarjetaCredito();
+                this.listaTarjetas.set(index, tarjetaActualizada);
+            }
         }
     }//GEN-LAST:event_jtListaTarjetasCreditoMouseClicked
 

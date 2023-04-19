@@ -17,18 +17,30 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
     /**
      * Creates new form JDGestionarTarjeta
      */
-    public JDGestionarTarjeta(java.awt.Frame parent, boolean modal, TarjetaCredito tarjetaCredito) {
+    public JDGestionarTarjeta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.tarjetaCredito = tarjetaCredito;
+    }
+    
+    public JDGestionarTarjeta(java.awt.Frame parent, boolean modal, TarjetaCredito tarjetaSeleccionada) {
+        this(parent, modal);
+        this.tarjetaSeleccionada = tarjetaSeleccionada;
         inicializar();
     }
 
     private void inicializar() {
-        jlNumeroTarjeta.setText(tarjetaCredito.getNumeroTarjeta());
-        jlTitular.setText(tarjetaCredito.getTitular());
-        jlFechaCaducidad.setText(tarjetaCredito.getMesCaducidad()+"/"+tarjetaCredito.getAñoCaducidad());
-        jlGastosTotales.setText(String.valueOf(tarjetaCredito.gastado()));
+        jlNumeroTarjeta.setText(tarjetaSeleccionada.getNumeroTarjeta());
+        jlTitular.setText(tarjetaSeleccionada.getTitular());
+        jlFechaCaducidad.setText(tarjetaSeleccionada.getMesCaducidad()+"/"+tarjetaSeleccionada.getAñoCaducidad());
+        jlGastosTotales.setText(String.valueOf(tarjetaSeleccionada.gastado()));
+    }
+    
+    public boolean isActualizado () {
+        return isActualizada;
+    }
+    
+    public TarjetaCredito getTarjetaCredito() {
+        return new TarjetaCredito(tarjetaSeleccionada);
     }
     
     
@@ -198,33 +210,35 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         } while (!validPin && !exit);
         
         if (validPin) {
-            tarjetaCredito.setPin(newPin);
+            tarjetaSeleccionada.setPin(newPin);
+            this.isActualizada = true;
+            JOptionPane.showMessageDialog(rootPane, "Se ha actualizado el PIN correctamente.");
         }
     }//GEN-LAST:event_jmiModificarPINActionPerformed
 
     private void jmiRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRealizarPagoActionPerformed
         JDRealizarPago jDRealizarPago = new JDRealizarPago(this, true);
         
-        jDRealizarPago.setSaldoDisponible(tarjetaCredito.getLimite()-tarjetaCredito.gastado());
-        jDRealizarPago.setNumeroMovimientosDeTarjeta(tarjetaCredito.numeroMovimientos());
+        jDRealizarPago.setSaldoDisponible(tarjetaSeleccionada.getLimite()-tarjetaSeleccionada.gastado());
+        jDRealizarPago.setNumeroMovimientosDeTarjeta(tarjetaSeleccionada.numeroMovimientos());
         
         jDRealizarPago.setVisible(true);
         
        
         if (jDRealizarPago.isMovimientoCreado()) {
             Movimiento nuevoMovimiento = jDRealizarPago.getMovimiento();
-            tarjetaCredito.pagar(nuevoMovimiento.getCantidad(),nuevoMovimiento.getConcepto());
-            jlGastosTotales.setText(String.valueOf(tarjetaCredito.gastado()));
+            tarjetaSeleccionada.pagar(nuevoMovimiento.getCantidad(),nuevoMovimiento.getConcepto());
+            jlGastosTotales.setText(String.valueOf(tarjetaSeleccionada.gastado()));
         }
     }//GEN-LAST:event_jmiRealizarPagoActionPerformed
 
     private void jmiConsultarMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultarMovimientosActionPerformed
         JDListaMovimientos jDListaMovimientos = new JDListaMovimientos(this, rootPaneCheckingEnabled);
-        int numeroTotalMovimientos = tarjetaCredito.numeroMovimientos();
+        int numeroTotalMovimientos = tarjetaSeleccionada.numeroMovimientos();
         if (numeroTotalMovimientos == 0) {
             JOptionPane.showMessageDialog(this, "La tarjeta no posee Movimientos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            ArrayList<Movimiento> movimientos = tarjetaCredito.movimientos(numeroTotalMovimientos);
+            ArrayList<Movimiento> movimientos = tarjetaSeleccionada.movimientos(numeroTotalMovimientos);
             movimientos.forEach(movimiento -> jDListaMovimientos.añadirMovimiento(movimiento));
             jDListaMovimientos.setVisible(true);
         }
@@ -260,7 +274,7 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDGestionarTarjeta dialog = new JDGestionarTarjeta(new javax.swing.JFrame(), true, null);
+                JDGestionarTarjeta dialog = new JDGestionarTarjeta(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -274,7 +288,8 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
 
     
     
-    private TarjetaCredito tarjetaCredito;
+    private boolean isActualizada;
+    private TarjetaCredito tarjetaSeleccionada;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlFechaCaducidad;
