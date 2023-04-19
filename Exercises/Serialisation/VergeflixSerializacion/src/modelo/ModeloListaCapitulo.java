@@ -6,6 +6,7 @@ package modelo;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -36,6 +37,20 @@ public class ModeloListaCapitulo extends AbstractTableModel{
             this.fireTableDataChanged();
         }
         return  capituloEliminado;
+    }
+    public boolean eliminarCapitulo (Capitulo capituloAEliminar) {
+        boolean isCapituloEliminado = false;
+        Capitulo c;
+        Iterator<Capitulo> it = listaCapitulos.iterator();
+        while (it.hasNext()) {
+            c = it.next();
+            if (c.equals(capituloAEliminar)) {
+                it.remove();
+                isCapituloEliminado = true;
+                this.fireTableDataChanged();
+            }
+        }
+        return isCapituloEliminado;
     }
     
     public void eliminarTodo() {

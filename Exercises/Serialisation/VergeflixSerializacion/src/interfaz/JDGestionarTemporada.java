@@ -6,6 +6,7 @@ package interfaz;
 
 import Funciones.Utilities;
 import java.awt.Dialog;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -62,6 +63,8 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpmEliminarCapitulo = new javax.swing.JPopupMenu();
+        jmiEliminarCapitulo = new javax.swing.JMenuItem();
         jlTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListaCapitulos = new javax.swing.JTable();
@@ -71,6 +74,14 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         jbActualizar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
         jbCrearCapitulo = new javax.swing.JButton();
+
+        jmiEliminarCapitulo.setText("Eliminar");
+        jmiEliminarCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminarCapituloActionPerformed(evt);
+            }
+        });
+        jpmEliminarCapitulo.add(jmiEliminarCapitulo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,6 +99,11 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtListaCapitulos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListaCapitulosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtListaCapitulos);
 
         jlNombreTemporada.setText("jLabel1");
@@ -242,6 +258,35 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jbCrearCapituloActionPerformed
 
+    private void jtListaCapitulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaCapitulosMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) { // Si es Click Derecho
+            // Mostramos  el Menú
+            jpmEliminarCapitulo.show(jtListaCapitulos, evt.getX(), evt.getY());
+        } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
+            /*int index = jtListaTemporadas.getSelectedRow(); // Obtenemos el indice de la temporada seleccionada (JTable)
+            Serie copiaSerie = new Serie(serieSeleccionada);
+            JDGestionarTemporada jDGestionarTemporada = new JDGestionarTemporada(this, true, copiaSerie, index);
+            jDGestionarTemporada.setVisible(true);
+            
+            if (jDGestionarTemporada.isActualizado()) {
+                Serie serieModificada = jDGestionarTemporada.getSerie();
+                serieSeleccionada = new Serie(serieModificada);
+                this.isActualizada = true;
+                actualizarTablaTemporadas();
+            }*/
+        }
+    }//GEN-LAST:event_jtListaCapitulosMouseClicked
+
+    private void jmiEliminarCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarCapituloActionPerformed
+        int index = jtListaCapitulos.getSelectedRow();
+        if (index != -1) {
+            Capitulo capituloSeleccionado = temporadaSeleccionada.getCapitulo(index);
+            serieSeleccionada.eliminarCapitulo(indiceTemporada, capituloSeleccionado.getTitulo());
+            modelo.eliminarCapitulo(capituloSeleccionado);
+        }
+        
+    }//GEN-LAST:event_jmiEliminarCapituloActionPerformed
+
    
     private void actualizarListaCapitulos() {
         modelo.eliminarTodo();
@@ -312,6 +357,8 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
     private javax.swing.JLabel jlNombreTemporada;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jlTituloFechaEstreno;
+    private javax.swing.JMenuItem jmiEliminarCapitulo;
+    private javax.swing.JPopupMenu jpmEliminarCapitulo;
     private javax.swing.JTable jtListaCapitulos;
     private javax.swing.JTextField jtfFechaEstreno;
     // End of variables declaration//GEN-END:variables
