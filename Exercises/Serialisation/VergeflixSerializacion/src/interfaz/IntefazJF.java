@@ -200,25 +200,20 @@ public class IntefazJF extends javax.swing.JFrame {
                 
                 if (jDGestionarPelicula.isActualizada()) {
                     Pelicula peliculaActualizada = jDGestionarPelicula.getPelicula();
-                    boolean peliculaDuplicada = false;
-                    if (jDGestionarPelicula.isActualizadoNombre() || jDGestionarPelicula.isActualizadoCalificacionEdad()) {
-                                peliculaDuplicada = listaMedia.contains(peliculaActualizada);
-                    }
-                    boolean noCreada = false;
+                    
+                    boolean peliculaDuplicada = listaMedia.contains(peliculaActualizada) && !peliculaActualizada.equals(mediaSeleccionada);
+                    boolean seguirEditando = true;
 
-                    while (peliculaDuplicada && !noCreada) {
+                    while (peliculaDuplicada && seguirEditando) {
                         JOptionPane.showMessageDialog(rootPane, "Ya existe otra Película con el mismo Título y Calificación de Edad");
                         jDGestionarPelicula.setVisible(true);
+                        
                         if (jDGestionarPelicula.isActualizada()) {
                             peliculaActualizada = jDGestionarPelicula.getPelicula();
-                            if (jDGestionarPelicula.isActualizadoNombre() || jDGestionarPelicula.isActualizadoCalificacionEdad()) {
-                                peliculaDuplicada = listaMedia.contains(peliculaActualizada);
-                            } else {
-                                peliculaDuplicada = false;
-                            }
+                            peliculaDuplicada = listaMedia.contains(peliculaActualizada) && !peliculaActualizada.equals(mediaSeleccionada);
                                
                         } else {
-                            noCreada = true;
+                            seguirEditando = false;
                         }
                     }
 
