@@ -24,10 +24,9 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    public JDGestionarPelicula(java.awt.Frame parent, boolean modal, Pelicula pelicula, ArrayList<Media> listaMedias) {
+    public JDGestionarPelicula(java.awt.Frame parent, boolean modal, Pelicula pelicula) {
         this(parent, modal);
         this.peliculaSeleccionada = pelicula;
-        this.listaMedias = listaMedias;
         inicializar();
     }
     
@@ -44,6 +43,20 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
         jtfDuracion.setText(String.valueOf(peliculaSeleccionada.getDuracion()));
         jcbTematica.setSelectedItem(peliculaSeleccionada.getCategoria());
         
+    }
+    
+    public boolean isActualizada() {
+        return this.isActualizada;
+    }
+    public boolean isActualizadoNombre() {
+        return this.isActualizadoNombre;
+    }
+    public boolean isActualizadoCalificacionEdad() {
+        return this.isActualizadoCalificacionEdad;
+    }
+    
+    public Pelicula getPelicula() {
+        return new Pelicula(peliculaSeleccionada);
     }
 
     /**
@@ -269,52 +282,52 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
         }
 
         if (isValidInput) {
-            boolean validUpdate = true;
             LocalDate fechaIncorporacion = Utilities.convertToLocalDate(fechaIncorporacionString);
             int calificacionEdad = Integer.valueOf(calificacionEdadString);
             int duracion = Integer.valueOf(duracionString);
             
-            if (!peliculaSeleccionada.getNombre().equals(nombre) && peliculaSeleccionada.getCalificacionEdad() != calificacionEdad) {
-                Pelicula pelicula = new Pelicula(nombre, calificacionEdad, fechaIncorporacion, disponibilidad, director, actorPrincipal, duracion, tematica);
-               
-                 if (this.listaMedias.contains(pelicula)) {
-                    JOptionPane.showMessageDialog(this, "Ya existe una Película con el mismo nombre y calificación de edad", "Error", JOptionPane.ERROR_MESSAGE);
-                    validUpdate = false;
-                }
+            if (!peliculaSeleccionada.getNombre().equals(nombre)) {
+                peliculaSeleccionada.setNombre(nombre);
+                isActualizada = true;
+                isActualizadoNombre = true;
             }
-            
-            if (validUpdate) {
-                
-                if (!peliculaSeleccionada.getNombre().equals(nombre)) {
-                    peliculaSeleccionada.setNombre(nombre);
-                }  
-                if (peliculaSeleccionada.getCalificacionEdad() != calificacionEdad) {
-                    peliculaSeleccionada.setCalificacionEdad(calificacionEdad);
-                }
-                if (!peliculaSeleccionada.getFechaIncorporacionAlCatalogo().equals(fechaIncorporacion)) {
-                    peliculaSeleccionada.setFechaIncorporacionAlCatalogo(fechaIncorporacion);
-                }
-                if (peliculaSeleccionada.isEstaDisponible() != disponibilidad) {
-                    peliculaSeleccionada.setEstaDisponible(disponibilidad);
-                }
-                if (!peliculaSeleccionada.getDirector().equals(director)) {
-                    peliculaSeleccionada.setDirector(director);
-                }
-                if (!peliculaSeleccionada.getActorPrincipal().equals(actorPrincipal)) {
-                    peliculaSeleccionada.setActorPrincipal(actorPrincipal);
-                }
-                if (peliculaSeleccionada.getDuracion() != duracion) {
-                    peliculaSeleccionada.setDuracion(duracion);
-                }
-                if (peliculaSeleccionada.getCategoria() != tematica) {
-                    peliculaSeleccionada.setCategoria(tematica);
-                }
-                this.setVisible(false);
+            if (peliculaSeleccionada.getCalificacionEdad() != calificacionEdad) {
+                peliculaSeleccionada.setCalificacionEdad(calificacionEdad);
+                isActualizada = true;
+                isActualizadoCalificacionEdad = true;
+
             }
+            if (!peliculaSeleccionada.getFechaIncorporacionAlCatalogo().equals(fechaIncorporacion)) {
+                peliculaSeleccionada.setFechaIncorporacionAlCatalogo(fechaIncorporacion);
+                isActualizada = true;
+            }
+            if (peliculaSeleccionada.isEstaDisponible() != disponibilidad) {
+                peliculaSeleccionada.setEstaDisponible(disponibilidad);
+                isActualizada = true;
+            }
+            if (!peliculaSeleccionada.getDirector().equals(director)) {
+                peliculaSeleccionada.setDirector(director);
+                isActualizada = true;
+            }
+            if (!peliculaSeleccionada.getActorPrincipal().equals(actorPrincipal)) {
+                peliculaSeleccionada.setActorPrincipal(actorPrincipal);
+                isActualizada = true;
+            }
+            if (peliculaSeleccionada.getDuracion() != duracion) {
+                peliculaSeleccionada.setDuracion(duracion);
+                isActualizada = true;
+            }
+            if (peliculaSeleccionada.getCategoria() != tematica) {
+                peliculaSeleccionada.setCategoria(tematica);
+                isActualizada = true;
+            }
+                    
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.isActualizada = false;
         setVisible(false);
     }//GEN-LAST:event_jbCancelarActionPerformed
 
@@ -337,6 +350,8 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
         if (validInput) {
             peliculaSeleccionada.votar(Integer.valueOf(voto));
             JOptionPane.showMessageDialog(this, "Voto realizado con exito");
+            this.isActualizada = true;
+            
         }
         
     }//GEN-LAST:event_jmiVotarActionPerformed
@@ -384,8 +399,10 @@ public class JDGestionarPelicula extends javax.swing.JDialog {
     }
 
     private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definir el formato deseado
+    private boolean isActualizada;
+    private boolean isActualizadoNombre;
+    private boolean isActualizadoCalificacionEdad;
     private Pelicula peliculaSeleccionada;
-    private ArrayList<Media> listaMedias;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbCancelar;

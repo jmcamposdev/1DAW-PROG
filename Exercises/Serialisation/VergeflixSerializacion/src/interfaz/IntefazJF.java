@@ -165,7 +165,7 @@ public class IntefazJF extends javax.swing.JFrame {
             Pelicula nuevaPelicula = jDCrearPelicula.getPelicula();
             boolean peliculaDuplicada = listaMedia.contains(nuevaPelicula);
             boolean noCreada = false;
-            System.out.println(peliculaDuplicada +" "+ noCreada);
+
             while (peliculaDuplicada && !noCreada) {
                 JOptionPane.showMessageDialog(rootPane, "Ya existe otra Película con el mismo Título y Calificación de Edad");
                 jDCrearPelicula.setVisible(true);
@@ -194,9 +194,40 @@ public class IntefazJF extends javax.swing.JFrame {
             Media mediaSeleccionada = listaMedia.get(index); // Creamos el JDialog para modificar la Canción
             
             if (mediaSeleccionada instanceof Pelicula) {
-                JDGestionarPelicula jDGestionarPelicula = new JDGestionarPelicula(this, true, (Pelicula) mediaSeleccionada,listaMedia);
+                Pelicula copiaPelicula = new Pelicula((Pelicula) mediaSeleccionada);
+                JDGestionarPelicula jDGestionarPelicula = new JDGestionarPelicula(this, true, copiaPelicula);
                 jDGestionarPelicula.setVisible(true);
-                modelo.fireTableDataChanged();
+                
+                if (jDGestionarPelicula.isActualizada()) {
+                    Pelicula peliculaActualizada = jDGestionarPelicula.getPelicula();
+                    boolean peliculaDuplicada = false;
+                    if (jDGestionarPelicula.isActualizadoNombre() || jDGestionarPelicula.isActualizadoCalificacionEdad()) {
+                                peliculaDuplicada = listaMedia.contains(peliculaActualizada);
+                    }
+                    boolean noCreada = false;
+
+                    while (peliculaDuplicada && !noCreada) {
+                        JOptionPane.showMessageDialog(rootPane, "Ya existe otra Película con el mismo Título y Calificación de Edad");
+                        jDGestionarPelicula.setVisible(true);
+                        if (jDGestionarPelicula.isActualizada()) {
+                            peliculaActualizada = jDGestionarPelicula.getPelicula();
+                            if (jDGestionarPelicula.isActualizadoNombre() || jDGestionarPelicula.isActualizadoCalificacionEdad()) {
+                                peliculaDuplicada = listaMedia.contains(peliculaActualizada);
+                            } else {
+                                peliculaDuplicada = false;
+                            }
+                               
+                        } else {
+                            noCreada = true;
+                        }
+                    }
+
+                    if (!peliculaDuplicada) {
+                        this.listaMedia.set(index, peliculaActualizada);
+                        this.modelo.setMedia(index, peliculaActualizada);
+                    }
+                }
+                
             } else if (mediaSeleccionada instanceof Serie) {
                 JDGestionarSerie jDGestionarSerie = new JDGestionarSerie(this, true, (Serie) mediaSeleccionada, listaMedia);
                 jDGestionarSerie.setVisible(true);

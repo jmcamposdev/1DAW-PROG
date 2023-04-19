@@ -28,6 +28,10 @@ public class ModeloListaMedia extends AbstractTableModel {
         }
         return  tarjetaEliminada;
     }
+    public void setMedia (int index, Media media) {
+        this.listaMedia.set(index, media);
+        this.fireTableDataChanged();
+    }
     
     public Media getMedia (int index) {
         Media media = null;
