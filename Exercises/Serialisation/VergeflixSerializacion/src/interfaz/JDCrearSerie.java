@@ -24,10 +24,6 @@ public class JDCrearSerie extends javax.swing.JDialog {
     public JDCrearSerie(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-    }
-    public JDCrearSerie(java.awt.Frame parent, boolean modal, ArrayList<Media> listaMedias) {
-        this(parent, modal);
-        this.listaMedias = listaMedias;
         inicializar();
     }
     
@@ -39,7 +35,7 @@ public class JDCrearSerie extends javax.swing.JDialog {
         return isCreada;
     }
     public Serie getSerie() {
-        return nuevaSerie;
+        return new Serie(nuevaSerie);
     }
     
 
@@ -204,15 +200,11 @@ public class JDCrearSerie extends javax.swing.JDialog {
             int calificacionEdad = Integer.valueOf(calificacionEdadString);
             LocalDate fechaIncorporacion = Utilities.convertToLocalDate(fechaIncorporacionString);
             LocalDate fechaEstreno = Utilities.convertToLocalDate(fechaEstrenoString);
-            
             Serie serie = new Serie(nombre, calificacionEdad, fechaIncorporacion, disponibilidad, fechaEstreno);
-            if (this.listaMedias.contains(serie)) {
-                JOptionPane.showMessageDialog(this, "Ya existe una Serie con el mismo nombre y calificación de edad", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                this.nuevaSerie = serie;
-                this.isCreada = true;
-                this.setVisible(false);
-            }
+            
+            this.isCreada = true;
+            this.nuevaSerie = serie;
+            this.setVisible(false);
             
         }
         
@@ -262,7 +254,6 @@ public class JDCrearSerie extends javax.swing.JDialog {
 
     private boolean isCreada;
     private Serie nuevaSerie;
-    private ArrayList<Media> listaMedias;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbCancelar;

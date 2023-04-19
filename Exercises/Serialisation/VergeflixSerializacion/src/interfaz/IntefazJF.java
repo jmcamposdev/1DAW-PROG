@@ -147,13 +147,29 @@ public class IntefazJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCrearSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearSerieActionPerformed
-        JDCrearSerie jDCrearSerie = new JDCrearSerie(this, rootPaneCheckingEnabled, listaMedia);
+        JDCrearSerie jDCrearSerie = new JDCrearSerie(this, rootPaneCheckingEnabled);
         jDCrearSerie.setVisible(true);
         
         if (jDCrearSerie.isCreada()) {
             Serie nuevaSerie = jDCrearSerie.getSerie();
-            this.listaMedia.add(nuevaSerie);
-            this.modelo.añadirMedia(nuevaSerie);
+            boolean serieDuplicada = listaMedia.contains(nuevaSerie);
+            boolean seguirEditando = true;
+
+            while (serieDuplicada && seguirEditando) {
+                JOptionPane.showMessageDialog(rootPane, "Ya existe otra Serie con el mismo Título y Calificación de Edad");
+                jDCrearSerie.setVisible(true);
+                if (jDCrearSerie.isCreada()) {
+                    nuevaSerie = jDCrearSerie.getSerie();
+                    serieDuplicada = listaMedia.contains(nuevaSerie);
+                } else {
+                    seguirEditando = false;
+                }
+            }
+            
+            if (!serieDuplicada) {
+                this.listaMedia.add(nuevaSerie);
+                this.modelo.añadirMedia(nuevaSerie);
+            }
         }
     }//GEN-LAST:event_jmiCrearSerieActionPerformed
 
