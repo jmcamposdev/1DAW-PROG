@@ -347,7 +347,7 @@ public class JDGestionarSerie extends javax.swing.JDialog {
             
             if (jDGestionarTemporada.isActualizado()) {
                 Serie serieModificada = jDGestionarTemporada.getSerie();
-                serieSeleccionada = new Serie(copiaSerie);
+                serieSeleccionada = new Serie(serieModificada);
                 this.isActualizada = true;
                 actualizarTablaTemporadas();
             }

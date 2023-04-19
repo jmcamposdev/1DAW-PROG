@@ -9,6 +9,7 @@ import java.awt.Dialog;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import modelo.Capitulo;
 import modelo.ModeloListaCapitulo;
 import modelo.Serie;
@@ -32,6 +33,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         super(parent,modal);
         initComponents();
         this.serieSeleccionada = serie;
+        this.temporadaSeleccionada = serie.getCopiaTemporada(indiceTemporada);
         this.indiceTemporada = indiceTemporada;
         inicializar();
     }
@@ -41,12 +43,14 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         this.jtListaCapitulos.setModel(modelo);
         jlNombreTemporada.setText("Temporada "+(this.indiceTemporada+1));
         jtfFechaEstreno.setText(formato.format(serieSeleccionada.getCopiaTemporada(indiceTemporada).getFechaEstreno()));
+        actualizarListaCapitulos();
     }
     
     public boolean isActualizado() {
         return this.isActualizado;
     }
     public Serie getSerie() {
+        System.out.println(serieSeleccionada.getCopiaTemporada(indiceTemporada));
         return new Serie(serieSeleccionada);
     }
     /**
@@ -66,6 +70,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         jtfFechaEstreno = new javax.swing.JTextField();
         jbActualizar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
+        jbCrearCapitulo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -103,6 +108,13 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
             }
         });
 
+        jbCrearCapitulo.setText("Crear Capitulo");
+        jbCrearCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCrearCapituloActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,9 +134,12 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                         .addComponent(jtfFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jbActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbCancelar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbCrearCapitulo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbActualizar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbCancelar)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
@@ -145,6 +160,8 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlTituloFechaEstreno)
                             .addComponent(jtfFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jbCrearCapitulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbActualizar)
@@ -184,7 +201,48 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
-    
+    private void jbCrearCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearCapituloActionPerformed
+        boolean isValido = true; 
+        JTextField jtfTitulo = new JTextField();
+        JTextField jtfFechaEmision = new JTextField();
+        Object[] message = {
+            "Titulo: ", jtfTitulo,
+            "Fecha Emisión: ", jtfFechaEmision
+        };
+        
+        int option = JOptionPane.showConfirmDialog(this, message, "Crear Capítulo", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String titulo = jtfTitulo.getText();
+            System.out.println(titulo);
+            String fechaEmisionString= jtfFechaEmision.getText();
+            if (titulo.isBlank()) {
+                JOptionPane.showMessageDialog(this, "El Título no puede estar vacío");
+                isValido = false;
+            }
+            if (isValido && !Utilities.validateLocalDate(fechaEmisionString)) {
+                JOptionPane.showMessageDialog(this, "El formato de la Fecha de Emisión es erroneo debe de ser dd/mm/yyyy");
+                isValido = false;
+            }
+            if (isValido && !Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fechaEmisionString), temporadaSeleccionada.getFechaEstreno())) {
+                JOptionPane.showMessageDialog(this, "La fecha insertada es anterior a la Fecha de Estreno de la Temporada");
+                isValido = false;
+            }
+            
+            if (isValido) {
+                LocalDate fechaEmision = Utilities.convertToLocalDate(fechaEmisionString);
+                Capitulo nuevoCapitulo = new Capitulo(titulo, fechaEmision);
+                if (serieSeleccionada.añadirCapitulo(indiceTemporada, nuevoCapitulo)) {
+                    JOptionPane.showMessageDialog(this, "Capítulo creado con exito");
+                    this.isActualizado = true;
+                    actualizarListaCapitulos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "El capítulo ya exite en la Temporada");
+                }
+            }
+        }
+    }//GEN-LAST:event_jbCrearCapituloActionPerformed
+
+   
     private void actualizarListaCapitulos() {
         modelo.eliminarTodo();
         Temporada temporada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
@@ -243,12 +301,14 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
     private static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definir el formato deseado
     private boolean isActualizado;
     private Serie serieSeleccionada;
+    private Temporada temporadaSeleccionada;
     private int indiceTemporada;
     private ModeloListaCapitulo modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbCrearCapitulo;
     private javax.swing.JLabel jlNombreTemporada;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jlTituloFechaEstreno;
