@@ -13,14 +13,14 @@ import javax.swing.JOptionPane;
  *
  * @author josemaria
  */
-public class JDCrearTarejeta extends javax.swing.JDialog {
+public class JDCrearTarjeta extends javax.swing.JDialog {
     private TarjetaCredito nuevaTarjetaCredito;
     private boolean isCreada = false;
 
     /**
      * Creates new form JDCrearTarejeta
      */
-    public JDCrearTarejeta(java.awt.Frame parent, boolean modal) {
+    public JDCrearTarjeta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -199,7 +199,7 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
             errorMessage = "El PIN es inválido debe de poseer 4 dígitos o mas";
             validInput = false;
         }
-        if (validInput && !TarjetaCredito.validarDigitosTarjeta(numeroTarjeta)) {
+        if (validInput && !TarjetaCredito.comprobarNumeroTarjeta(numeroTarjeta)) {
             errorMessage = "El número de la Tarjeta no es válido";
             validInput = false;
         }
@@ -233,20 +233,21 @@ public class JDCrearTarejeta extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDCrearTarejeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCrearTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDCrearTarejeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCrearTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDCrearTarejeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCrearTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDCrearTarejeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCrearTarjeta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDCrearTarejeta dialog = new JDCrearTarejeta(new javax.swing.JFrame(), true);
+                JDCrearTarjeta dialog = new JDCrearTarjeta(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

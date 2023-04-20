@@ -48,10 +48,6 @@ public class InterfazJF extends javax.swing.JFrame {
         // Actualizamos JTable para que use el Modelo de Movimientos
         jtListaMovimientos.setModel(modeloMovimientos);
         
-        // Creamos datos de prueba
-        listaTarjetas.add(new TarjetaCredito("Jose Maria Campos", "54530823P", "1234", 4000, "4275060355274659"));
-        actualizarListaTarjeta();
-        
         jtpTarjetaSeleccionada.setVisible(false); // Ocultamos el JTabbedPane
         jlEstadoSeleccion.setText("No se ha encontrado Tarjeta seleccionada");
     }
@@ -168,31 +164,33 @@ public class InterfazJF extends javax.swing.JFrame {
         jpInformacionLayout.setHorizontalGroup(
             jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpInformacionLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpInformacionLayout.createSequentialGroup()
-                            .addGap(15, 15, 15)
-                            .addComponent(jlTituloNumeroTarjeta)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jlNumeroTarjeta))
-                        .addGroup(jpInformacionLayout.createSequentialGroup()
-                            .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jlTituloTitular)
-                                .addComponent(jlTituloFechaCaducidad)
-                                .addComponent(jlTituloGastosTotales))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlTitular)
-                                .addComponent(jlFechaCaducidad)
-                                .addComponent(jlGastosTotales)))
-                        .addComponent(jbModificarPIN))
+                .addGap(17, 17, 17)
+                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpInformacionLayout.createSequentialGroup()
-                        .addComponent(jbRealizarPago)
-                        .addGap(19, 19, 19)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(jbEliminarTarjetaSeleccionada)
-                .addGap(25, 25, 25))
+                        .addComponent(jbEliminarTarjetaSeleccionada)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jpInformacionLayout.createSequentialGroup()
+                        .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpInformacionLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jlTituloNumeroTarjeta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jlNumeroTarjeta))
+                            .addGroup(jpInformacionLayout.createSequentialGroup()
+                                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jlTituloTitular)
+                                    .addComponent(jlTituloFechaCaducidad)
+                                    .addComponent(jlTituloGastosTotales))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlTitular)
+                                    .addComponent(jlFechaCaducidad)
+                                    .addComponent(jlGastosTotales)))
+                            .addGroup(jpInformacionLayout.createSequentialGroup()
+                                .addComponent(jbModificarPIN)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbRealizarPago)))
+                        .addContainerGap(88, Short.MAX_VALUE))))
         );
         jpInformacionLayout.setVerticalGroup(
             jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,12 +212,12 @@ public class InterfazJF extends javax.swing.JFrame {
                     .addComponent(jlTituloGastosTotales)
                     .addComponent(jlGastosTotales))
                 .addGap(44, 44, 44)
-                .addComponent(jbModificarPIN)
-                .addGap(18, 18, 18)
                 .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbRealizarPago)
-                    .addComponent(jbEliminarTarjetaSeleccionada))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jbModificarPIN)
+                    .addComponent(jbRealizarPago))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jbEliminarTarjetaSeleccionada)
+                .addContainerGap())
         );
 
         jtpTarjetaSeleccionada.addTab("Información", jpInformacion);
@@ -328,21 +326,21 @@ public class InterfazJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiAñadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAñadirTarjetaActionPerformed
-        JDCrearTarejeta jDCrearTarejeta = new JDCrearTarejeta(this,true);
-        jDCrearTarejeta.setVisible(true);
+        JDCrearTarjeta jDCrearTarjeta = new JDCrearTarjeta(this,true);
+        jDCrearTarjeta.setVisible(true);
         
         
-        if (jDCrearTarejeta.isCreada()) {
-            TarjetaCredito nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
+        if (jDCrearTarjeta.isCreada()) {
+            TarjetaCredito nuevaTarjeta = jDCrearTarjeta.getTarjetaCredito();
             boolean tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
             boolean seguirCreando = true;
             
             while (tarjetaDuplicada && seguirCreando) {
                 JOptionPane.showMessageDialog(rootPane, "Ya existe otra Tarjeta cono el mismo Número");
-                jDCrearTarejeta.setVisible(true);
+                jDCrearTarjeta.setVisible(true);
                 
-                if (jDCrearTarejeta.isCreada()) {
-                    nuevaTarjeta = jDCrearTarejeta.getTarjetaCredito();
+                if (jDCrearTarjeta.isCreada()) {
+                    nuevaTarjeta = jDCrearTarjeta.getTarjetaCredito();
                     tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
                 } else {
                     seguirCreando = false;
@@ -484,6 +482,7 @@ public class InterfazJF extends javax.swing.JFrame {
         if (pagoValido) {
             tarjetaSeleccionada.pagar(Double.valueOf(cantidad), concepto);
             actualizarListaMovimientos();
+            actualizarListaTarjeta();
             actualizarGastoTotales(tarjetaSeleccionada);
             JOptionPane.showMessageDialog(rootPane, "Se ha realizado el pago");
         }
