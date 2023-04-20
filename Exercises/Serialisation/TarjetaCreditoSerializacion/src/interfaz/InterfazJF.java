@@ -325,7 +325,7 @@ public class InterfazJF extends javax.swing.JFrame {
             boolean seguirCreando = true;
             
             while (tarjetaDuplicada && seguirCreando) {
-                JOptionPane.showMessageDialog(rootPane, "Ya existe otra Tarjeta cono el mismo DNI");
+                JOptionPane.showMessageDialog(rootPane, "Ya existe otra Tarjeta cono el mismo Número");
                 jDCrearTarejeta.setVisible(true);
                 
                 if (jDCrearTarejeta.isCreada()) {
@@ -388,9 +388,7 @@ public class InterfazJF extends javax.swing.JFrame {
             try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(selectedFile))) {
                 this.listaTarjetas = (ArrayList<TarjetaCredito>) oos.readObject();
                 
-                for (TarjetaCredito t : listaTarjetas) {
-                    modeloTarjetasCredito.añadirTarjeta(t);
-                }
+                actualizarListaTarjeta();
                 JOptionPane.showMessageDialog(this, "Se ha cargado la información exitosamente","EXITO",JOptionPane.INFORMATION_MESSAGE);
 
             } catch (ClassNotFoundException | IOException ex) {
