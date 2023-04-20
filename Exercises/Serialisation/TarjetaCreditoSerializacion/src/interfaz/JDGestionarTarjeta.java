@@ -255,7 +255,7 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
                     this.jlGastosTotales.setText(String.valueOf(tarjetaSeleccionada.gastado()));
                     this.isActualizada = true;
                     pagoRealizado = true;
-                } else {
+                } else if (validInput){
                    JOptionPane.showMessageDialog(rootPane, "No se ha podido realizar el pago");
                 }
             } else {
