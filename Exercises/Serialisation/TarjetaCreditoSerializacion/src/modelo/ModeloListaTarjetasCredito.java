@@ -18,6 +18,13 @@ public class ModeloListaTarjetasCredito extends AbstractTableModel{
         this.fireTableDataChanged();
     }
     
+    public void setTarjeta (int index, TarjetaCredito tarjetaCredito) {
+        if (index >= 0 && index < listaTarjetas.size()) {
+            listaTarjetas.set(index, tarjetaCredito);
+            this.fireTableDataChanged();
+        }
+    }
+    
     public boolean eliminarTarjeta (int index) {
         boolean tarjetaEliminada = false;
         

@@ -180,6 +180,7 @@ public class InterfazJF extends javax.swing.JFrame {
             if (jDGestionarTarjeta.isActualizado()) {
                 TarjetaCredito tarjetaActualizada = jDGestionarTarjeta.getTarjetaCredito();
                 this.listaTarjetas.set(index, tarjetaActualizada);
+                modelo.setTarjeta(index, tarjetaActualizada);
             }
         }
     }//GEN-LAST:event_jtListaTarjetasCreditoMouseClicked

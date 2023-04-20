@@ -6,6 +6,7 @@ package interfaz;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import modelo.Movimiento;
 import modelo.TarjetaCredito;
 
@@ -217,19 +218,50 @@ public class JDGestionarTarjeta extends javax.swing.JDialog {
     }//GEN-LAST:event_jmiModificarPINActionPerformed
 
     private void jmiRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRealizarPagoActionPerformed
-        JDRealizarPago jDRealizarPago = new JDRealizarPago(this, true);
+        JTextField jtfConcepto = new JTextField();
+        JTextField jtfCantidad = new JTextField();
+        Object[] message = {
+            "Concepto:", jtfConcepto,
+            "Cantidad:", jtfCantidad
+        };
+        boolean exit = false;
+        boolean pagoRealizado = false;
         
-        jDRealizarPago.setSaldoDisponible(tarjetaSeleccionada.getLimite()-tarjetaSeleccionada.gastado());
-        jDRealizarPago.setNumeroMovimientosDeTarjeta(tarjetaSeleccionada.numeroMovimientos());
-        
-        jDRealizarPago.setVisible(true);
-        
-       
-        if (jDRealizarPago.isMovimientoCreado()) {
-            Movimiento nuevoMovimiento = jDRealizarPago.getMovimiento();
-            tarjetaSeleccionada.pagar(nuevoMovimiento.getCantidad(),nuevoMovimiento.getConcepto());
-            jlGastosTotales.setText(String.valueOf(tarjetaSeleccionada.gastado()));
-        }
+        do {
+            int option = JOptionPane.showConfirmDialog(this, message, "Realizar Pago", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                double saldoDisponible = tarjetaSeleccionada.getLimite() - tarjetaSeleccionada.gastado();
+                boolean validInput = true;
+                String concepto = jtfConcepto.getText();
+                String cantidad = jtfCantidad.getText();
+
+                if (concepto.isBlank()) {
+                    JOptionPane.showMessageDialog(this, "El concepto no puede estar vacio.");
+                    validInput = false;
+                }
+                if (validInput && !cantidad.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(this, "La cantidad debe de ser un valor numérico");
+                    System.out.println(cantidad);
+                    validInput = false;
+                }
+
+                if (validInput && (Integer.valueOf(cantidad) < 0 || Integer.valueOf(cantidad) > saldoDisponible)) {
+                    JOptionPane.showMessageDialog(this, "La cantidad debe de ser un valor numérico");
+                    validInput = false;
+                }
+                
+                if (validInput && tarjetaSeleccionada.pagar(Double.valueOf(cantidad), concepto)) {
+                    JOptionPane.showMessageDialog(rootPane, "Se ha realizado el pago");
+                    this.jlGastosTotales.setText(String.valueOf(tarjetaSeleccionada.gastado()));
+                    this.isActualizada = true;
+                    pagoRealizado = true;
+                } else {
+                   JOptionPane.showMessageDialog(rootPane, "No se ha podido realizar el pago");
+                }
+            } else {
+                exit = true;
+            }
+        } while (!exit && !pagoRealizado);
     }//GEN-LAST:event_jmiRealizarPagoActionPerformed
 
     private void jmiConsultarMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultarMovimientosActionPerformed
