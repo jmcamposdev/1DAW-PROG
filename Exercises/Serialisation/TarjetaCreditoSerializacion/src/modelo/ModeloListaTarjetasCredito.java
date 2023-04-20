@@ -36,6 +36,11 @@ public class ModeloListaTarjetasCredito extends AbstractTableModel{
         return  tarjetaEliminada;
     }
     
+    public void clearAll () {
+        listaTarjetas.clear();
+        this.fireTableDataChanged();
+    }
+    
     public TarjetaCredito getTarjetaCredito (int index) {
         TarjetaCredito tarjetaCredito = null;
         

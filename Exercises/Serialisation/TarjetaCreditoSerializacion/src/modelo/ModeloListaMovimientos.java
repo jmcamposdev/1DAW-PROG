@@ -33,6 +33,10 @@ public class ModeloListaMovimientos extends AbstractTableModel{
         }
         return cancionEliminada;
     }
+    public void clearAll () {
+        listaMovimientos.clear();
+        this.fireTableDataChanged();
+    }
 
     @Override
     public String getColumnName(int index){

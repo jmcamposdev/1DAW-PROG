@@ -14,7 +14,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import modelo.ModeloListaMovimientos;
 import modelo.ModeloListaTarjetasCredito;
+import modelo.Movimiento;
 import modelo.TarjetaCredito;
 
 /**
@@ -22,18 +25,35 @@ import modelo.TarjetaCredito;
  * @author josemaria
  */
 public class InterfazJF extends javax.swing.JFrame {
-    ArrayList<TarjetaCredito> listaTarjetas;
 
     /**
      * Creates new form JFInterfaz
      */
     public InterfazJF() {
         initComponents();
-        listaTarjetas = new ArrayList<>();
-        // Creamos el Modelo de la Lista
-        modelo = new ModeloListaTarjetasCredito();
+        inicializar();
+    }
+    
+    private void inicializar() {
+        listaTarjetas = new ArrayList<>(); // Inicializamos la Lista de Tarjetas
+        tarjetaSeleccionada = null;
+        
+        // Creamos el Modelo de la Lista de Tarjetas
+        modeloTarjetasCredito = new ModeloListaTarjetasCredito();
         // Actualizamos JTable para que use el Modelo de Tarjetas de Credito
-        jtListaTarjetasCredito.setModel(modelo);
+        jtListaTarjetasCredito.setModel(modeloTarjetasCredito);
+        
+        // Creamos el Modelo de la Lista de Movimientos
+        modeloMovimientos = new ModeloListaMovimientos();
+        // Actualizamos JTable para que use el Modelo de Movimientos
+        jtListaMovimientos.setModel(modeloMovimientos);
+        
+        // Creamos datos de prueba
+        listaTarjetas.add(new TarjetaCredito("Jose Maria Campos", "54530823P", "1234", 4000, "4275060355274659"));
+        actualizarListaTarjeta();
+        
+        jtpTarjetaSeleccionada.setVisible(false); // Ocultamos el JTabbedPane
+        jlEstadoSeleccion.setText("No se ha encontrado Tarjeta seleccionada");
     }
 
     /**
@@ -49,6 +69,23 @@ public class InterfazJF extends javax.swing.JFrame {
         jmiEliminarTarjeta = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListaTarjetasCredito = new javax.swing.JTable();
+        jlTituloTarjetaSeleccionada = new javax.swing.JLabel();
+        jtpTarjetaSeleccionada = new javax.swing.JTabbedPane();
+        jpInformacion = new javax.swing.JPanel();
+        jlFechaCaducidad = new javax.swing.JLabel();
+        jlGastosTotales = new javax.swing.JLabel();
+        jlTituloNumeroTarjeta = new javax.swing.JLabel();
+        jlTituloTitular = new javax.swing.JLabel();
+        jlTituloFechaCaducidad = new javax.swing.JLabel();
+        jlTituloGastosTotales = new javax.swing.JLabel();
+        jlNumeroTarjeta = new javax.swing.JLabel();
+        jlTitular = new javax.swing.JLabel();
+        jbModificarPIN = new javax.swing.JButton();
+        jbRealizarPago = new javax.swing.JButton();
+        jpMovimientos = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtListaMovimientos = new javax.swing.JTable();
+        jlEstadoSeleccion = new javax.swing.JLabel();
         jmbMenu = new javax.swing.JMenuBar();
         jmArchivo = new javax.swing.JMenu();
         jmiGuardar = new javax.swing.JMenuItem();
@@ -83,6 +120,130 @@ public class InterfazJF extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jtListaTarjetasCredito);
+
+        jlTituloTarjetaSeleccionada.setText("Tarjeta Seleccionada:");
+
+        jpInformacion.setToolTipText("");
+
+        jlFechaCaducidad.setText(" ");
+
+        jlGastosTotales.setText(" ");
+
+        jlTituloNumeroTarjeta.setText("Número Tarjeta: ");
+
+        jlTituloTitular.setText("Titular: ");
+
+        jlTituloFechaCaducidad.setText("Fecha Caducidad:");
+
+        jlTituloGastosTotales.setText("Gastos Totales:");
+
+        jlNumeroTarjeta.setText(" ");
+
+        jlTitular.setText(" ");
+
+        jbModificarPIN.setText("Modificar PIN");
+        jbModificarPIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarPINActionPerformed(evt);
+            }
+        });
+
+        jbRealizarPago.setText("Realizar Pago");
+        jbRealizarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRealizarPagoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpInformacionLayout = new javax.swing.GroupLayout(jpInformacion);
+        jpInformacion.setLayout(jpInformacionLayout);
+        jpInformacionLayout.setHorizontalGroup(
+            jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpInformacionLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpInformacionLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jlTituloNumeroTarjeta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jlNumeroTarjeta))
+                    .addGroup(jpInformacionLayout.createSequentialGroup()
+                        .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlTituloTitular)
+                            .addComponent(jlTituloFechaCaducidad)
+                            .addComponent(jlTituloGastosTotales))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlTitular)
+                            .addComponent(jlFechaCaducidad)
+                            .addComponent(jlGastosTotales)))
+                    .addGroup(jpInformacionLayout.createSequentialGroup()
+                        .addComponent(jbModificarPIN)
+                        .addGap(43, 43, 43)
+                        .addComponent(jbRealizarPago)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpInformacionLayout.setVerticalGroup(
+            jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpInformacionLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloNumeroTarjeta)
+                    .addComponent(jlNumeroTarjeta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloTitular)
+                    .addComponent(jlTitular))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloFechaCaducidad)
+                    .addComponent(jlFechaCaducidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloGastosTotales)
+                    .addComponent(jlGastosTotales))
+                .addGap(44, 44, 44)
+                .addGroup(jpInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbModificarPIN)
+                    .addComponent(jbRealizarPago))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+
+        jtpTarjetaSeleccionada.addTab("Información", jpInformacion);
+
+        jtListaMovimientos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jtListaMovimientos);
+
+        javax.swing.GroupLayout jpMovimientosLayout = new javax.swing.GroupLayout(jpMovimientos);
+        jpMovimientos.setLayout(jpMovimientosLayout);
+        jpMovimientosLayout.setHorizontalGroup(
+            jpMovimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpMovimientosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jpMovimientosLayout.setVerticalGroup(
+            jpMovimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpMovimientosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jtpTarjetaSeleccionada.addTab("Movimientos", jpMovimientos);
+
+        jlEstadoSeleccion.setText(" ");
 
         jmArchivo.setText("Archivo");
 
@@ -123,16 +284,31 @@ public class InterfazJF extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlTituloTarjetaSeleccionada)
+                        .addGap(18, 18, 18)
+                        .addComponent(jlEstadoSeleccion)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtpTarjetaSeleccionada, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(60, 60, 60))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlTituloTarjetaSeleccionada)
+                    .addComponent(jlEstadoSeleccion))
+                .addGap(18, 18, 18)
+                .addComponent(jtpTarjetaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -162,27 +338,17 @@ public class InterfazJF extends javax.swing.JFrame {
             
             if (!tarjetaDuplicada) {
                 listaTarjetas.add(nuevaTarjeta);
-                modelo.añadirTarjeta(nuevaTarjeta);
+                modeloTarjetasCredito.añadirTarjeta(nuevaTarjeta);
             }
         }
     }//GEN-LAST:event_jmiAñadirTarjetaActionPerformed
 
     private void jtListaTarjetasCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaTarjetasCreditoMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3) { // Si es Click Derecho
-            // Mostramos  el Menú
-            jpmEliminarMenu.show(jtListaTarjetasCredito, evt.getX(), evt.getY());
-        } else if (evt.getClickCount() == 2) { // Si ha realizado Dos Clicks
-            int index = jtListaTarjetasCredito.getSelectedRow(); // Obtenemos el indice de la Tarjeta seleccionada (JTable)
-            TarjetaCredito selectedTarjeta = new TarjetaCredito(listaTarjetas.get(index));
-            JDGestionarTarjeta jDGestionarTarjeta = new JDGestionarTarjeta(this, true, selectedTarjeta); // Creamos el JDialog para modificar la Tarjeta
-            jDGestionarTarjeta.setVisible(true); // Hacemos Visible el JDialog
-            
-            if (jDGestionarTarjeta.isActualizado()) {
-                TarjetaCredito tarjetaActualizada = jDGestionarTarjeta.getTarjetaCredito();
-                this.listaTarjetas.set(index, tarjetaActualizada);
-                modelo.setTarjeta(index, tarjetaActualizada);
-            }
-        }
+         int index = jtListaTarjetasCredito.getSelectedRow();
+         tarjetaSeleccionada = listaTarjetas.get(index);
+         jlEstadoSeleccion.setVisible(false);
+         actualizarInformacionTarjeta(tarjetaSeleccionada);
+         jtpTarjetaSeleccionada.setVisible(true);
     }//GEN-LAST:event_jtListaTarjetasCreditoMouseClicked
 
     private void jmiEliminarTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarTarjetaActionPerformed
@@ -191,7 +357,7 @@ public class InterfazJF extends javax.swing.JFrame {
         if (result == JOptionPane.YES_OPTION) {
             int indexSelectedTarjeta = jtListaTarjetasCredito.getSelectedRow();
             listaTarjetas.remove(indexSelectedTarjeta);
-            modelo.eliminarTarjeta(indexSelectedTarjeta);
+            modeloTarjetasCredito.eliminarTarjeta(indexSelectedTarjeta);
         }
     }//GEN-LAST:event_jmiEliminarTarjetaActionPerformed
 
@@ -223,7 +389,7 @@ public class InterfazJF extends javax.swing.JFrame {
                 this.listaTarjetas = (ArrayList<TarjetaCredito>) oos.readObject();
                 
                 for (TarjetaCredito t : listaTarjetas) {
-                    modelo.añadirTarjeta(t);
+                    modeloTarjetasCredito.añadirTarjeta(t);
                 }
                 JOptionPane.showMessageDialog(this, "Se ha cargado la información exitosamente","EXITO",JOptionPane.INFORMATION_MESSAGE);
 
@@ -233,6 +399,115 @@ public class InterfazJF extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiCargarActionPerformed
 
+    private void jbModificarPINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarPINActionPerformed
+        if (tarjetaSeleccionada == null) {
+            JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ninguna Tarjeta");
+            return;
+        }
+        
+        boolean validPin = false;
+        boolean exit = false;
+        String newPin;
+        do {
+            newPin = JOptionPane.showInputDialog(this,"Ingresa su nuevo PIN.","Nuevo PIN",1);
+            if (newPin != null && newPin.matches("^\\d{4,}$")) {
+                validPin = true;
+            } else if (newPin != null) {
+                JOptionPane.showMessageDialog(this, "El PIN insertado es erroneo");
+                validPin = false;
+            } else {
+                exit = true;
+            }
+        } while (!validPin && !exit);
+        
+        if (validPin) {
+            tarjetaSeleccionada.setPin(newPin);
+            JOptionPane.showMessageDialog(rootPane, "Se ha actualizado el PIN correctamente.");
+        }
+    }//GEN-LAST:event_jbModificarPINActionPerformed
+
+    private void jbRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRealizarPagoActionPerformed
+        JTextField jtfConcepto = new JTextField();
+        JTextField jtfCantidad = new JTextField();
+        Object[] message = {
+            "Concepto:", jtfConcepto,
+            "Cantidad:", jtfCantidad
+        };
+        boolean exit = false;
+        boolean pagoValido = false;
+        String concepto = "";
+        String cantidad = "";
+        
+        do {
+            int option = JOptionPane.showConfirmDialog(this, message, "Realizar Pago", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                double saldoDisponible = tarjetaSeleccionada.getLimite() - tarjetaSeleccionada.gastado();
+                boolean validInput = true;
+                concepto = jtfConcepto.getText();
+                cantidad = jtfCantidad.getText();
+
+                if (concepto.isBlank()) {
+                    JOptionPane.showMessageDialog(this, "El concepto no puede estar vacio.");
+                    validInput = false;
+                }
+                if (validInput && !cantidad.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(this, "La cantidad debe de ser un valor numérico");
+                    System.out.println(cantidad);
+                    validInput = false;
+                }
+
+                if (validInput && (Integer.valueOf(cantidad) < 0 || Integer.valueOf(cantidad) > saldoDisponible)) {
+                    JOptionPane.showMessageDialog(this, "La cantidad supera el Límite");
+                    validInput = false;
+                }
+                
+                if (validInput) {
+                    pagoValido = true;
+                }
+                
+            } else {
+                exit = true;
+            }
+        } while (!exit && !pagoValido);
+        
+        if (pagoValido) {
+            tarjetaSeleccionada.pagar(Double.valueOf(cantidad), concepto);
+            actualizarListaMovimientos();
+            actualizarGastoTotales(tarjetaSeleccionada);
+            JOptionPane.showMessageDialog(rootPane, "Se ha realizado el pago");
+        }
+    }//GEN-LAST:event_jbRealizarPagoActionPerformed
+
+    
+    private void actualizarInformacionTarjeta(TarjetaCredito tarjetaSeleccionada) {
+        jlNumeroTarjeta.setText(tarjetaSeleccionada.getNumeroTarjeta());
+        jlTitular.setText(tarjetaSeleccionada.getTitular());
+        jlFechaCaducidad.setText(tarjetaSeleccionada.getMesCaducidad()+"/"+tarjetaSeleccionada.getAñoCaducidad());
+        actualizarGastoTotales(tarjetaSeleccionada);
+    }
+    
+    private void actualizarGastoTotales(TarjetaCredito tarjetaSeleccionada) {
+        jlGastosTotales.setText(String.valueOf(tarjetaSeleccionada.gastado()));
+    }
+    
+    private void actualizarListaTarjeta () {
+        modeloTarjetasCredito.clearAll();
+        for (TarjetaCredito t : listaTarjetas) {
+            modeloTarjetasCredito.añadirTarjeta(t);
+        }
+    }
+    
+    private void actualizarListaMovimientos() {
+        ArrayList<Movimiento> movimientos = tarjetaSeleccionada.movimientos(tarjetaSeleccionada.numeroMovimientos());
+        modeloMovimientos.clearAll();
+        for (Movimiento m : movimientos) {
+            modeloMovimientos.añadirMovimiento(m);
+        }
+    }
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -269,9 +544,27 @@ public class InterfazJF extends javax.swing.JFrame {
         });
     }
 
-    private ModeloListaTarjetasCredito modelo;
+
+
+    private ModeloListaMovimientos modeloMovimientos;
+    private ModeloListaTarjetasCredito modeloTarjetasCredito;
+    private ArrayList<TarjetaCredito> listaTarjetas;
+    private TarjetaCredito tarjetaSeleccionada;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbModificarPIN;
+    private javax.swing.JButton jbRealizarPago;
+    private javax.swing.JLabel jlEstadoSeleccion;
+    private javax.swing.JLabel jlFechaCaducidad;
+    private javax.swing.JLabel jlGastosTotales;
+    private javax.swing.JLabel jlNumeroTarjeta;
+    private javax.swing.JLabel jlTitular;
+    private javax.swing.JLabel jlTituloFechaCaducidad;
+    private javax.swing.JLabel jlTituloGastosTotales;
+    private javax.swing.JLabel jlTituloNumeroTarjeta;
+    private javax.swing.JLabel jlTituloTarjetaSeleccionada;
+    private javax.swing.JLabel jlTituloTitular;
     private javax.swing.JMenu jmAcciones;
     private javax.swing.JMenu jmArchivo;
     private javax.swing.JMenuBar jmbMenu;
@@ -279,7 +572,11 @@ public class InterfazJF extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCargar;
     private javax.swing.JMenuItem jmiEliminarTarjeta;
     private javax.swing.JMenuItem jmiGuardar;
+    private javax.swing.JPanel jpInformacion;
+    private javax.swing.JPanel jpMovimientos;
     private javax.swing.JPopupMenu jpmEliminarMenu;
+    private javax.swing.JTable jtListaMovimientos;
     private javax.swing.JTable jtListaTarjetasCredito;
+    private javax.swing.JTabbedPane jtpTarjetaSeleccionada;
     // End of variables declaration//GEN-END:variables
 }
