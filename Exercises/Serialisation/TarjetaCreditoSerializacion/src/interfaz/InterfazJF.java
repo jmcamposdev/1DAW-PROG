@@ -490,11 +490,15 @@ public class InterfazJF extends javax.swing.JFrame {
 
     private void jbEliminarTarjetaSeleccionadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarTarjetaSeleccionadaActionPerformed
         if (tarjetaSeleccionada != null) {
-            listaTarjetas.remove(tarjetaSeleccionada);
-            this.modeloTarjetasCredito.eliminarTarjeta(tarjetaSeleccionada);
-            tarjetaSeleccionada = null;
-            jtpTarjetaSeleccionada.setVisible(false);
-            jlEstadoSeleccion.setVisible(true);
+            int option = JOptionPane.showConfirmDialog(this, "Deseas eliminar la Tarjeta.");
+            if (option == JOptionPane.OK_OPTION) {
+                listaTarjetas.remove(tarjetaSeleccionada);
+                this.modeloTarjetasCredito.eliminarTarjeta(tarjetaSeleccionada);
+                tarjetaSeleccionada = null;
+                jtpTarjetaSeleccionada.setVisible(false);
+                jlEstadoSeleccion.setVisible(true);
+            }
+            
         }
     }//GEN-LAST:event_jbEliminarTarjetaSeleccionadaActionPerformed
 
