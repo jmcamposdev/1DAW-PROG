@@ -730,8 +730,8 @@ public class IntefazJF extends javax.swing.JFrame {
                 jpInformacionMedia.setVisible(true);
                 // Hacer invisible el Panel de Temporadas
                 jpInformacionTemporadas.setVisible(false);
-                temporadaSeleccionada = null;
-
+                // Modificando los indicies para evitar errores
+                resetearIndicesSerie();
             } else {
                 // Cargamos los datos de la Serie en los campos
                 cargarInformacionSerie((Serie) mediaSeleccionada);
@@ -1054,10 +1054,14 @@ public class IntefazJF extends javax.swing.JFrame {
             int index = jtListaTemporadas.getSelectedRow();
             String message = "";
             if (serieSeleccionada.eliminarTemporada(index)) {
-                temporadaSeleccionada = null;
-                message = "Temporada Eliminada con exito";
-                modeloTemporada.eliminarTemporada(index);
-                jtfTemporadaFechaEstreno.setText("");
+                message = "Temporada Eliminada con exito"; // Comentario para el usuario
+                modeloTemporada.eliminarTemporada(index); // Lo eliminamos del JTable
+                // Deshabilitamos todos los Filds
+                deshabilitarTemporada();
+                deshabilitarCapitulo();
+                // Reseteamos los indices
+                resetearIndicesSerie();
+                // Limpiamos la Table de Capitulos
                 modeloCapitulo.clear();
             } else {
                 message = "No se ha podidio eliminar la Temporada";
@@ -1093,9 +1097,8 @@ public class IntefazJF extends javax.swing.JFrame {
             deshabilitarCapitulo();
             
             indiceTemporada = jtListaTemporadas.getSelectedRow();
-            temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
             jlTemporadaTituloTemporada.setText("Temporada " + (indiceTemporada+1));
-            jtfTemporadaFechaEstreno.setText(format.format(temporadaSeleccionada.getFechaEstreno()));
+            jtfTemporadaFechaEstreno.setText(format.format(serieSeleccionada.getCopiaTemporada(indiceTemporada).getFechaEstreno()));
             resetearCapitulos();
             actualizarListaCapitulos();
         }
@@ -1109,13 +1112,15 @@ public class IntefazJF extends javax.swing.JFrame {
             indiceCapitulo = jtListaCapitulos.getSelectedRow();
             // Habilitamos los input Fields
             habilitarCapitulo();
-            jtfCapituloTitulo.setText(temporadaSeleccionada.getCapitulo(indiceCapitulo).getTitulo());
-            jtfCapituloFechaEmison.setText(format.format(temporadaSeleccionada.getCapitulo(indiceCapitulo).getFechaEmision()));
+            Capitulo capituloSeleccionado = serieSeleccionada.getCopiaTemporada(indiceTemporada).getCapitulo(indiceCapitulo);
+            jtfCapituloTitulo.setText(capituloSeleccionado.getTitulo());
+            jtfCapituloFechaEmison.setText(format.format(capituloSeleccionado.getFechaEmision()));
         }
     }//GEN-LAST:event_jtListaCapitulosMouseClicked
 
     private void jtfTemporadaFechaEstrenoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfTemporadaFechaEstrenoFocusLost
-        if (temporadaSeleccionada == null || jtListaTemporadas.getSelectedRow() == -1) {
+        if (indiceTemporada == -1) {
+            JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ninguna Temporada");
             return;
         }
         boolean isValidInput = true;
@@ -1147,7 +1152,7 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfTemporadaFechaEstrenoFocusLost
 
     private void jbCrearCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearCapituloActionPerformed
-        if (temporadaSeleccionada == null) {
+        if (indiceTemporada == -1) {
             JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna Temporada");
             return;
         }
@@ -1171,7 +1176,7 @@ public class IntefazJF extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "El formato de la Fecha de Emisión es erroneo debe de ser dd/mm/yyyy");
                 isValido = false;
             }
-            if (isValido && !Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fechaEmisionString), temporadaSeleccionada.getFechaEstreno())) {
+            if (isValido && !Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fechaEmisionString), serieSeleccionada.getCopiaTemporada(indiceTemporada).getFechaEstreno())) {
                 JOptionPane.showMessageDialog(this, "La fecha insertada es anterior a la Fecha de Estreno de la Temporada");
                 isValido = false;
             }
@@ -1181,7 +1186,6 @@ public class IntefazJF extends javax.swing.JFrame {
                 Capitulo nuevoCapitulo = new Capitulo(titulo, fechaEmision);
                 if (serieSeleccionada.añadirCapitulo(indiceTemporada, nuevoCapitulo)) {
                     JOptionPane.showMessageDialog(this, "Capítulo creado con exito");
-                    temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
                     actualizarListaCapitulos();
                 } else {
                     JOptionPane.showMessageDialog(this, "El capítulo ya exite en la Temporada");
@@ -1193,11 +1197,10 @@ public class IntefazJF extends javax.swing.JFrame {
     private void jtfCapituloTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCapituloTituloFocusLost
         String titulo = jtfCapituloTitulo.getText();
         if (serieSeleccionada.setCapitulo(indiceTemporada, indiceCapitulo, titulo)) {
-            temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
             actualizarListaCapitulos();
         } else {
             JOptionPane.showMessageDialog(rootPane, "El título no es válido");
-            jtfCapituloTitulo.setText(temporadaSeleccionada.getCapitulo(indiceCapitulo).getTitulo());
+            jtfCapituloTitulo.setText(serieSeleccionada.getCopiaTemporada(indiceTemporada).getCapitulo(indiceCapitulo).getTitulo());
         }
     }//GEN-LAST:event_jtfCapituloTituloFocusLost
 
@@ -1216,7 +1219,6 @@ public class IntefazJF extends javax.swing.JFrame {
         
         if (validFecha) {
             if (serieSeleccionada.setCapitulo(indiceTemporada, indiceCapitulo, Utilities.convertToLocalDate(fechaEmision))) {
-                temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
                 actualizarListaCapitulos();
             } else {
                 errorMessage = "La fecha inserta es anterior a la Fecha de Estreno de la Temporada";
@@ -1226,7 +1228,7 @@ public class IntefazJF extends javax.swing.JFrame {
         
         if (!validFecha) {
             JOptionPane.showMessageDialog(rootPane, errorMessage);
-            jtfCapituloFechaEmison.setText(format.format(temporadaSeleccionada.getCapitulo(indiceCapitulo).getFechaEmision()));
+            jtfCapituloFechaEmison.setText(format.format(serieSeleccionada.getCopiaTemporada(indiceTemporada).getCapitulo(indiceCapitulo).getFechaEmision()));
         }
     }//GEN-LAST:event_jtfCapituloFechaEmisonFocusLost
 
@@ -1340,7 +1342,7 @@ public class IntefazJF extends javax.swing.JFrame {
         }
     }
     private void actualizarListaCapitulos() {
-        if (temporadaSeleccionada != null) {
+        if (indiceTemporada != -1) {
             modeloCapitulo.clear();
             Temporada temporada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
             int index = 0;
@@ -1376,6 +1378,11 @@ public class IntefazJF extends javax.swing.JFrame {
         jtfCapituloTitulo.setEnabled(true);
         jtfCapituloFechaEmison.setEnabled(true);
     }
+    
+    private void resetearIndicesSerie() {
+        this.indiceTemporada = -1;
+        this.indiceCapitulo = -1;
+    }
         
     
     
@@ -1385,9 +1392,8 @@ public class IntefazJF extends javax.swing.JFrame {
     private ArrayList<Media> listaMedia;
     private Pelicula peliculaSeleccionada;
     private Serie serieSeleccionada;
-    private Temporada temporadaSeleccionada;
-    private int indiceCapitulo;
     private int indiceTemporada;
+    private int indiceCapitulo;
     private ModeloListaMedia modeloMedia;
     private ModeloListaTemporada modeloTemporada;
     private ModeloListaCapitulo modeloCapitulo;
