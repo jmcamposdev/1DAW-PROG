@@ -1043,6 +1043,8 @@ public class IntefazJF extends javax.swing.JFrame {
         
         if (validFecha && serieSeleccionada.añadirTemporada(Utilities.convertToLocalDate(fecha))) {
             actualizarListaTempordas();
+            deshabilitarTemporada();
+            deshabilitarCapitulo();
             JOptionPane.showMessageDialog(this, "Temporada Creada con exito");
         } else if (!exit) {
             JOptionPane.showMessageDialog(this, "Ya existe una Temporada el mismo mes.");
