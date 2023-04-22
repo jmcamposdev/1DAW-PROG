@@ -715,15 +715,20 @@ public class IntefazJF extends javax.swing.JFrame {
             // Mostramos  el Menú
             jpmEliminarMedia.show(jtListaMedia, evt.getX(), evt.getY());
         } else {
+            Media mediaSeleccionada = null;
             CardLayout cl = (CardLayout)(jpInformacionMedia.getLayout());
             if (jtListaMedia.getSelectedRow() != -1) {
                 mediaSeleccionada = listaMedia.get(jtListaMedia.getSelectedRow());
             }
             
             if (mediaSeleccionada instanceof Pelicula) {
-                cargarInfomacioPelicula((Pelicula) mediaSeleccionada);
+                peliculaSeleccionada = (Pelicula) mediaSeleccionada; // Obtemos la Pelicula Seleccionada
+                cargarInfomacioPelicula(); // Cargamos la infomacion en todos los Fields
+                // Mostramos la Panle de la Pelicula
                 cl.show(jpInformacionMedia, "informacionPelicula");
+                // Hacer visible la panel
                 jpInformacionMedia.setVisible(true);
+                // Hacer invisible el Panel de Temporadas
                 jpInformacionTemporadas.setVisible(false);
                 temporadaSeleccionada = null;
 
@@ -755,13 +760,13 @@ public class IntefazJF extends javax.swing.JFrame {
 
     private void jtfPeliculaNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaNombreFocusLost
         String nuevoNombre = jtfPeliculaNombre.getText();
-        if (nuevoNombre.equals(mediaSeleccionada.getNombre())) {
+        if (nuevoNombre.equals(peliculaSeleccionada.getNombre())) {
             return;
         }
         boolean validNombre = true;
         String errorMessage = "";
         
-        Pelicula nuevaPelicula = new Pelicula((Pelicula) mediaSeleccionada);
+        Pelicula nuevaPelicula = new Pelicula(peliculaSeleccionada);
         nuevaPelicula.setNombre(nuevoNombre);
         if (nuevoNombre.isBlank()) {
             errorMessage = "No puedes dejar el nombre vacío";
@@ -772,24 +777,24 @@ public class IntefazJF extends javax.swing.JFrame {
         }
         
         if (validNombre) {
-            mediaSeleccionada.setNombre(nuevoNombre);
+            peliculaSeleccionada.setNombre(nuevoNombre);
             actualizarListaMedia();
             jlTituloPelicula.setText("Pelicula: " + nuevoNombre);
         } else {
             JOptionPane.showMessageDialog(rootPane, errorMessage);
-            jtfPeliculaNombre.setText(mediaSeleccionada.getNombre());
+            jtfPeliculaNombre.setText(peliculaSeleccionada.getNombre());
         }
     }//GEN-LAST:event_jtfPeliculaNombreFocusLost
 
     private void jtfPeliculaCalificacionDeEdadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaCalificacionDeEdadFocusLost
         String nuevaCalificacionEdad = jtfPeliculaCalificacionDeEdad.getText();
-        if (nuevaCalificacionEdad.equals(String.valueOf(mediaSeleccionada.getCalificacionEdad()))) {
+        if (nuevaCalificacionEdad.equals(String.valueOf(peliculaSeleccionada.getCalificacionEdad()))) {
             return;
         }
         
         boolean validCalificacionEdad = true;
         String errorMessage = "";
-        Pelicula nuevaPelicula = new Pelicula((Pelicula) mediaSeleccionada);
+        Pelicula nuevaPelicula = new Pelicula(peliculaSeleccionada);
         
         if (!nuevaCalificacionEdad.matches("\\d+")) {
             errorMessage = "La calificación de Edad debe de contener solo números";
@@ -809,17 +814,17 @@ public class IntefazJF extends javax.swing.JFrame {
         }
         
         if (validCalificacionEdad) {
-            mediaSeleccionada.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
+           peliculaSeleccionada.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
             actualizarListaMedia();
         } else {
             JOptionPane.showMessageDialog(this, errorMessage);
-            jtfPeliculaCalificacionDeEdad.setText(mediaSeleccionada.getCalificacionEdad()+"");
+            jtfPeliculaCalificacionDeEdad.setText(peliculaSeleccionada.getCalificacionEdad()+"");
         }
     }//GEN-LAST:event_jtfPeliculaCalificacionDeEdadFocusLost
 
     private void jtfPeliculaFechaIncorporacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaFechaIncorporacionFocusLost
         String nuevaFecha = jtfPeliculaFechaIncorporacion.getText();
-        if (nuevaFecha.equals(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()))) {
+        if (nuevaFecha.equals(format.format(peliculaSeleccionada.getFechaIncorporacionAlCatalogo()))) {
             return;
         }
         
@@ -831,21 +836,20 @@ public class IntefazJF extends javax.swing.JFrame {
             validFecha = false;
         }
         if (validFecha) {
-            mediaSeleccionada.setFechaIncorporacionAlCatalogo(Utilities.convertToLocalDate(nuevaFecha));
+            peliculaSeleccionada.setFechaIncorporacionAlCatalogo(Utilities.convertToLocalDate(nuevaFecha));
             actualizarListaMedia();
         } else {
            JOptionPane.showMessageDialog(rootPane, errorMessage);
-           jtfPeliculaFechaIncorporacion.setText(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()));
+           jtfPeliculaFechaIncorporacion.setText(format.format(peliculaSeleccionada.getFechaIncorporacionAlCatalogo()));
         }
     }//GEN-LAST:event_jtfPeliculaFechaIncorporacionFocusLost
 
     private void jcbPeliculaDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPeliculaDisponibilidadActionPerformed
-        mediaSeleccionada.setEstaDisponible(jcbPeliculaDisponibilidad.isSelected());
+       peliculaSeleccionada.setEstaDisponible(jcbPeliculaDisponibilidad.isSelected());
     }//GEN-LAST:event_jcbPeliculaDisponibilidadActionPerformed
 
     private void jtfPeliculaDirectorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaDirectorFocusLost
         String nuevoDirector = jtfPeliculaDirector.getText();
-        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
         if (nuevoDirector.isBlank()) {
             JOptionPane.showMessageDialog(this, "No puedes dejar el cambo vacío.");
             jtfPeliculaDirector.setText(peliculaSeleccionada.getDirector());
@@ -857,7 +861,6 @@ public class IntefazJF extends javax.swing.JFrame {
 
     private void jtfPeliculaActorPrincipalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaActorPrincipalFocusLost
         String nuevoActor = jtfPeliculaActorPrincipal.getText();
-        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
         if (nuevoActor.isBlank()) {
             JOptionPane.showMessageDialog(this, "No puedes dejar el cambo vacío.");
             jtfPeliculaActorPrincipal.setText(peliculaSeleccionada.getDirector());
@@ -868,7 +871,6 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfPeliculaActorPrincipalFocusLost
 
     private void jtfPeliculaDuracionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaDuracionFocusLost
-        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
         String duracion = jtfPeliculaDuracion.getText();
         if (duracion.equals(String.valueOf(peliculaSeleccionada.getDuracion()+""))) {
             return;
@@ -895,7 +897,6 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfPeliculaDuracionFocusLost
 
     private void jcbPeliculaTematicaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbPeliculaTematicaFocusLost
-        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
         if (peliculaSeleccionada.getCategoria() == jcbPeliculaTematica.getSelectedItem()) {
             return;
         }
@@ -906,13 +907,13 @@ public class IntefazJF extends javax.swing.JFrame {
 
     private void jtfSerieNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieNombreFocusLost
         String nuevoNombre = jtfSerieNombre.getText();
-        if (nuevoNombre.equals(mediaSeleccionada.getNombre())) {
+        if (nuevoNombre.equals(serieSeleccionada.getNombre())) {
             return;
         }
         boolean validNombre = true;
         String errorMessage = "";
         
-        Serie nuevaSerie = new Serie((Serie) mediaSeleccionada);
+        Serie nuevaSerie = new Serie(serieSeleccionada);
         nuevaSerie.setNombre(nuevoNombre);
         if (nuevoNombre.isBlank()) {
             errorMessage = "No puedes dejar el nombre vacío";
@@ -923,25 +924,24 @@ public class IntefazJF extends javax.swing.JFrame {
         }
         
         if (validNombre) {
-            mediaSeleccionada.setNombre(nuevoNombre);
+            serieSeleccionada.setNombre(nuevoNombre);
             actualizarListaMedia();
             jlTituloSerie.setText("Serie: " + nuevoNombre);
         } else {
             JOptionPane.showMessageDialog(rootPane, errorMessage);
-            jtfSerieNombre.setText(mediaSeleccionada.getNombre());
+            jtfSerieNombre.setText(serieSeleccionada.getNombre());
         }
     }//GEN-LAST:event_jtfSerieNombreFocusLost
 
     private void jtfSerieCalificacionEdadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieCalificacionEdadFocusLost
         String nuevaCalificacionEdad = jtfSerieCalificacionEdad.getText();
-        if (nuevaCalificacionEdad.equals(String.valueOf(mediaSeleccionada.getCalificacionEdad()))) {
+        if (nuevaCalificacionEdad.equals(String.valueOf(serieSeleccionada.getCalificacionEdad()))) {
             return;
         }
         
         boolean validCalificacionEdad = true;
         String errorMessage = "";
-        Serie nuevaSerie = new Serie((Serie) mediaSeleccionada);
-        
+        Serie nuevaSerie = new Serie(serieSeleccionada);
         if (!nuevaCalificacionEdad.matches("\\d+")) {
             errorMessage = "La calificación de Edad debe de contener solo números";
             validCalificacionEdad = false;
@@ -960,17 +960,17 @@ public class IntefazJF extends javax.swing.JFrame {
         }
         
         if (validCalificacionEdad) {
-            mediaSeleccionada.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
+            serieSeleccionada.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
             actualizarListaMedia();
         } else {
             JOptionPane.showMessageDialog(this, errorMessage);
-            jtfSerieCalificacionEdad.setText(mediaSeleccionada.getCalificacionEdad()+"");
+            jtfSerieCalificacionEdad.setText(serieSeleccionada.getCalificacionEdad()+"");
         }
     }//GEN-LAST:event_jtfSerieCalificacionEdadFocusLost
 
     private void jtfSerieFechaIncorporacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieFechaIncorporacionFocusLost
         String nuevaFecha = jtfSerieFechaIncorporacion.getText();
-        if (nuevaFecha.equals(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()))) {
+        if (nuevaFecha.equals(format.format(serieSeleccionada.getFechaIncorporacionAlCatalogo()))) {
             return;
         }
         
@@ -982,20 +982,19 @@ public class IntefazJF extends javax.swing.JFrame {
             validFecha = false;
         }
         if (validFecha) {
-            mediaSeleccionada.setFechaIncorporacionAlCatalogo(Utilities.convertToLocalDate(nuevaFecha));
+            serieSeleccionada.setFechaIncorporacionAlCatalogo(Utilities.convertToLocalDate(nuevaFecha));
             actualizarListaMedia();
         } else {
            JOptionPane.showMessageDialog(rootPane, errorMessage);
-           jtfSerieFechaIncorporacion.setText(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()));
+           jtfSerieFechaIncorporacion.setText(format.format(serieSeleccionada.getFechaIncorporacionAlCatalogo()));
         }
     }//GEN-LAST:event_jtfSerieFechaIncorporacionFocusLost
 
     private void jcbSerieDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSerieDisponibilidadActionPerformed
-        mediaSeleccionada.setEstaDisponible(jcbSerieDisponibilidad.isSelected());
+        serieSeleccionada.setEstaDisponible(jcbSerieDisponibilidad.isSelected());
     }//GEN-LAST:event_jcbSerieDisponibilidadActionPerformed
 
     private void jtfSerieFechaEstrenoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieFechaEstrenoFocusLost
-        Serie serieSeleccionada = (Serie) mediaSeleccionada;
         String nuevaFecha = jtfSerieFechaEstreno.getText();
         if (nuevaFecha.equals(format.format(serieSeleccionada.getFechaEstreno()))) {
             return;
@@ -1025,7 +1024,6 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfSerieFechaEstrenoFocusLost
 
     private void jbCrearTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearTemporadaActionPerformed
-        Serie serieSeleccionada = (Serie) mediaSeleccionada;
         boolean validFecha = false;
         boolean exit = false;
         String fecha = "";
@@ -1052,10 +1050,9 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCrearTemporadaActionPerformed
 
     private void jmiEliminarTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarTemporadaActionPerformed
-        if (mediaSeleccionada != null && mediaSeleccionada instanceof Serie) {
+        if (serieSeleccionada != null) {
             int index = jtListaTemporadas.getSelectedRow();
             String message = "";
-            Serie serieSeleccionada = (Serie) mediaSeleccionada;
             if (serieSeleccionada.eliminarTemporada(index)) {
                 temporadaSeleccionada = null;
                 message = "Temporada Eliminada con exito";
@@ -1070,8 +1067,7 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiEliminarTemporadaActionPerformed
 
     private void jmiEliminarCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarCapituloActionPerformed
-        if (mediaSeleccionada != null && mediaSeleccionada instanceof Serie) {
-            Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        if (serieSeleccionada != null) {
             int indexTemporada = jtListaTemporadas.getSelectedRow();
             int indexCapitulo = jtListaCapitulos.getSelectedRow();
             String tituloCapitulo = serieSeleccionada.getCapitulo(indexTemporada, indexCapitulo).getTitulo();
@@ -1091,7 +1087,6 @@ public class IntefazJF extends javax.swing.JFrame {
             // Mostramos  el Menú
             jpmEliminarTemporada.show(jtListaTemporadas, evt.getX(), evt.getY());
         } else {
-            Serie serieSeleccionada = (Serie) mediaSeleccionada;
             // Habilitar los inputs Fields de Temporada
             habilitarTemporada();
             // Deshabilitar los inputs Fields de Capitulo
@@ -1123,7 +1118,6 @@ public class IntefazJF extends javax.swing.JFrame {
         if (temporadaSeleccionada == null || jtListaTemporadas.getSelectedRow() == -1) {
             return;
         }
-        Serie serieSeleccionada = (Serie) mediaSeleccionada;
         boolean isValidInput = true;
         String fechaEstrenoString = jtfTemporadaFechaEstreno.getText();
         String errorMesage = "";
@@ -1157,7 +1151,6 @@ public class IntefazJF extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna Temporada");
             return;
         }
-        Serie serieSeleccionada = (Serie) mediaSeleccionada;
         boolean isValido = true; 
         JTextField jtfTitulo = new JTextField();
         JTextField jtfFechaEmision = new JTextField();
@@ -1198,7 +1191,6 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCrearCapituloActionPerformed
 
     private void jtfCapituloTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCapituloTituloFocusLost
-        Serie serieSeleccionada = (Serie) mediaSeleccionada;
         String titulo = jtfCapituloTitulo.getText();
         if (serieSeleccionada.setCapitulo(indiceTemporada, indiceCapitulo, titulo)) {
             temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
@@ -1213,7 +1205,6 @@ public class IntefazJF extends javax.swing.JFrame {
         if (indiceCapitulo == -1) {
             return;
         }
-        Serie serieSeleccionada = (Serie) mediaSeleccionada;
         String fechaEmision = jtfCapituloFechaEmison.getText();
         boolean validFecha = true;
         String errorMessage = "";
@@ -1245,7 +1236,6 @@ public class IntefazJF extends javax.swing.JFrame {
             return;
         }
         
-        Serie serieSeleccionada = (Serie) mediaSeleccionada;
         boolean tipoVoto = false;
         int indexCapitulo = jtListaCapitulos.getSelectedRow();
         int voto = JOptionPane.showConfirmDialog(null, "Realizar voto al Capitulo (Si = Voto Positivo | No = Voto Negativo)", "Guardar archivo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -1309,7 +1299,7 @@ public class IntefazJF extends javax.swing.JFrame {
     }
 
     
-    private void cargarInfomacioPelicula(Pelicula peliculaSeleccionada) {
+    private void cargarInfomacioPelicula() {
         jcbPeliculaTematica.setModel(new DefaultComboBoxModel(Tematica.values()));
         jlTituloPelicula.setText("Pelicula: " + peliculaSeleccionada.getNombre());
         jtfPeliculaNombre.setText(peliculaSeleccionada.getNombre());
@@ -1339,9 +1329,8 @@ public class IntefazJF extends javax.swing.JFrame {
         }
     }
     private void actualizarListaTempordas () {
-        if (mediaSeleccionada != null && mediaSeleccionada instanceof Serie)  {
+        if (serieSeleccionada != null)  {
             modeloTemporada.clear();
-            Serie serieSeleccionada = (Serie) mediaSeleccionada;
             int index = 0;
             Temporada temporada = serieSeleccionada.getCopiaTemporada(index++);
             while (temporada != null) {
@@ -1353,7 +1342,6 @@ public class IntefazJF extends javax.swing.JFrame {
     private void actualizarListaCapitulos() {
         if (temporadaSeleccionada != null) {
             modeloCapitulo.clear();
-            Serie serieSeleccionada = (Serie) mediaSeleccionada;
             Temporada temporada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
             int index = 0;
             Capitulo capitulo = temporada.getCapitulo(index++);
@@ -1395,7 +1383,8 @@ public class IntefazJF extends javax.swing.JFrame {
     
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private ArrayList<Media> listaMedia;
-    private Media mediaSeleccionada;
+    private Pelicula peliculaSeleccionada;
+    private Serie serieSeleccionada;
     private Temporada temporadaSeleccionada;
     private int indiceCapitulo;
     private int indiceTemporada;
