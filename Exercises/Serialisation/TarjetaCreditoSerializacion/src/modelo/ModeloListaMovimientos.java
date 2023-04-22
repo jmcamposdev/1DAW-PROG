@@ -58,16 +58,12 @@ public class ModeloListaMovimientos extends AbstractTableModel{
         Movimiento m = listaMovimientos.get(row);
         Object value = null;
         switch(column){
-            case 0:
-                value = m.getConcepto();
-                break;
-            case 1: 
-                value = m.getCantidad();
-                break;
-            case 2:
+            case 0 -> value = m.getConcepto();
+            case 1 -> value = m.getCantidad();
+            case 2 -> {
                 LocalDateTime fecha = m.getFecha();
                 value = fecha.getDayOfMonth()+"/"+fecha.getMonthValue()+"/"+fecha.getYear();
-                break;
+            }
         }
         return value;
     }
