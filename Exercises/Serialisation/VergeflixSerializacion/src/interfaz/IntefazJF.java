@@ -1090,6 +1090,7 @@ public class IntefazJF extends javax.swing.JFrame {
             jpmEliminarTemporada.show(jtListaTemporadas, evt.getX(), evt.getY());
         } else {
             Serie serieSeleccionada = (Serie) mediaSeleccionada;
+            habilitarTemporada();
             indiceTemporada = jtListaTemporadas.getSelectedRow();
             temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
             jlTemporadaTituloTemporada.setText("Temporada " + (indiceTemporada+1));
@@ -1363,6 +1364,9 @@ public class IntefazJF extends javax.swing.JFrame {
     private void deshabilitarTemporada() {
         jtfTemporadaFechaEstreno.setText("");
         jtfTemporadaFechaEstreno.setEnabled(false);
+    }
+    private void habilitarTemporada() {
+        jtfTemporadaFechaEstreno.setEnabled(true);
     }
     private void deshabilitarCapitulo () {
         jtfCapituloTitulo.setText("");
