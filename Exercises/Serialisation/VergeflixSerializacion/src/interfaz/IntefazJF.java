@@ -728,9 +728,13 @@ public class IntefazJF extends javax.swing.JFrame {
                 temporadaSeleccionada = null;
 
             } else {
+                // Cargamos los datos de la Serie en los campos
                 cargarInformacionSerie((Serie) mediaSeleccionada);
+                // Deshabilitamos todos los campos de inserción
+                deshabilitarTemporada();
+                deshabilitarCapitulo();
+                // Cargamos las Temporadas
                 actualizarListaTempordas();
-                actualizarListaCapitulos();
                 jtfTemporadaFechaEstreno.setText("");
 
                 cl.show(jpInformacionMedia, "informacionSerie");
@@ -1090,6 +1094,7 @@ public class IntefazJF extends javax.swing.JFrame {
             temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
             jlTemporadaTituloTemporada.setText("Temporada " + (indiceTemporada+1));
             jtfTemporadaFechaEstreno.setText(format.format(temporadaSeleccionada.getFechaEstreno()));
+            resetearCapitulos();
             actualizarListaCapitulos();
         }
     }//GEN-LAST:event_jtListaTemporadasMouseClicked
@@ -1196,6 +1201,9 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCapituloTituloFocusLost
 
     private void jtfCapituloFechaEmisonFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCapituloFechaEmisonFocusLost
+        if (indiceCapitulo == -1) {
+            return;
+        }
         Serie serieSeleccionada = (Serie) mediaSeleccionada;
         String fechaEmision = jtfCapituloFechaEmison.getText();
         boolean validFecha = true;
@@ -1345,6 +1353,23 @@ public class IntefazJF extends javax.swing.JFrame {
                 capitulo = temporada.getCapitulo(index++);
             }
         }
+    }
+    
+    private void resetearCapitulos() {
+        indiceCapitulo = -1;
+        jtfCapituloTitulo.setText("");
+        jtfCapituloFechaEmison.setText("");
+    }
+    private void deshabilitarTemporada() {
+        jtfTemporadaFechaEstreno.setText("");
+        jtfTemporadaFechaEstreno.setEnabled(false);
+    }
+    private void deshabilitarCapitulo () {
+        jtfCapituloTitulo.setText("");
+        jtfCapituloTitulo.setEnabled(false);
+        
+        jtfCapituloFechaEmison.setText("");
+        jtfCapituloFechaEmison.setEnabled(false);
     }
         
     
