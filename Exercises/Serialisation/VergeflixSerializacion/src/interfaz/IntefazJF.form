@@ -189,7 +189,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                                      <Component id="jcbDisponibilidad" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jcbPeliculaDisponibilidad" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
@@ -221,13 +221,13 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jcbTematica" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jtfNombre" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfCalificacionDeEdad" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfFechaIncorporacion" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfDirector" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfActorPrincipal" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfDuracion" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="jcbPeliculaTematica" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jtfPeliculaNombre" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaCalificacionDeEdad" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaFechaIncorporacion" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaDirector" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaActorPrincipal" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaDuracion" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -249,29 +249,29 @@
                       <EmptySpace pref="55" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlTituloNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfPeliculaNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlTituloCalificacionDeEdad" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfCalificacionDeEdad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfPeliculaCalificacionDeEdad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlTituloFechaIncorporación" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfFechaIncorporacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfPeliculaFechaIncorporacion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Component id="jcbDisponibilidad" min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="jcbPeliculaDisponibilidad" min="-2" pref="21" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlTituloDirector" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfDirector" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfPeliculaDirector" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlTituloActorPrincipal" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfActorPrincipal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfPeliculaActorPrincipal" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -280,13 +280,13 @@
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jtfDuracion" min="-2" max="-2" attributes="0"/>
+                              <Component id="jtfPeliculaDuracion" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlTituloTematica" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jcbTematica" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jcbPeliculaTematica" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
@@ -294,12 +294,18 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="jtfDuracion">
+            <Component class="javax.swing.JTextField" name="jtfPeliculaDuracion">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfPeliculaDuracionFocusLost"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jcbDisponibilidad">
+            <Component class="javax.swing.JCheckBox" name="jcbPeliculaDisponibilidad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Se encuetra Disponible"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbPeliculaDisponibilidadActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlTituloDuracion">
               <Properties>
@@ -311,7 +317,7 @@
                 <Property name="text" type="java.lang.String" value="Fecha Incorporaci&#xf3;n al Catalogo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jcbTematica">
+            <Component class="javax.swing.JComboBox" name="jcbPeliculaTematica">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -322,11 +328,17 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jcbPeliculaTematicaFocusLost"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="jtfDirector">
+            <Component class="javax.swing.JTextField" name="jtfPeliculaDirector">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfPeliculaDirectorFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlTituloTematica">
               <Properties>
@@ -338,18 +350,30 @@
                 <Property name="text" type="java.lang.String" value="Director:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jtfActorPrincipal">
+            <Component class="javax.swing.JTextField" name="jtfPeliculaActorPrincipal">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfPeliculaActorPrincipalFocusLost"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jtfNombre">
+            <Component class="javax.swing.JTextField" name="jtfPeliculaNombre">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfPeliculaNombreFocusLost"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jtfCalificacionDeEdad">
+            <Component class="javax.swing.JTextField" name="jtfPeliculaCalificacionDeEdad">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfPeliculaCalificacionDeEdadFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlTituloNombre">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nombre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jtfFechaIncorporacion">
+            <Component class="javax.swing.JTextField" name="jtfPeliculaFechaIncorporacion">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfPeliculaFechaIncorporacionFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlTituloActorPrincipal">
               <Properties>

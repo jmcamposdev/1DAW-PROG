@@ -4,6 +4,7 @@
  */
 package interfaz;
 
+import Funciones.Utilities;
 import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -70,19 +71,19 @@ public class IntefazJF extends javax.swing.JFrame {
         jpInformacionSerie = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jpInformacionPelicula = new javax.swing.JPanel();
-        jtfDuracion = new javax.swing.JTextField();
-        jcbDisponibilidad = new javax.swing.JCheckBox();
+        jtfPeliculaDuracion = new javax.swing.JTextField();
+        jcbPeliculaDisponibilidad = new javax.swing.JCheckBox();
         jlTituloDuracion = new javax.swing.JLabel();
         jlTituloFechaIncorporación = new javax.swing.JLabel();
-        jcbTematica = new javax.swing.JComboBox<>();
-        jtfDirector = new javax.swing.JTextField();
+        jcbPeliculaTematica = new javax.swing.JComboBox<>();
+        jtfPeliculaDirector = new javax.swing.JTextField();
         jlTituloTematica = new javax.swing.JLabel();
         jlTituloDirector = new javax.swing.JLabel();
-        jtfActorPrincipal = new javax.swing.JTextField();
-        jtfNombre = new javax.swing.JTextField();
-        jtfCalificacionDeEdad = new javax.swing.JTextField();
+        jtfPeliculaActorPrincipal = new javax.swing.JTextField();
+        jtfPeliculaNombre = new javax.swing.JTextField();
+        jtfPeliculaCalificacionDeEdad = new javax.swing.JTextField();
         jlTituloNombre = new javax.swing.JLabel();
-        jtfFechaIncorporacion = new javax.swing.JTextField();
+        jtfPeliculaFechaIncorporacion = new javax.swing.JTextField();
         jlTituloActorPrincipal = new javax.swing.JLabel();
         jlTituloCalificacionDeEdad = new javax.swing.JLabel();
         jlTituloPelicula = new javax.swing.JLabel();
@@ -145,19 +146,65 @@ public class IntefazJF extends javax.swing.JFrame {
 
         jpInformacionMedia.add(jpInformacionSerie, "informacionSerie");
 
-        jcbDisponibilidad.setText("Se encuetra Disponible");
+        jtfPeliculaDuracion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfPeliculaDuracionFocusLost(evt);
+            }
+        });
+
+        jcbPeliculaDisponibilidad.setText("Se encuetra Disponible");
+        jcbPeliculaDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPeliculaDisponibilidadActionPerformed(evt);
+            }
+        });
 
         jlTituloDuracion.setText("Duracion:");
 
         jlTituloFechaIncorporación.setText("Fecha Incorporación al Catalogo:");
 
-        jcbTematica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbPeliculaTematica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbPeliculaTematica.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbPeliculaTematicaFocusLost(evt);
+            }
+        });
+
+        jtfPeliculaDirector.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfPeliculaDirectorFocusLost(evt);
+            }
+        });
 
         jlTituloTematica.setText("Tematica");
 
         jlTituloDirector.setText("Director:");
 
+        jtfPeliculaActorPrincipal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfPeliculaActorPrincipalFocusLost(evt);
+            }
+        });
+
+        jtfPeliculaNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfPeliculaNombreFocusLost(evt);
+            }
+        });
+
+        jtfPeliculaCalificacionDeEdad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfPeliculaCalificacionDeEdadFocusLost(evt);
+            }
+        });
+
         jlTituloNombre.setText("Nombre:");
+
+        jtfPeliculaFechaIncorporacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfPeliculaFechaIncorporacionFocusLost(evt);
+            }
+        });
 
         jlTituloActorPrincipal.setText("Actor Principal:");
 
@@ -177,7 +224,7 @@ public class IntefazJF extends javax.swing.JFrame {
                         .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
                                 .addGap(58, 58, 58)
-                                .addComponent(jcbDisponibilidad))
+                                .addComponent(jcbPeliculaDisponibilidad))
                             .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
                                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,13 +247,13 @@ public class IntefazJF extends javax.swing.JFrame {
                                                 .addGap(10, 10, 10)))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jcbTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfNombre)
-                                    .addComponent(jtfCalificacionDeEdad)
-                                    .addComponent(jtfFechaIncorporacion)
-                                    .addComponent(jtfDirector)
-                                    .addComponent(jtfActorPrincipal)
-                                    .addComponent(jtfDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfPeliculaNombre)
+                                    .addComponent(jtfPeliculaCalificacionDeEdad)
+                                    .addComponent(jtfPeliculaFechaIncorporacion)
+                                    .addComponent(jtfPeliculaDirector)
+                                    .addComponent(jtfPeliculaActorPrincipal)
+                                    .addComponent(jtfPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addComponent(jlTituloPelicula)))
@@ -220,36 +267,36 @@ public class IntefazJF extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloNombre)
-                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPeliculaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloCalificacionDeEdad)
-                    .addComponent(jtfCalificacionDeEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPeliculaCalificacionDeEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloFechaIncorporación)
-                    .addComponent(jtfFechaIncorporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPeliculaFechaIncorporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addComponent(jcbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcbPeliculaDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloDirector)
-                    .addComponent(jtfDirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPeliculaDirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloActorPrincipal)
-                    .addComponent(jtfActorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPeliculaActorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
                         .addComponent(jlTituloDuracion)
                         .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInformacionPeliculaLayout.createSequentialGroup()
-                        .addComponent(jtfDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtfPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloTematica)
-                    .addComponent(jcbTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
         );
 
@@ -376,11 +423,13 @@ public class IntefazJF extends javax.swing.JFrame {
             // Mostramos  el Menú
             jpmEliminar.show(jtListaMedia, evt.getX(), evt.getY());
         } else if(evt.getClickCount() == 1)  {
-            int index = jtListaMedia.getSelectedRow();
             CardLayout cl = (CardLayout)(jpInformacionMedia.getLayout());
-            if (listaMedia.get(index) instanceof Pelicula) {
-                Pelicula peliculaSeleccionada = (Pelicula) listaMedia.get(index);
-                cargarInfomacioPelicula(peliculaSeleccionada);
+            if (jtListaMedia.getSelectedRow() != -1) {
+                mediaSeleccionada = listaMedia.get(jtListaMedia.getSelectedRow());
+
+            }
+            if (mediaSeleccionada instanceof Pelicula) {
+                cargarInfomacioPelicula((Pelicula) mediaSeleccionada);
                 cl.show(jpInformacionMedia, "informacionPelicula");
             } else {
                 cl.show(jpInformacionMedia, "informacionSerie");
@@ -393,6 +442,156 @@ public class IntefazJF extends javax.swing.JFrame {
         this.listaMedia.remove(index); // Lo eliminamos de la lista
         modelo.eliminarMedia(index); // Lo eliminamos de la Tabla
     }//GEN-LAST:event_jmiEliminarActionPerformed
+
+    private void jtfPeliculaNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaNombreFocusLost
+        String nuevoNombre = jtfPeliculaNombre.getText();
+        if (nuevoNombre.equals(mediaSeleccionada.getNombre())) {
+            return;
+        }
+        boolean validNombre = true;
+        String errorMessage = "";
+        
+        Pelicula nuevaPelicula = new Pelicula((Pelicula) mediaSeleccionada);
+        nuevaPelicula.setNombre(nuevoNombre);
+        if (nuevoNombre.isBlank()) {
+            errorMessage = "No puedes dejar el nombre vacío";
+            validNombre = false;
+        } else if (listaMedia.contains(nuevaPelicula)) {
+            errorMessage = "No se puede insertar ese nombre ya que exite otra película igual";
+            validNombre = false;
+        }
+        
+        if (validNombre) {
+            mediaSeleccionada.setNombre(nuevoNombre);
+            actualizarListaMedia();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, errorMessage);
+            jtfPeliculaNombre.setText(mediaSeleccionada.getNombre());
+        }
+    }//GEN-LAST:event_jtfPeliculaNombreFocusLost
+
+    private void jtfPeliculaCalificacionDeEdadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaCalificacionDeEdadFocusLost
+        String nuevaCalificacionEdad = jtfPeliculaCalificacionDeEdad.getText();
+        if (nuevaCalificacionEdad.equals(String.valueOf(mediaSeleccionada.getCalificacionEdad()))) {
+            return;
+        }
+        
+        boolean validCalificacionEdad = true;
+        String errorMessage = "";
+        Pelicula nuevaPelicula = new Pelicula((Pelicula) mediaSeleccionada);
+        
+        if (!nuevaCalificacionEdad.matches("\\d+")) {
+            errorMessage = "La calificación de Edad debe de contener solo números";
+            validCalificacionEdad = false;
+        }
+        if (validCalificacionEdad && (Integer.valueOf(nuevaCalificacionEdad) < 0 || Integer.valueOf(nuevaCalificacionEdad) > 18)) {
+            errorMessage = "Rango inválido debe de ser entre 0 - 18";
+            validCalificacionEdad = false;
+        }
+        
+        if (validCalificacionEdad) {
+            nuevaPelicula.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
+            if (listaMedia.contains(nuevaPelicula)) {
+                errorMessage = "Ya exite otra película igual.";
+                validCalificacionEdad = false;
+            }
+        }
+        
+        if (validCalificacionEdad) {
+            mediaSeleccionada.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
+            actualizarListaMedia();
+        } else {
+            JOptionPane.showMessageDialog(this, errorMessage);
+            jtfPeliculaCalificacionDeEdad.setText(mediaSeleccionada.getCalificacionEdad()+"");
+        }
+    }//GEN-LAST:event_jtfPeliculaCalificacionDeEdadFocusLost
+
+    private void jtfPeliculaFechaIncorporacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaFechaIncorporacionFocusLost
+        String nuevaFecha = jtfPeliculaFechaIncorporacion.getText();
+        if (nuevaFecha.equals(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()))) {
+            return;
+        }
+        
+        boolean validFecha = true;
+        String errorMessage = "";
+        
+        if (!Utilities.validateLocalDate(nuevaFecha)) {
+            errorMessage = "El formato de fecha debe de ser dd/MM/yyyy";
+            validFecha = false;
+        }
+        if (validFecha) {
+            mediaSeleccionada.setFechaIncorporacionAlCatalogo(Utilities.convertToLocalDate(nuevaFecha));
+            actualizarListaMedia();
+        } else {
+           JOptionPane.showMessageDialog(rootPane, errorMessage);
+           jtfPeliculaFechaIncorporacion.setText(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()));
+        }
+    }//GEN-LAST:event_jtfPeliculaFechaIncorporacionFocusLost
+
+    private void jcbPeliculaDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPeliculaDisponibilidadActionPerformed
+        mediaSeleccionada.setEstaDisponible(jcbPeliculaDisponibilidad.isSelected());
+    }//GEN-LAST:event_jcbPeliculaDisponibilidadActionPerformed
+
+    private void jtfPeliculaDirectorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaDirectorFocusLost
+        String nuevoDirector = jtfPeliculaDirector.getText();
+        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
+        if (nuevoDirector.isBlank()) {
+            JOptionPane.showMessageDialog(this, "No puedes dejar el cambo vacío.");
+            jtfPeliculaDirector.setText(peliculaSeleccionada.getDirector());
+        } else {
+            peliculaSeleccionada.setDirector(nuevoDirector);
+            actualizarListaMedia();
+        }
+    }//GEN-LAST:event_jtfPeliculaDirectorFocusLost
+
+    private void jtfPeliculaActorPrincipalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaActorPrincipalFocusLost
+        String nuevoActor = jtfPeliculaActorPrincipal.getText();
+        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
+        if (nuevoActor.isBlank()) {
+            JOptionPane.showMessageDialog(this, "No puedes dejar el cambo vacío.");
+            jtfPeliculaActorPrincipal.setText(peliculaSeleccionada.getDirector());
+        } else {
+            peliculaSeleccionada.setActorPrincipal(nuevoActor);
+            actualizarListaMedia();
+        }
+    }//GEN-LAST:event_jtfPeliculaActorPrincipalFocusLost
+
+    private void jtfPeliculaDuracionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaDuracionFocusLost
+        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
+        String duracion = jtfPeliculaDuracion.getText();
+        if (duracion.equals(String.valueOf(peliculaSeleccionada.getDuracion()+""))) {
+            return;
+        }
+        String errorMessage = "";
+        boolean validDuracion = true;
+        
+        if (!duracion.matches("\\d+")) {
+            errorMessage = "La duarcion debe de ser numérica";
+            validDuracion = false;
+        }
+        if (validDuracion && !Utilities.validateRange(Integer.valueOf(duracion), 60, 241)) {
+            errorMessage = "La duarcion debe de encontrase entre 60 y 240";
+            validDuracion = false;
+        }
+        
+        if (validDuracion) {
+            peliculaSeleccionada.setDuracion(Integer.valueOf(duracion));
+            actualizarListaMedia();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, errorMessage);
+            jtfPeliculaDuracion.setText(peliculaSeleccionada.getDuracion()+"");
+        }
+    }//GEN-LAST:event_jtfPeliculaDuracionFocusLost
+
+    private void jcbPeliculaTematicaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbPeliculaTematicaFocusLost
+        Pelicula peliculaSeleccionada = (Pelicula) mediaSeleccionada;
+        if (peliculaSeleccionada.getCategoria() == jcbPeliculaTematica.getSelectedItem()) {
+            return;
+        }
+        
+        peliculaSeleccionada.setCategoria((Tematica)jcbPeliculaTematica.getSelectedItem());
+        actualizarListaMedia();
+    }//GEN-LAST:event_jcbPeliculaTematicaFocusLost
 
     /**
      * @param args the command line arguments
@@ -431,19 +630,25 @@ public class IntefazJF extends javax.swing.JFrame {
 
     
     private void cargarInfomacioPelicula(Pelicula peliculaSeleccionada) {
-        jcbTematica.setModel(new DefaultComboBoxModel(Tematica.values()));
+        jcbPeliculaTematica.setModel(new DefaultComboBoxModel(Tematica.values()));
         jlTituloPelicula.setText("Pelicula: " + peliculaSeleccionada.getNombre());
-        jtfNombre.setText(peliculaSeleccionada.getNombre());
-        jtfCalificacionDeEdad.setText(peliculaSeleccionada.getCalificacionEdad()+"");
-        jtfFechaIncorporacion.setText(format.format(peliculaSeleccionada.getFechaIncorporacionAlCatalogo()));
-        jcbDisponibilidad.setSelected(peliculaSeleccionada.isEstaDisponible());
-        jtfDirector.setText(peliculaSeleccionada.getDirector());
-        jtfActorPrincipal.setText(peliculaSeleccionada.getActorPrincipal());
-        jtfDuracion.setText(peliculaSeleccionada.getDuracion()+"");
-        jcbTematica.setSelectedItem(peliculaSeleccionada.getCategoria());
-         
+        jtfPeliculaNombre.setText(peliculaSeleccionada.getNombre());
+        jtfPeliculaCalificacionDeEdad.setText(peliculaSeleccionada.getCalificacionEdad()+"");
+        jtfPeliculaFechaIncorporacion.setText(format.format(peliculaSeleccionada.getFechaIncorporacionAlCatalogo()));
+        jcbPeliculaDisponibilidad.setSelected(peliculaSeleccionada.isEstaDisponible());
+        jtfPeliculaDirector.setText(peliculaSeleccionada.getDirector());
+        jtfPeliculaActorPrincipal.setText(peliculaSeleccionada.getActorPrincipal());
+        jtfPeliculaDuracion.setText(peliculaSeleccionada.getDuracion()+"");
+        jcbPeliculaTematica.setSelectedItem(peliculaSeleccionada.getCategoria());
    }
     
+    private void actualizarListaMedia () {
+        modelo.clear();
+        
+        for (Media m : listaMedia) {
+            modelo.añadirMedia(m);
+        }
+    }
     
     
     
@@ -452,13 +657,14 @@ public class IntefazJF extends javax.swing.JFrame {
     
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private ArrayList<Media> listaMedia;
+    private Media mediaSeleccionada;
     private ModeloListaMedia modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JCheckBox jcbDisponibilidad;
-    private javax.swing.JComboBox<String> jcbTematica;
+    private javax.swing.JCheckBox jcbPeliculaDisponibilidad;
+    private javax.swing.JComboBox<String> jcbPeliculaTematica;
     private javax.swing.JLabel jlTituloActorPrincipal;
     private javax.swing.JLabel jlTituloCalificacionDeEdad;
     private javax.swing.JLabel jlTituloDirector;
@@ -479,11 +685,11 @@ public class IntefazJF extends javax.swing.JFrame {
     private javax.swing.JPanel jpInformacionSerie;
     private javax.swing.JPopupMenu jpmEliminar;
     private javax.swing.JTable jtListaMedia;
-    private javax.swing.JTextField jtfActorPrincipal;
-    private javax.swing.JTextField jtfCalificacionDeEdad;
-    private javax.swing.JTextField jtfDirector;
-    private javax.swing.JTextField jtfDuracion;
-    private javax.swing.JTextField jtfFechaIncorporacion;
-    private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTextField jtfPeliculaActorPrincipal;
+    private javax.swing.JTextField jtfPeliculaCalificacionDeEdad;
+    private javax.swing.JTextField jtfPeliculaDirector;
+    private javax.swing.JTextField jtfPeliculaDuracion;
+    private javax.swing.JTextField jtfPeliculaFechaIncorporacion;
+    private javax.swing.JTextField jtfPeliculaNombre;
     // End of variables declaration//GEN-END:variables
 }
