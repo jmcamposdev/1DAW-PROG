@@ -1090,7 +1090,11 @@ public class IntefazJF extends javax.swing.JFrame {
             jpmEliminarTemporada.show(jtListaTemporadas, evt.getX(), evt.getY());
         } else {
             Serie serieSeleccionada = (Serie) mediaSeleccionada;
+            // Habilitar los inputs Fields de Temporada
             habilitarTemporada();
+            // Deshabilitar los inputs Fields de Capitulo
+            deshabilitarCapitulo();
+            
             indiceTemporada = jtListaTemporadas.getSelectedRow();
             temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
             jlTemporadaTituloTemporada.setText("Temporada " + (indiceTemporada+1));
@@ -1106,6 +1110,8 @@ public class IntefazJF extends javax.swing.JFrame {
             jpmEliminarCapitulo.show(jtListaCapitulos, evt.getX(), evt.getY());
         } else {
             indiceCapitulo = jtListaCapitulos.getSelectedRow();
+            // Habilitamos los input Fields
+            habilitarCapitulo();
             jtfCapituloTitulo.setText(temporadaSeleccionada.getCapitulo(indiceCapitulo).getTitulo());
             jtfCapituloFechaEmison.setText(format.format(temporadaSeleccionada.getCapitulo(indiceCapitulo).getFechaEmision()));
         }
@@ -1368,12 +1374,17 @@ public class IntefazJF extends javax.swing.JFrame {
     private void habilitarTemporada() {
         jtfTemporadaFechaEstreno.setEnabled(true);
     }
+    
     private void deshabilitarCapitulo () {
         jtfCapituloTitulo.setText("");
         jtfCapituloTitulo.setEnabled(false);
         
         jtfCapituloFechaEmison.setText("");
         jtfCapituloFechaEmison.setEnabled(false);
+    }
+    private void habilitarCapitulo() {
+        jtfCapituloTitulo.setEnabled(true);
+        jtfCapituloFechaEmison.setEnabled(true);
     }
         
     
