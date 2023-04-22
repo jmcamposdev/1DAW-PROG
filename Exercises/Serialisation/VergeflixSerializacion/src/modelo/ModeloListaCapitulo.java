@@ -53,7 +53,7 @@ public class ModeloListaCapitulo extends AbstractTableModel{
         return isCapituloEliminado;
     }
     
-    public void eliminarTodo() {
+    public void clear() {
         this.listaCapitulos = new ArrayList<>();
         this.fireTableDataChanged();
     }

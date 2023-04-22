@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class ModeloListaMedia extends AbstractTableModel { 
     private ArrayList<Media> listaMedia;
-    private final String[] nombresColumnas = {"Nombre", "Edad","Puntuación","Tipo"};
+    private final String[] nombresColumnas = {"Nombre","Tipo"};
     
     public ModeloListaMedia() {
         this.listaMedia = new ArrayList<>();
@@ -67,9 +67,7 @@ public class ModeloListaMedia extends AbstractTableModel {
         Object value = null;
         switch(column){
             case 0 -> value = c.getNombre();
-            case 1 -> value = c.getCalificacionEdad();
-            case 2 -> value = c.calcularPuntuacion();
-            case 3 -> value = c instanceof Pelicula ? "Pelicula" : "Serie";                
+            case 1 -> value = c instanceof Pelicula ? "Pelicula" : "Serie";                
         }
         return value;
     }

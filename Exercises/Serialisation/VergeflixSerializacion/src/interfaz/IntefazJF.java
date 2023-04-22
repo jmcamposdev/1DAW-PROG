@@ -14,11 +14,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import modelo.Capitulo;
 import modelo.Media;
+import modelo.ModeloListaCapitulo;
 import modelo.ModeloListaMedia;
+import modelo.ModeloListaTemporada;
 import modelo.Pelicula;
 import modelo.Serie;
 import modelo.Tematica;
+import modelo.Temporada;
 
 /**
  *
@@ -38,18 +43,24 @@ public class IntefazJF extends javax.swing.JFrame {
         this.listaMedia = new ArrayList<>();
         
         // Creamos el Modelos de la Lista
-        modelo = new ModeloListaMedia();
+        modeloMedia = new ModeloListaMedia();
+        modeloTemporada = new ModeloListaTemporada();
+        modeloCapitulo = new ModeloListaCapitulo();
               
         // Actualizamos JTable para que use el Modelo de Canción
-        jtListaMedia.setModel(modelo);
-        // Ponemos oculto el JPanel Card
+        jtListaMedia.setModel(modeloMedia);
+        jtListaTemporadas.setModel(modeloTemporada);
+        jtListaCapitulos.setModel(modeloCapitulo);
         
+        // Ponemos oculto el JPanel Card
+        jpInformacionMedia.setVisible(false);
+        jpInformacionTemporadas.setVisible(false);
         Pelicula p = new Pelicula("Prueba", 10, LocalDate.of(2022, 10, 1), true, "Paco", "Alvaro", 90, Tematica.CIENCIA_FICCION);
         Serie s = new Serie("Prueba", 10, LocalDate.of(2022, 10, 1), true, LocalDate.of(2022, 10, 1));
         s.añadirTemporada(LocalDate.of(2022, 10, 31));
         s.añadirCapitulo(0, LocalDate.of(2022, 11, 11), "Capitulo 1");
-        modelo.añadirMedia(p);
-        modelo.añadirMedia(s);
+        modeloMedia.añadirMedia(p);
+        modeloMedia.añadirMedia(s);
         listaMedia.add(p);
         listaMedia.add(s);
     }
@@ -63,13 +74,28 @@ public class IntefazJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpmEliminar = new javax.swing.JPopupMenu();
-        jmiEliminar = new javax.swing.JMenuItem();
+        jpmEliminarMedia = new javax.swing.JPopupMenu();
+        jmiEliminarMedia = new javax.swing.JMenuItem();
+        jpmEliminarTemporada = new javax.swing.JPopupMenu();
+        jmiEliminarTemporada = new javax.swing.JMenuItem();
+        jpmEliminarCapitulo = new javax.swing.JPopupMenu();
+        jmiEliminarCapitulo = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListaMedia = new javax.swing.JTable();
         jpInformacionMedia = new javax.swing.JPanel();
         jpInformacionSerie = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jtfSerieFechaIncorporacion = new javax.swing.JTextField();
+        jtfSerieFechaEstreno = new javax.swing.JTextField();
+        jlSerieTituloNombre = new javax.swing.JLabel();
+        jlSerieTituloCalificacionEdad = new javax.swing.JLabel();
+        jlSerieTituloFechaIncorporacion = new javax.swing.JLabel();
+        jcbSerieDisponibilidad = new javax.swing.JCheckBox();
+        jlSerieTituloFechaEstreno = new javax.swing.JLabel();
+        jtfSerieNombre = new javax.swing.JTextField();
+        jtfSerieCalificacionEdad = new javax.swing.JTextField();
+        jlTituloSerie = new javax.swing.JLabel();
+        jbCrearTemporada = new javax.swing.JButton();
+        jbCrearCapitulo = new javax.swing.JButton();
         jpInformacionPelicula = new javax.swing.JPanel();
         jtfPeliculaDuracion = new javax.swing.JTextField();
         jcbPeliculaDisponibilidad = new javax.swing.JCheckBox();
@@ -87,6 +113,19 @@ public class IntefazJF extends javax.swing.JFrame {
         jlTituloActorPrincipal = new javax.swing.JLabel();
         jlTituloCalificacionDeEdad = new javax.swing.JLabel();
         jlTituloPelicula = new javax.swing.JLabel();
+        jpInformacionTemporadas = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtListaTemporadas = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtListaCapitulos = new javax.swing.JTable();
+        jlTemporadaTituloTemporada = new javax.swing.JLabel();
+        jlTemporadaTituloFechaEstreno = new javax.swing.JLabel();
+        jtfTemporadaFechaEstreno = new javax.swing.JTextField();
+        jlCapituloTitulo = new javax.swing.JLabel();
+        jlCapituloFechaEmision = new javax.swing.JLabel();
+        jtfCapituloTitulo = new javax.swing.JTextField();
+        jtfCapituloFechaEmison = new javax.swing.JTextField();
+        jbVotarCapitulo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmArchivo = new javax.swing.JMenu();
         jmiGuardar = new javax.swing.JMenuItem();
@@ -95,13 +134,29 @@ public class IntefazJF extends javax.swing.JFrame {
         jmiCrearPelicula = new javax.swing.JMenuItem();
         jmiCrearSerie = new javax.swing.JMenuItem();
 
-        jmiEliminar.setText("Eliminar");
-        jmiEliminar.addActionListener(new java.awt.event.ActionListener() {
+        jmiEliminarMedia.setText("Eliminar");
+        jmiEliminarMedia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiEliminarActionPerformed(evt);
+                jmiEliminarMediaActionPerformed(evt);
             }
         });
-        jpmEliminar.add(jmiEliminar);
+        jpmEliminarMedia.add(jmiEliminarMedia);
+
+        jmiEliminarTemporada.setText("Eliminar");
+        jmiEliminarTemporada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminarTemporadaActionPerformed(evt);
+            }
+        });
+        jpmEliminarTemporada.add(jmiEliminarTemporada);
+
+        jmiEliminarCapitulo.setText("Eliminar");
+        jmiEliminarCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminarCapituloActionPerformed(evt);
+            }
+        });
+        jpmEliminarCapitulo.add(jmiEliminarCapitulo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,23 +180,129 @@ public class IntefazJF extends javax.swing.JFrame {
 
         jpInformacionMedia.setLayout(new java.awt.CardLayout());
 
-        jLabel2.setText("Serie");
+        jtfSerieFechaIncorporacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfSerieFechaIncorporacionFocusLost(evt);
+            }
+        });
+
+        jtfSerieFechaEstreno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfSerieFechaEstrenoFocusLost(evt);
+            }
+        });
+
+        jlSerieTituloNombre.setText("Nombre:");
+
+        jlSerieTituloCalificacionEdad.setText("Calificación de Edad (0 - 18):");
+
+        jlSerieTituloFechaIncorporacion.setText("Fecha de Incorporación (dd/mm/yyyy):");
+
+        jcbSerieDisponibilidad.setText("Se encuetra Disponibles");
+        jcbSerieDisponibilidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSerieDisponibilidadActionPerformed(evt);
+            }
+        });
+
+        jlSerieTituloFechaEstreno.setText("Fecha de Estreno (dd/mm/yyyy):");
+
+        jtfSerieNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfSerieNombreFocusLost(evt);
+            }
+        });
+
+        jtfSerieCalificacionEdad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfSerieCalificacionEdadFocusLost(evt);
+            }
+        });
+
+        jlTituloSerie.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jlTituloSerie.setText("Serie: <nombre>");
+
+        jbCrearTemporada.setText("Crear Temporada");
+        jbCrearTemporada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCrearTemporadaActionPerformed(evt);
+            }
+        });
+
+        jbCrearCapitulo.setText("Crear Capitulo");
+        jbCrearCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCrearCapituloActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpInformacionSerieLayout = new javax.swing.GroupLayout(jpInformacionSerie);
         jpInformacionSerie.setLayout(jpInformacionSerieLayout);
         jpInformacionSerieLayout.setHorizontalGroup(
             jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInformacionSerieLayout.createSequentialGroup()
-                .addContainerGap(213, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(136, 136, 136))
+            .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jlTituloSerie))
+                    .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jbCrearTemporada)
+                            .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                                    .addGap(55, 55, 55)
+                                    .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jlSerieTituloCalificacionEdad)
+                                        .addComponent(jlSerieTituloNombre))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jtfSerieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfSerieCalificacionEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                                    .addComponent(jlSerieTituloFechaIncorporacion)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jtfSerieFechaIncorporacion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                                    .addGap(34, 34, 34)
+                                    .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jcbSerieDisponibilidad)
+                                        .addComponent(jlSerieTituloFechaEstreno))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jtfSerieFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                                .addComponent(jbCrearCapitulo)
+                                .addGap(8, 8, 8)))))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jpInformacionSerieLayout.setVerticalGroup(
             jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpInformacionSerieLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel2)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jlTituloSerie)
+                .addGap(51, 51, 51)
+                .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlSerieTituloNombre)
+                    .addComponent(jtfSerieNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlSerieTituloCalificacionEdad)
+                    .addComponent(jtfSerieCalificacionEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlSerieTituloFechaIncorporacion, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfSerieFechaIncorporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addComponent(jcbSerieDisponibilidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlSerieTituloFechaEstreno)
+                    .addComponent(jtfSerieFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
+                .addComponent(jbCrearTemporada)
+                .addGap(18, 18, 18)
+                .addComponent(jbCrearCapitulo)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         jpInformacionMedia.add(jpInformacionSerie, "informacionSerie");
@@ -218,53 +379,51 @@ public class IntefazJF extends javax.swing.JFrame {
         jpInformacionPeliculaLayout.setHorizontalGroup(
             jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(jcbPeliculaDisponibilidad))
-                            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                            .addGap(65, 65, 65)
-                                            .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jlTituloCalificacionDeEdad)
-                                                .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                                    .addComponent(jlTituloNombre)
-                                                    .addGap(65, 65, 65))))
-                                        .addComponent(jlTituloFechaIncorporación))
-                                    .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
-                                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jlTituloTematica)
-                                            .addComponent(jlTituloActorPrincipal)
-                                            .addComponent(jlTituloDirector)
-                                            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                                .addComponent(jlTituloDuracion)
-                                                .addGap(10, 10, 10)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfPeliculaNombre)
-                                    .addComponent(jtfPeliculaCalificacionDeEdad)
-                                    .addComponent(jtfPeliculaFechaIncorporacion)
-                                    .addComponent(jtfPeliculaDirector)
-                                    .addComponent(jtfPeliculaActorPrincipal)
-                                    .addComponent(jtfPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(58, 58, 58)
+                        .addComponent(jcbPeliculaDisponibilidad))
                     .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                        .addGap(126, 126, 126)
+                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                    .addGap(65, 65, 65)
+                                    .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jlTituloCalificacionDeEdad)
+                                        .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                            .addComponent(jlTituloNombre)
+                                            .addGap(65, 65, 65))))
+                                .addComponent(jlTituloFechaIncorporación))
+                            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jlTituloTematica)
+                                    .addComponent(jlTituloActorPrincipal)
+                                    .addComponent(jlTituloDirector)
+                                    .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                        .addComponent(jlTituloDuracion)
+                                        .addGap(10, 10, 10)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfPeliculaNombre)
+                            .addComponent(jtfPeliculaCalificacionDeEdad)
+                            .addComponent(jtfPeliculaFechaIncorporacion)
+                            .addComponent(jtfPeliculaDirector)
+                            .addComponent(jtfPeliculaActorPrincipal)
+                            .addComponent(jtfPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                        .addGap(120, 120, 120)
                         .addComponent(jlTituloPelicula)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jpInformacionPeliculaLayout.setVerticalGroup(
             jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInformacionPeliculaLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jlTituloPelicula)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloNombre)
                     .addComponent(jtfPeliculaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -297,10 +456,139 @@ public class IntefazJF extends javax.swing.JFrame {
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloTematica)
                     .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         jpInformacionMedia.add(jpInformacionPelicula, "informacionPelicula");
+
+        jtListaTemporadas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtListaTemporadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListaTemporadasMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jtListaTemporadas);
+
+        jtListaCapitulos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtListaCapitulos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListaCapitulosMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jtListaCapitulos);
+
+        jlTemporadaTituloTemporada.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jlTemporadaTituloTemporada.setText("Temporada 1");
+
+        jlTemporadaTituloFechaEstreno.setText("Fecha de Estreno: ");
+
+        jtfTemporadaFechaEstreno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfTemporadaFechaEstrenoFocusLost(evt);
+            }
+        });
+
+        jlCapituloTitulo.setText("Titulo: ");
+
+        jlCapituloFechaEmision.setText("Fecha Emisión:");
+
+        jtfCapituloTitulo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfCapituloTituloFocusLost(evt);
+            }
+        });
+
+        jtfCapituloFechaEmison.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfCapituloFechaEmisonFocusLost(evt);
+            }
+        });
+
+        jbVotarCapitulo.setText("Votar");
+        jbVotarCapitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVotarCapituloActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpInformacionTemporadasLayout = new javax.swing.GroupLayout(jpInformacionTemporadas);
+        jpInformacionTemporadas.setLayout(jpInformacionTemporadasLayout);
+        jpInformacionTemporadasLayout.setHorizontalGroup(
+            jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlTemporadaTituloTemporada)
+                        .addGap(92, 92, 92))
+                    .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                                .addComponent(jlCapituloTitulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfCapituloTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                                .addComponent(jlTemporadaTituloFechaEstreno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfTemporadaFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                                .addComponent(jlCapituloFechaEmision)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfCapituloFechaEmison, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jbVotarCapitulo))
+                        .addContainerGap(48, Short.MAX_VALUE))))
+        );
+        jpInformacionTemporadasLayout.setVerticalGroup(
+            jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpInformacionTemporadasLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jlTemporadaTituloTemporada)
+                        .addGap(36, 36, 36)
+                        .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlTemporadaTituloFechaEstreno)
+                            .addComponent(jtfTemporadaFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInformacionTemporadasLayout.createSequentialGroup()
+                        .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlCapituloTitulo)
+                            .addComponent(jtfCapituloTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jpInformacionTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlCapituloFechaEmision)
+                            .addComponent(jtfCapituloFechaEmison, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53)
+                        .addComponent(jbVotarCapitulo)
+                        .addGap(20, 20, 20))))
+        );
 
         jmArchivo.setText("Archivo");
 
@@ -339,20 +627,24 @@ public class IntefazJF extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpInformacionMedia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jpInformacionMedia, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jpInformacionTemporadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpInformacionMedia, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jpInformacionTemporadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jpInformacionMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -383,7 +675,7 @@ public class IntefazJF extends javax.swing.JFrame {
             
             if (!serieDuplicada) { // Si la Serie no esta duplicada
                 this.listaMedia.add(nuevaSerie); // Añadimos la serie a la lista
-                this.modelo.añadirMedia(nuevaSerie); // Añadimos la serie al JTable
+                this.modeloMedia.añadirMedia(nuevaSerie); // Añadimos la serie al JTable
             }
         }
     }//GEN-LAST:event_jmiCrearSerieActionPerformed
@@ -413,7 +705,7 @@ public class IntefazJF extends javax.swing.JFrame {
             
             if (!peliculaDuplicada) { // Si la pelicula no esta duplicada
                 this.listaMedia.add(nuevaPelicula); // Añadimos la pelicula a la lista
-                this.modelo.añadirMedia(nuevaPelicula); // Añaidmos la pelicula al Jtable
+                this.modeloMedia.añadirMedia(nuevaPelicula); // Añaidmos la pelicula al Jtable
             }
         }
     }//GEN-LAST:event_jmiCrearPeliculaActionPerformed
@@ -421,27 +713,41 @@ public class IntefazJF extends javax.swing.JFrame {
     private void jtListaMediaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaMediaMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) { // Si es Click Derecho
             // Mostramos  el Menú
-            jpmEliminar.show(jtListaMedia, evt.getX(), evt.getY());
-        } else if(evt.getClickCount() == 1)  {
+            jpmEliminarMedia.show(jtListaMedia, evt.getX(), evt.getY());
+        } else {
             CardLayout cl = (CardLayout)(jpInformacionMedia.getLayout());
             if (jtListaMedia.getSelectedRow() != -1) {
                 mediaSeleccionada = listaMedia.get(jtListaMedia.getSelectedRow());
-
             }
+            
             if (mediaSeleccionada instanceof Pelicula) {
                 cargarInfomacioPelicula((Pelicula) mediaSeleccionada);
                 cl.show(jpInformacionMedia, "informacionPelicula");
+                jpInformacionMedia.setVisible(true);
+                jpInformacionTemporadas.setVisible(false);
+                temporadaSeleccionada = null;
+
             } else {
+                cargarInformacionSerie((Serie) mediaSeleccionada);
+                actualizarListaTempordas();
+                actualizarListaCapitulos();
+                jtfTemporadaFechaEstreno.setText("");
+
                 cl.show(jpInformacionMedia, "informacionSerie");
+                jpInformacionMedia.setVisible(true);
+                jpInformacionTemporadas.setVisible(true);
+
             }
         }
     }//GEN-LAST:event_jtListaMediaMouseClicked
 
-    private void jmiEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarActionPerformed
+    private void jmiEliminarMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarMediaActionPerformed
         int index = jtListaMedia.getSelectedRow(); // Obteenos el indice        
         this.listaMedia.remove(index); // Lo eliminamos de la lista
-        modelo.eliminarMedia(index); // Lo eliminamos de la Tabla
-    }//GEN-LAST:event_jmiEliminarActionPerformed
+        modeloMedia.eliminarMedia(index); // Lo eliminamos de la Tabla
+        jpInformacionMedia.setVisible(false);
+        jpInformacionTemporadas.setVisible(false);
+    }//GEN-LAST:event_jmiEliminarMediaActionPerformed
 
     private void jtfPeliculaNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfPeliculaNombreFocusLost
         String nuevoNombre = jtfPeliculaNombre.getText();
@@ -464,6 +770,7 @@ public class IntefazJF extends javax.swing.JFrame {
         if (validNombre) {
             mediaSeleccionada.setNombre(nuevoNombre);
             actualizarListaMedia();
+            jlTituloPelicula.setText("Pelicula: " + nuevoNombre);
         } else {
             JOptionPane.showMessageDialog(rootPane, errorMessage);
             jtfPeliculaNombre.setText(mediaSeleccionada.getNombre());
@@ -593,6 +900,362 @@ public class IntefazJF extends javax.swing.JFrame {
         actualizarListaMedia();
     }//GEN-LAST:event_jcbPeliculaTematicaFocusLost
 
+    private void jtfSerieNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieNombreFocusLost
+        String nuevoNombre = jtfSerieNombre.getText();
+        if (nuevoNombre.equals(mediaSeleccionada.getNombre())) {
+            return;
+        }
+        boolean validNombre = true;
+        String errorMessage = "";
+        
+        Serie nuevaSerie = new Serie((Serie) mediaSeleccionada);
+        nuevaSerie.setNombre(nuevoNombre);
+        if (nuevoNombre.isBlank()) {
+            errorMessage = "No puedes dejar el nombre vacío";
+            validNombre = false;
+        } else if (listaMedia.contains(nuevaSerie)) {
+            errorMessage = "No se puede insertar ese nombre ya que exite otra serie igual";
+            validNombre = false;
+        }
+        
+        if (validNombre) {
+            mediaSeleccionada.setNombre(nuevoNombre);
+            actualizarListaMedia();
+            jlTituloSerie.setText("Serie: " + nuevoNombre);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, errorMessage);
+            jtfSerieNombre.setText(mediaSeleccionada.getNombre());
+        }
+    }//GEN-LAST:event_jtfSerieNombreFocusLost
+
+    private void jtfSerieCalificacionEdadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieCalificacionEdadFocusLost
+        String nuevaCalificacionEdad = jtfSerieCalificacionEdad.getText();
+        if (nuevaCalificacionEdad.equals(String.valueOf(mediaSeleccionada.getCalificacionEdad()))) {
+            return;
+        }
+        
+        boolean validCalificacionEdad = true;
+        String errorMessage = "";
+        Serie nuevaSerie = new Serie((Serie) mediaSeleccionada);
+        
+        if (!nuevaCalificacionEdad.matches("\\d+")) {
+            errorMessage = "La calificación de Edad debe de contener solo números";
+            validCalificacionEdad = false;
+        }
+        if (validCalificacionEdad && (Integer.valueOf(nuevaCalificacionEdad) < 0 || Integer.valueOf(nuevaCalificacionEdad) > 18)) {
+            errorMessage = "Rango inválido debe de ser entre 0 - 18";
+            validCalificacionEdad = false;
+        }
+        
+        if (validCalificacionEdad) {
+            nuevaSerie.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
+            if (listaMedia.contains(nuevaSerie)) {
+                errorMessage = "Ya exite otra película igual.";
+                validCalificacionEdad = false;
+            }
+        }
+        
+        if (validCalificacionEdad) {
+            mediaSeleccionada.setCalificacionEdad(Integer.valueOf(nuevaCalificacionEdad));
+            actualizarListaMedia();
+        } else {
+            JOptionPane.showMessageDialog(this, errorMessage);
+            jtfSerieCalificacionEdad.setText(mediaSeleccionada.getCalificacionEdad()+"");
+        }
+    }//GEN-LAST:event_jtfSerieCalificacionEdadFocusLost
+
+    private void jtfSerieFechaIncorporacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieFechaIncorporacionFocusLost
+        String nuevaFecha = jtfSerieFechaIncorporacion.getText();
+        if (nuevaFecha.equals(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()))) {
+            return;
+        }
+        
+        boolean validFecha = true;
+        String errorMessage = "";
+        
+        if (!Utilities.validateLocalDate(nuevaFecha)) {
+            errorMessage = "El formato de fecha debe de ser dd/MM/yyyy";
+            validFecha = false;
+        }
+        if (validFecha) {
+            mediaSeleccionada.setFechaIncorporacionAlCatalogo(Utilities.convertToLocalDate(nuevaFecha));
+            actualizarListaMedia();
+        } else {
+           JOptionPane.showMessageDialog(rootPane, errorMessage);
+           jtfSerieFechaIncorporacion.setText(format.format(mediaSeleccionada.getFechaIncorporacionAlCatalogo()));
+        }
+    }//GEN-LAST:event_jtfSerieFechaIncorporacionFocusLost
+
+    private void jcbSerieDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSerieDisponibilidadActionPerformed
+        mediaSeleccionada.setEstaDisponible(jcbSerieDisponibilidad.isSelected());
+    }//GEN-LAST:event_jcbSerieDisponibilidadActionPerformed
+
+    private void jtfSerieFechaEstrenoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSerieFechaEstrenoFocusLost
+        Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        String nuevaFecha = jtfSerieFechaEstreno.getText();
+        if (nuevaFecha.equals(format.format(serieSeleccionada.getFechaEstreno()))) {
+            return;
+        }
+        
+        boolean validFecha = true;
+        String errorMessage = "";
+        
+        if (!Utilities.validateLocalDate(nuevaFecha)) {
+            errorMessage = "El formato de fecha debe de ser dd/MM/yyyy";
+            validFecha = false;
+        }
+        
+        if (validFecha) {
+            validFecha = serieSeleccionada.setFechaEstreno(Utilities.convertToLocalDate(nuevaFecha));
+            if (validFecha) {
+                actualizarListaMedia();
+            } else {
+                errorMessage = "La fecha inserta es posterior a la Fecha de la Primera Temporada";
+            }
+        }
+        
+        if (!validFecha) {
+            JOptionPane.showMessageDialog(rootPane, errorMessage);
+            jtfSerieFechaEstreno.setText(format.format(serieSeleccionada.getFechaEstreno()));
+        }        
+    }//GEN-LAST:event_jtfSerieFechaEstrenoFocusLost
+
+    private void jbCrearTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearTemporadaActionPerformed
+        Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        boolean validFecha = false;
+        boolean exit = false;
+        String fecha = "";
+        do {
+            fecha = JOptionPane.showInputDialog(this,"Ingrese la Fecha de la Nueva Temporada (dd/mm/yyyy):","Nueva Temporada",JOptionPane.INFORMATION_MESSAGE);
+            if (fecha != null && Utilities.validateLocalDate(fecha) && Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fecha), serieSeleccionada.getFechaEstreno())) {
+                validFecha = true;
+            } else if (fecha != null) {
+                JOptionPane.showMessageDialog(this, "Fecha inválida la fecha debe de ser posterior a la fecha de estreno de la serie");
+                validFecha = false;
+            } else {
+                exit = true;
+            }
+        } while (!validFecha && !exit);
+        
+        if (validFecha && serieSeleccionada.añadirTemporada(Utilities.convertToLocalDate(fecha))) {
+            actualizarListaTempordas();
+            JOptionPane.showMessageDialog(this, "Temporada Creada con exito");
+        } else if (!exit) {
+            JOptionPane.showMessageDialog(this, "Ya existe una Temporada el mismo mes.");
+        }
+    }//GEN-LAST:event_jbCrearTemporadaActionPerformed
+
+    private void jmiEliminarTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarTemporadaActionPerformed
+        if (mediaSeleccionada != null && mediaSeleccionada instanceof Serie) {
+            int index = jtListaTemporadas.getSelectedRow();
+            String message = "";
+            Serie serieSeleccionada = (Serie) mediaSeleccionada;
+            if (serieSeleccionada.eliminarTemporada(index)) {
+                temporadaSeleccionada = null;
+                message = "Temporada Eliminada con exito";
+                modeloTemporada.eliminarTemporada(index);
+                jtfTemporadaFechaEstreno.setText("");
+                modeloCapitulo.clear();
+            } else {
+                message = "No se ha podidio eliminar la Temporada";
+            }
+            JOptionPane.showMessageDialog(this, message);
+        }
+    }//GEN-LAST:event_jmiEliminarTemporadaActionPerformed
+
+    private void jmiEliminarCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarCapituloActionPerformed
+        if (mediaSeleccionada != null && mediaSeleccionada instanceof Serie) {
+            Serie serieSeleccionada = (Serie) mediaSeleccionada;
+            int indexTemporada = jtListaTemporadas.getSelectedRow();
+            int indexCapitulo = jtListaCapitulos.getSelectedRow();
+            String tituloCapitulo = serieSeleccionada.getCapitulo(indexTemporada, indexCapitulo).getTitulo();
+            String message = "";
+            if (serieSeleccionada.eliminarCapitulo(indexTemporada, tituloCapitulo)) {
+                message = "Capitulo Eliminado con exito";
+                modeloCapitulo.eliminarCapitulo(indexCapitulo);
+            } else {
+                message = "No se ha podidio eliminar el Capitulo";
+            }
+            JOptionPane.showMessageDialog(this, message);
+        }
+    }//GEN-LAST:event_jmiEliminarCapituloActionPerformed
+
+    private void jtListaTemporadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaTemporadasMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            // Mostramos  el Menú
+            jpmEliminarTemporada.show(jtListaTemporadas, evt.getX(), evt.getY());
+        } else {
+            Serie serieSeleccionada = (Serie) mediaSeleccionada;
+            indiceTemporada = jtListaTemporadas.getSelectedRow();
+            temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
+            jlTemporadaTituloTemporada.setText("Temporada " + (indiceTemporada+1));
+            jtfTemporadaFechaEstreno.setText(format.format(temporadaSeleccionada.getFechaEstreno()));
+            actualizarListaCapitulos();
+        }
+    }//GEN-LAST:event_jtListaTemporadasMouseClicked
+
+    private void jtListaCapitulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaCapitulosMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            // Mostramos  el Menú
+            jpmEliminarCapitulo.show(jtListaCapitulos, evt.getX(), evt.getY());
+        } else {
+            indiceCapitulo = jtListaCapitulos.getSelectedRow();
+            jtfCapituloTitulo.setText(temporadaSeleccionada.getCapitulo(indiceCapitulo).getTitulo());
+            jtfCapituloFechaEmison.setText(format.format(temporadaSeleccionada.getCapitulo(indiceCapitulo).getFechaEmision()));
+        }
+    }//GEN-LAST:event_jtListaCapitulosMouseClicked
+
+    private void jtfTemporadaFechaEstrenoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfTemporadaFechaEstrenoFocusLost
+        if (temporadaSeleccionada == null || jtListaTemporadas.getSelectedRow() == -1) {
+            return;
+        }
+        Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        boolean isValidInput = true;
+        String fechaEstrenoString = jtfTemporadaFechaEstreno.getText();
+        String errorMesage = "";
+        if (!Utilities.validateLocalDate(fechaEstrenoString)) {
+            errorMesage = "La fecha de estreno es inválida";
+            isValidInput = false;
+        }
+        if (isValidInput && !Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fechaEstrenoString), serieSeleccionada.getFechaEstreno())) {
+            errorMesage = "La fecha de estreno es anterior a la Fecha de Estreno de la Serie";
+            isValidInput = false;
+        }
+        
+        if (isValidInput) {
+            LocalDate fechaEstrenoTemporada = Utilities.convertToLocalDate(fechaEstrenoString);
+            if (serieSeleccionada.setFechaEstrenoTemporada(indiceTemporada, fechaEstrenoTemporada)) {
+                actualizarListaTempordas();
+            } else {
+                errorMesage = "La Fecha de Estreno insertada es posterior a la Fecha de Emisión de un Capítulo o ya existe una Temporada en el mismo mes.";
+                isValidInput = false;
+            }
+        }
+        
+        if (!isValidInput) {
+            JOptionPane.showMessageDialog(rootPane, errorMesage);
+            jtfTemporadaFechaEstreno.setText(format.format(serieSeleccionada.getCopiaTemporada(indiceTemporada).getFechaEstreno()));
+        }
+    }//GEN-LAST:event_jtfTemporadaFechaEstrenoFocusLost
+
+    private void jbCrearCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearCapituloActionPerformed
+        if (temporadaSeleccionada == null) {
+            JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna Temporada");
+            return;
+        }
+        Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        boolean isValido = true; 
+        JTextField jtfTitulo = new JTextField();
+        JTextField jtfFechaEmision = new JTextField();
+        Object[] message = {
+            "Titulo: ", jtfTitulo,
+            "Fecha Emisión: ", jtfFechaEmision
+        };
+        
+        int option = JOptionPane.showConfirmDialog(this, message, "Crear Capítulo", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String titulo = jtfTitulo.getText();
+            String fechaEmisionString= jtfFechaEmision.getText();
+            if (titulo.isBlank()) {
+                JOptionPane.showMessageDialog(this, "El Título no puede estar vacío");
+                isValido = false;
+            }
+            if (isValido && !Utilities.validateLocalDate(fechaEmisionString)) {
+                JOptionPane.showMessageDialog(this, "El formato de la Fecha de Emisión es erroneo debe de ser dd/mm/yyyy");
+                isValido = false;
+            }
+            if (isValido && !Utilities.validateLocaDateIsAfterOrEquals(Utilities.convertToLocalDate(fechaEmisionString), temporadaSeleccionada.getFechaEstreno())) {
+                JOptionPane.showMessageDialog(this, "La fecha insertada es anterior a la Fecha de Estreno de la Temporada");
+                isValido = false;
+            }
+            
+            if (isValido) {
+                LocalDate fechaEmision = Utilities.convertToLocalDate(fechaEmisionString);
+                Capitulo nuevoCapitulo = new Capitulo(titulo, fechaEmision);
+                if (serieSeleccionada.añadirCapitulo(indiceTemporada, nuevoCapitulo)) {
+                    JOptionPane.showMessageDialog(this, "Capítulo creado con exito");
+                    temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
+                    actualizarListaCapitulos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "El capítulo ya exite en la Temporada");
+                }
+            }
+        }
+    }//GEN-LAST:event_jbCrearCapituloActionPerformed
+
+    private void jtfCapituloTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCapituloTituloFocusLost
+        Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        String titulo = jtfCapituloTitulo.getText();
+        if (serieSeleccionada.setCapitulo(indiceTemporada, indiceCapitulo, titulo)) {
+            temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
+            actualizarListaCapitulos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "El título no es válido");
+            jtfCapituloTitulo.setText(temporadaSeleccionada.getCapitulo(indiceCapitulo).getTitulo());
+        }
+    }//GEN-LAST:event_jtfCapituloTituloFocusLost
+
+    private void jtfCapituloFechaEmisonFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCapituloFechaEmisonFocusLost
+        Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        String fechaEmision = jtfCapituloFechaEmison.getText();
+        boolean validFecha = true;
+        String errorMessage = "";
+        
+        if (!Utilities.validateLocalDate(fechaEmision)) {
+            errorMessage = "Formato inválido debe de ser dd/MM/yyyy";
+            validFecha = false;
+        }
+        
+        if (validFecha) {
+            if (serieSeleccionada.setCapitulo(indiceTemporada, indiceCapitulo, Utilities.convertToLocalDate(fechaEmision))) {
+                temporadaSeleccionada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
+                actualizarListaCapitulos();
+            } else {
+                errorMessage = "La fecha inserta es anterior a la Fecha de Estreno de la Temporada";
+                validFecha = false;
+            }
+        }
+        
+        if (!validFecha) {
+            JOptionPane.showMessageDialog(rootPane, errorMessage);
+            jtfCapituloFechaEmison.setText(format.format(temporadaSeleccionada.getCapitulo(indiceCapitulo).getFechaEmision()));
+        }
+    }//GEN-LAST:event_jtfCapituloFechaEmisonFocusLost
+
+    private void jbVotarCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVotarCapituloActionPerformed
+        if (indiceCapitulo == -1) {
+            JOptionPane.showMessageDialog(rootPane, "No has seleccionado ningun Capítulo");
+            return;
+        }
+        
+        Serie serieSeleccionada = (Serie) mediaSeleccionada;
+        boolean tipoVoto = false;
+        int indexCapitulo = jtListaCapitulos.getSelectedRow();
+        int voto = JOptionPane.showConfirmDialog(null, "Realizar voto al Capitulo (Si = Voto Positivo | No = Voto Negativo)", "Guardar archivo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        String mensaje = null;
+        if (indexCapitulo == -1) {
+            mensaje = "No has seleccionado ningún Capítulo";
+        } else if (voto == JOptionPane.OK_OPTION) {
+            tipoVoto = true;
+            mensaje = "Se ha realizado el voto positivo";
+        } else if (voto == JOptionPane.NO_OPTION) {
+            tipoVoto = false;
+            mensaje = "Se ha realizado el voto negativo"; 
+        }
+        
+        if (voto == JOptionPane.OK_OPTION || voto == JOptionPane.NO_OPTION) {
+            serieSeleccionada.meGusta(indiceTemporada, indexCapitulo, tipoVoto);
+            actualizarListaCapitulos();
+            actualizarListaTempordas();
+        }
+        if (mensaje != null) {
+            JOptionPane.showMessageDialog(this, mensaje);
+        }
+    }//GEN-LAST:event_jbVotarCapituloActionPerformed
+
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -642,15 +1305,48 @@ public class IntefazJF extends javax.swing.JFrame {
         jcbPeliculaTematica.setSelectedItem(peliculaSeleccionada.getCategoria());
    }
     
+    private void cargarInformacionSerie (Serie serieSeleccionada) {
+       jlTituloSerie.setText("Serie: " + serieSeleccionada.getNombre());
+       jtfSerieNombre.setText(serieSeleccionada.getNombre());
+       jtfSerieCalificacionEdad.setText(serieSeleccionada.getCalificacionEdad()+"");
+       jtfSerieFechaIncorporacion.setText(format.format(serieSeleccionada.getFechaIncorporacionAlCatalogo()));
+       jcbSerieDisponibilidad.setSelected(serieSeleccionada.isEstaDisponible());
+       jtfSerieFechaEstreno.setText(format.format(serieSeleccionada.getFechaEstreno()));
+   }
+    
     private void actualizarListaMedia () {
-        modelo.clear();
+        modeloMedia.clear();
         
         for (Media m : listaMedia) {
-            modelo.añadirMedia(m);
+            modeloMedia.añadirMedia(m);
         }
     }
-    
-    
+    private void actualizarListaTempordas () {
+        if (mediaSeleccionada != null && mediaSeleccionada instanceof Serie)  {
+            modeloTemporada.clear();
+            Serie serieSeleccionada = (Serie) mediaSeleccionada;
+            int index = 0;
+            Temporada temporada = serieSeleccionada.getCopiaTemporada(index++);
+            while (temporada != null) {
+                modeloTemporada.añadirTemporada(temporada);
+                temporada = serieSeleccionada.getCopiaTemporada(index++);
+            }
+        }
+    }
+    private void actualizarListaCapitulos() {
+        if (temporadaSeleccionada != null) {
+            modeloCapitulo.clear();
+            Serie serieSeleccionada = (Serie) mediaSeleccionada;
+            Temporada temporada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
+            int index = 0;
+            Capitulo capitulo = temporada.getCapitulo(index++);
+            while (capitulo != null) {
+                modeloCapitulo.añadirCapitulo(capitulo);
+                capitulo = temporada.getCapitulo(index++);
+            }
+        }
+    }
+        
     
     
     
@@ -658,13 +1354,31 @@ public class IntefazJF extends javax.swing.JFrame {
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private ArrayList<Media> listaMedia;
     private Media mediaSeleccionada;
-    private ModeloListaMedia modelo;
+    private Temporada temporadaSeleccionada;
+    private int indiceCapitulo;
+    private int indiceTemporada;
+    private ModeloListaMedia modeloMedia;
+    private ModeloListaTemporada modeloTemporada;
+    private ModeloListaCapitulo modeloCapitulo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton jbCrearCapitulo;
+    private javax.swing.JButton jbCrearTemporada;
+    private javax.swing.JButton jbVotarCapitulo;
     private javax.swing.JCheckBox jcbPeliculaDisponibilidad;
     private javax.swing.JComboBox<String> jcbPeliculaTematica;
+    private javax.swing.JCheckBox jcbSerieDisponibilidad;
+    private javax.swing.JLabel jlCapituloFechaEmision;
+    private javax.swing.JLabel jlCapituloTitulo;
+    private javax.swing.JLabel jlSerieTituloCalificacionEdad;
+    private javax.swing.JLabel jlSerieTituloFechaEstreno;
+    private javax.swing.JLabel jlSerieTituloFechaIncorporacion;
+    private javax.swing.JLabel jlSerieTituloNombre;
+    private javax.swing.JLabel jlTemporadaTituloFechaEstreno;
+    private javax.swing.JLabel jlTemporadaTituloTemporada;
     private javax.swing.JLabel jlTituloActorPrincipal;
     private javax.swing.JLabel jlTituloCalificacionDeEdad;
     private javax.swing.JLabel jlTituloDirector;
@@ -672,24 +1386,39 @@ public class IntefazJF extends javax.swing.JFrame {
     private javax.swing.JLabel jlTituloFechaIncorporación;
     private javax.swing.JLabel jlTituloNombre;
     private javax.swing.JLabel jlTituloPelicula;
+    private javax.swing.JLabel jlTituloSerie;
     private javax.swing.JLabel jlTituloTematica;
     private javax.swing.JMenu jmArchivo;
     private javax.swing.JMenu jmCrear;
     private javax.swing.JMenuItem jmiCargar;
     private javax.swing.JMenuItem jmiCrearPelicula;
     private javax.swing.JMenuItem jmiCrearSerie;
-    private javax.swing.JMenuItem jmiEliminar;
+    private javax.swing.JMenuItem jmiEliminarCapitulo;
+    private javax.swing.JMenuItem jmiEliminarMedia;
+    private javax.swing.JMenuItem jmiEliminarTemporada;
     private javax.swing.JMenuItem jmiGuardar;
     private javax.swing.JPanel jpInformacionMedia;
     private javax.swing.JPanel jpInformacionPelicula;
     private javax.swing.JPanel jpInformacionSerie;
-    private javax.swing.JPopupMenu jpmEliminar;
+    private javax.swing.JPanel jpInformacionTemporadas;
+    private javax.swing.JPopupMenu jpmEliminarCapitulo;
+    private javax.swing.JPopupMenu jpmEliminarMedia;
+    private javax.swing.JPopupMenu jpmEliminarTemporada;
+    private javax.swing.JTable jtListaCapitulos;
     private javax.swing.JTable jtListaMedia;
+    private javax.swing.JTable jtListaTemporadas;
+    private javax.swing.JTextField jtfCapituloFechaEmison;
+    private javax.swing.JTextField jtfCapituloTitulo;
     private javax.swing.JTextField jtfPeliculaActorPrincipal;
     private javax.swing.JTextField jtfPeliculaCalificacionDeEdad;
     private javax.swing.JTextField jtfPeliculaDirector;
     private javax.swing.JTextField jtfPeliculaDuracion;
     private javax.swing.JTextField jtfPeliculaFechaIncorporacion;
     private javax.swing.JTextField jtfPeliculaNombre;
+    private javax.swing.JTextField jtfSerieCalificacionEdad;
+    private javax.swing.JTextField jtfSerieFechaEstreno;
+    private javax.swing.JTextField jtfSerieFechaIncorporacion;
+    private javax.swing.JTextField jtfSerieNombre;
+    private javax.swing.JTextField jtfTemporadaFechaEstreno;
     // End of variables declaration//GEN-END:variables
 }

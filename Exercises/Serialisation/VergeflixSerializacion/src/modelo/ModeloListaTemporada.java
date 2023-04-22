@@ -38,8 +38,8 @@ public class ModeloListaTemporada extends AbstractTableModel{
         return  temporadaEliminada;
     }
     
-    public void eliminarTodo() {
-        this.listaTemporadas = new ArrayList<>();
+    public void clear() {
+        this.listaTemporadas.clear();
         this.fireTableDataChanged();
     }
     

@@ -373,7 +373,7 @@ public class JDGestionarTemporada extends javax.swing.JDialog {
  
    
     private void actualizarListaCapitulos() {
-        modelo.eliminarTodo();
+        modelo.clear();
         Temporada temporada = serieSeleccionada.getCopiaTemporada(indiceTemporada);
         int contador = 0;
         Capitulo capitulo = temporada.getCapitulo(contador++);

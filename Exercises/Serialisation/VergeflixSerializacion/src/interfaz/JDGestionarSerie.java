@@ -407,7 +407,7 @@ public class JDGestionarSerie extends javax.swing.JDialog {
 
     
     private void actualizarTablaTemporadas() {
-        modelo.eliminarTodo();
+        modelo.clear();
         int contador = 0;
         Temporada temporada = serieSeleccionada.getCopiaTemporada(contador++);
         while (temporada != null) {
