@@ -326,30 +326,34 @@ public class InterfazJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiAñadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAñadirTarjetaActionPerformed
-        JDCrearTarjeta jDCrearTarjeta = new JDCrearTarjeta(this,true);
-        jDCrearTarjeta.setVisible(true);
-        
-        
-        if (jDCrearTarjeta.isCreada()) {
-            TarjetaCredito nuevaTarjeta = jDCrearTarjeta.getTarjetaCredito();
-            boolean tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
-            boolean seguirCreando = true;
-            
-            while (tarjetaDuplicada && seguirCreando) {
-                JOptionPane.showMessageDialog(rootPane, "Ya existe otra Tarjeta cono el mismo Número");
-                jDCrearTarjeta.setVisible(true);
-                
-                if (jDCrearTarjeta.isCreada()) {
-                    nuevaTarjeta = jDCrearTarjeta.getTarjetaCredito();
-                    tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
-                } else {
-                    seguirCreando = false;
+        if (listaTarjetas.size() == 20) {
+            JOptionPane.showMessageDialog(rootPane, "Se ha alcanzado el maximo de tarjetas.");
+        } else {
+            JDCrearTarjeta jDCrearTarjeta = new JDCrearTarjeta(this,true);
+            jDCrearTarjeta.setVisible(true);
+
+
+            if (jDCrearTarjeta.isCreada()) {
+                TarjetaCredito nuevaTarjeta = jDCrearTarjeta.getTarjetaCredito();
+                boolean tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
+                boolean seguirCreando = true;
+
+                while (tarjetaDuplicada && seguirCreando) {
+                    JOptionPane.showMessageDialog(rootPane, "Ya existe otra Tarjeta cono el mismo Número");
+                    jDCrearTarjeta.setVisible(true);
+
+                    if (jDCrearTarjeta.isCreada()) {
+                        nuevaTarjeta = jDCrearTarjeta.getTarjetaCredito();
+                        tarjetaDuplicada = listaTarjetas.contains(nuevaTarjeta);
+                    } else {
+                        seguirCreando = false;
+                    }
                 }
-            }
-            
-            if (!tarjetaDuplicada) {
-                listaTarjetas.add(nuevaTarjeta);
-                modeloTarjetasCredito.añadirTarjeta(nuevaTarjeta);
+
+                if (!tarjetaDuplicada) {
+                    listaTarjetas.add(nuevaTarjeta);
+                    modeloTarjetasCredito.añadirTarjeta(nuevaTarjeta);
+                }
             }
         }
     }//GEN-LAST:event_jmiAñadirTarjetaActionPerformed
