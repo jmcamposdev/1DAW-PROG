@@ -326,7 +326,7 @@ public class InterfazJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiAñadirTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAñadirTarjetaActionPerformed
-        if (listaTarjetas.size() == 20) {
+        if (listaTarjetas.size() == 10) {
             JOptionPane.showMessageDialog(rootPane, "Se ha alcanzado el maximo de tarjetas.");
         } else {
             JDCrearTarjeta jDCrearTarjeta = new JDCrearTarjeta(this,true);
