@@ -721,6 +721,8 @@ public class IntefazJF extends javax.swing.JFrame {
                 mediaSeleccionada = listaMedia.get(jtListaMedia.getSelectedRow());
             }
             
+            resetearIndicesSerie();
+            
             if (mediaSeleccionada instanceof Pelicula) {
                 peliculaSeleccionada = (Pelicula) mediaSeleccionada; // Obtemos la Pelicula Seleccionada
                 cargarInfomacioPelicula(); // Cargamos la infomacion en todos los Fields
@@ -730,8 +732,6 @@ public class IntefazJF extends javax.swing.JFrame {
                 jpInformacionMedia.setVisible(true);
                 // Hacer invisible el Panel de Temporadas
                 jpInformacionTemporadas.setVisible(false);
-                // Modificando los indicies para evitar errores
-                resetearIndicesSerie();
             } else {
                 serieSeleccionada = (Serie) mediaSeleccionada; // Obtenemos la serie seleccionada
                 // Cargamos los datos de la Serie en los campos
@@ -741,8 +741,8 @@ public class IntefazJF extends javax.swing.JFrame {
                 deshabilitarCapitulo();
                 // Cargamos las Temporadas
                 actualizarListaTempordas();
-                jtfTemporadaFechaEstreno.setText("");
-
+                // Borramos todos los capitulos si exitian
+                modeloCapitulo.clear();
                 cl.show(jpInformacionMedia, "informacionSerie");
                 jpInformacionMedia.setVisible(true);
                 jpInformacionTemporadas.setVisible(true);
@@ -1153,6 +1153,7 @@ public class IntefazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfTemporadaFechaEstrenoFocusLost
 
     private void jbCrearCapituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearCapituloActionPerformed
+        System.out.println(indiceTemporada);
         if (indiceTemporada == -1) {
             JOptionPane.showMessageDialog(rootPane, "No has seleccionado ninguna Temporada");
             return;
