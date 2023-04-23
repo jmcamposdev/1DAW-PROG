@@ -1,6 +1,7 @@
 package modelo;
 
 import Funciones.Utilities;
+import java.io.Serializable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +21,7 @@ import java.time.format.DateTimeFormatter;
  *     <li>Comparable: Usada para comprara dos objetos según su Fecha de Emisión.</li>
  * </ul>
  */
-public class Capitulo implements Valorable, Comparable<Capitulo> {
+public class Capitulo implements Valorable, Comparable<Capitulo>, Serializable {
     /**
      * Formato para la fecha de Emisión
      */

@@ -7,12 +7,19 @@ package interfaz;
 import Funciones.Utilities;
 import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import modelo.Capitulo;
@@ -593,9 +600,19 @@ public class IntefazJF extends javax.swing.JFrame {
         jmArchivo.setText("Archivo");
 
         jmiGuardar.setText("Guardar");
+        jmiGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGuardarActionPerformed(evt);
+            }
+        });
         jmArchivo.add(jmiGuardar);
 
         jmiCargar.setText("Cargar");
+        jmiCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCargarActionPerformed(evt);
+            }
+        });
         jmArchivo.add(jmiCargar);
 
         jMenuBar1.add(jmArchivo);
@@ -1263,6 +1280,42 @@ public class IntefazJF extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, mensaje);
         }
     }//GEN-LAST:event_jbVotarCapituloActionPerformed
+
+    private void jmiGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGuardarActionPerformed
+       JFileChooser gestorArchivos = new JFileChooser();
+        int option = gestorArchivos.showSaveDialog(this);
+        
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = gestorArchivos.getSelectedFile();
+            
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile))) {
+                oos.writeObject(listaMedia);
+                JOptionPane.showMessageDialog(this, "Se ha guardado la información exitosamente","EXITO",JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "No se ha podido escribir en el fichero","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jmiGuardarActionPerformed
+
+    private void jmiCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCargarActionPerformed
+       JFileChooser gestorArchivos = new JFileChooser();
+        int option = gestorArchivos.showSaveDialog(this);
+        
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = gestorArchivos.getSelectedFile();
+            
+            try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(selectedFile))) {
+                this.listaMedia = (ArrayList<Media>) oos.readObject();
+                
+                actualizarListaMedia();
+                JOptionPane.showMessageDialog(this, "Se ha cargado la información exitosamente","EXITO",JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (ClassNotFoundException | IOException ex) {
+                JOptionPane.showMessageDialog(this, "El fichero es erronéo o esta corrupto","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jmiCargarActionPerformed
 
     
     

@@ -1,6 +1,7 @@
 package modelo;
 
 import Funciones.Utilities;
+import java.io.Serializable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +25,7 @@ import java.time.format.DateTimeFormatter;
  * @see Pelicula
  * @see Serie
  */
-public abstract class Media implements Comparable<Media>, Valorable {
+public abstract class Media implements Comparable<Media>, Valorable, Serializable {
     /**
      * Formato de fecha utilizado para la impresión por pantalla
      */

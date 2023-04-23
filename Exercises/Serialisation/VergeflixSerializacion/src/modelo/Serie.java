@@ -1,6 +1,7 @@
 package modelo;
 
 import Funciones.Utilities;
+import java.io.Serializable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +20,7 @@ import java.util.Collections;
  * @see Media
  * @see Temporada
  */
-public class Serie extends Media{
+public class Serie extends Media implements Serializable {
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private LocalDate fechaEstreno;
     private final ArrayList<Temporada> temporadas;

@@ -1,6 +1,7 @@
 package modelo;
 
 import Funciones.Utilities;
+import java.io.Serializable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  * @see Media
  * @see Tematica
  */
-public class Pelicula extends Media {
+public class Pelicula extends Media implements Serializable{
     /**
      * Nombre del Director
      */
