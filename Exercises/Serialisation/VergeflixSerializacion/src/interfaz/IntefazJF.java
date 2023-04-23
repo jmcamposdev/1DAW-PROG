@@ -733,8 +733,9 @@ public class IntefazJF extends javax.swing.JFrame {
                 // Modificando los indicies para evitar errores
                 resetearIndicesSerie();
             } else {
+                serieSeleccionada = (Serie) mediaSeleccionada; // Obtenemos la serie seleccionada
                 // Cargamos los datos de la Serie en los campos
-                cargarInformacionSerie((Serie) mediaSeleccionada);
+                cargarInformacionSerie();
                 // Deshabilitamos todos los campos de inserción
                 deshabilitarTemporada();
                 deshabilitarCapitulo();
@@ -1314,7 +1315,7 @@ public class IntefazJF extends javax.swing.JFrame {
         jcbPeliculaTematica.setSelectedItem(peliculaSeleccionada.getCategoria());
    }
     
-    private void cargarInformacionSerie (Serie serieSeleccionada) {
+    private void cargarInformacionSerie () {
        jlTituloSerie.setText("Serie: " + serieSeleccionada.getNombre());
        jtfSerieNombre.setText(serieSeleccionada.getNombre());
        jtfSerieCalificacionEdad.setText(serieSeleccionada.getCalificacionEdad()+"");
