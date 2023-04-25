@@ -103,6 +103,7 @@ public class IntefazJF extends javax.swing.JFrame {
         jlTituloSerie = new javax.swing.JLabel();
         jbCrearTemporada = new javax.swing.JButton();
         jbCrearCapitulo = new javax.swing.JButton();
+        jlTemporadaValoracion = new javax.swing.JLabel();
         jpInformacionPelicula = new javax.swing.JPanel();
         jtfPeliculaDuracion = new javax.swing.JTextField();
         jcbPeliculaDisponibilidad = new javax.swing.JCheckBox();
@@ -120,6 +121,8 @@ public class IntefazJF extends javax.swing.JFrame {
         jlTituloActorPrincipal = new javax.swing.JLabel();
         jlTituloCalificacionDeEdad = new javax.swing.JLabel();
         jlTituloPelicula = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jlPeliculaValoracion = new javax.swing.JLabel();
         jpInformacionTemporadas = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtListaTemporadas = new javax.swing.JTable();
@@ -243,6 +246,8 @@ public class IntefazJF extends javax.swing.JFrame {
             }
         });
 
+        jlTemporadaValoracion.setText("Valoración: ");
+
         javax.swing.GroupLayout jpInformacionSerieLayout = new javax.swing.GroupLayout(jpInformacionSerie);
         jpInformacionSerie.setLayout(jpInformacionSerieLayout);
         jpInformacionSerieLayout.setHorizontalGroup(
@@ -279,7 +284,10 @@ public class IntefazJF extends javax.swing.JFrame {
                                     .addComponent(jtfSerieFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jpInformacionSerieLayout.createSequentialGroup()
                                 .addComponent(jbCrearCapitulo)
-                                .addGap(8, 8, 8)))))
+                                .addGap(8, 8, 8))))
+                    .addGroup(jpInformacionSerieLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jlTemporadaValoracion)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         jpInformacionSerieLayout.setVerticalGroup(
@@ -305,11 +313,13 @@ public class IntefazJF extends javax.swing.JFrame {
                 .addGroup(jpInformacionSerieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlSerieTituloFechaEstreno)
                     .addComponent(jtfSerieFechaEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
+                .addGap(32, 32, 32)
+                .addComponent(jlTemporadaValoracion)
+                .addGap(12, 12, 12)
                 .addComponent(jbCrearTemporada)
                 .addGap(18, 18, 18)
                 .addComponent(jbCrearCapitulo)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         jpInformacionMedia.add(jpInformacionSerie, "informacionSerie");
@@ -381,48 +391,64 @@ public class IntefazJF extends javax.swing.JFrame {
         jlTituloPelicula.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jlTituloPelicula.setText("Pelicula: <Nombre>");
 
+        jButton1.setText("Calificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jlPeliculaValoracion.setText("Valoración: 0");
+
         javax.swing.GroupLayout jpInformacionPeliculaLayout = new javax.swing.GroupLayout(jpInformacionPelicula);
         jpInformacionPelicula.setLayout(jpInformacionPeliculaLayout);
         jpInformacionPeliculaLayout.setHorizontalGroup(
             jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jcbPeliculaDisponibilidad))
-                    .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                    .addGap(65, 65, 65)
-                                    .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jlTituloCalificacionDeEdad)
-                                        .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                            .addComponent(jlTituloNombre)
-                                            .addGap(65, 65, 65))))
-                                .addComponent(jlTituloFechaIncorporación))
+                        .addGap(50, 50, 50)
+                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                .addGap(25, 25, 25)
+                                .addGap(58, 58, 58)
+                                .addComponent(jcbPeliculaDisponibilidad))
+                            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
                                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jlTituloTematica)
-                                    .addComponent(jlTituloActorPrincipal)
-                                    .addComponent(jlTituloDirector)
+                                    .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jlTituloCalificacionDeEdad)
+                                                .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                                    .addComponent(jlTituloNombre)
+                                                    .addGap(65, 65, 65))))
+                                        .addComponent(jlTituloFechaIncorporación))
                                     .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                                        .addComponent(jlTituloDuracion)
-                                        .addGap(10, 10, 10)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfPeliculaNombre)
-                            .addComponent(jtfPeliculaCalificacionDeEdad)
-                            .addComponent(jtfPeliculaFechaIncorporacion)
-                            .addComponent(jtfPeliculaDirector)
-                            .addComponent(jtfPeliculaActorPrincipal)
-                            .addComponent(jtfPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(25, 25, 25)
+                                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jlTituloTematica)
+                                            .addComponent(jlTituloActorPrincipal)
+                                            .addComponent(jlTituloDirector)
+                                            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                                .addComponent(jlTituloDuracion)
+                                                .addGap(10, 10, 10)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfPeliculaNombre)
+                                    .addComponent(jtfPeliculaCalificacionDeEdad)
+                                    .addComponent(jtfPeliculaFechaIncorporacion)
+                                    .addComponent(jtfPeliculaDirector)
+                                    .addComponent(jtfPeliculaActorPrincipal)
+                                    .addComponent(jtfPeliculaDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
+                                .addGap(120, 120, 120)
+                                .addComponent(jlTituloPelicula))))
                     .addGroup(jpInformacionPeliculaLayout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jlTituloPelicula)))
+                        .addGap(33, 33, 33)
+                        .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlPeliculaValoracion)
+                            .addComponent(jButton1))))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
         jpInformacionPeliculaLayout.setVerticalGroup(
@@ -463,7 +489,11 @@ public class IntefazJF extends javax.swing.JFrame {
                 .addGroup(jpInformacionPeliculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTituloTematica)
                     .addComponent(jcbPeliculaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlPeliculaValoracion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(52, 52, 52))
         );
 
         jpInformacionMedia.add(jpInformacionPelicula, "informacionPelicula");
@@ -661,7 +691,7 @@ public class IntefazJF extends javax.swing.JFrame {
                         .addComponent(jpInformacionTemporadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jpInformacionMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -1275,6 +1305,7 @@ public class IntefazJF extends javax.swing.JFrame {
             serieSeleccionada.meGusta(indiceTemporada, indexCapitulo, tipoVoto);
             actualizarListaCapitulos();
             actualizarListaTempordas();
+            actualizarValoracionTemporada();
         }
         if (mensaje != null) {
             JOptionPane.showMessageDialog(this, mensaje);
@@ -1316,6 +1347,34 @@ public class IntefazJF extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jmiCargarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (peliculaSeleccionada == null) {
+            JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ninguna Pelicula");
+            return;
+        }
+        
+        boolean validPin = false;
+        boolean exit = false;
+        String newCalificacion;
+        do {
+            newCalificacion = JOptionPane.showInputDialog(this,"Ingresa una Valoracion (0 - 10):","Nueva Valoracion",1);
+            if (newCalificacion != null && newCalificacion.matches("^\\d+$") && Utilities.validateRange(Integer.valueOf(newCalificacion), 0, 11)) {
+                validPin = true;
+            } else if (newCalificacion != null) {
+                JOptionPane.showMessageDialog(this, "La valoracion debe de ser numérica");
+                validPin = false;
+            } else {
+                exit = true;
+            }
+        } while (!validPin && !exit);
+        
+        if (validPin) {
+            peliculaSeleccionada.votar(Integer.valueOf(newCalificacion));
+            actualizarValoracionPelicula();
+            JOptionPane.showMessageDialog(rootPane, "Se ha actualizado el PIN correctamente.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     
@@ -1438,6 +1497,13 @@ public class IntefazJF extends javax.swing.JFrame {
         this.indiceTemporada = -1;
         this.indiceCapitulo = -1;
     }
+    
+    private void actualizarValoracionTemporada() {
+        jlTemporadaValoracion.setText("Valoracion: " + serieSeleccionada.calcularPuntuacion());
+    }
+    private void actualizarValoracionPelicula() {
+        jlPeliculaValoracion.setText("Valoración: " + peliculaSeleccionada.calcularPuntuacion());
+    }
         
     
     
@@ -1453,6 +1519,7 @@ public class IntefazJF extends javax.swing.JFrame {
     private ModeloListaTemporada modeloTemporada;
     private ModeloListaCapitulo modeloCapitulo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1465,12 +1532,14 @@ public class IntefazJF extends javax.swing.JFrame {
     private javax.swing.JCheckBox jcbSerieDisponibilidad;
     private javax.swing.JLabel jlCapituloFechaEmision;
     private javax.swing.JLabel jlCapituloTitulo;
+    private javax.swing.JLabel jlPeliculaValoracion;
     private javax.swing.JLabel jlSerieTituloCalificacionEdad;
     private javax.swing.JLabel jlSerieTituloFechaEstreno;
     private javax.swing.JLabel jlSerieTituloFechaIncorporacion;
     private javax.swing.JLabel jlSerieTituloNombre;
     private javax.swing.JLabel jlTemporadaTituloFechaEstreno;
     private javax.swing.JLabel jlTemporadaTituloTemporada;
+    private javax.swing.JLabel jlTemporadaValoracion;
     private javax.swing.JLabel jlTituloActorPrincipal;
     private javax.swing.JLabel jlTituloCalificacionDeEdad;
     private javax.swing.JLabel jlTituloDirector;

@@ -146,7 +146,7 @@
                   </Group>
                   <Component id="jScrollPane1" alignment="0" min="-2" pref="411" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -234,6 +234,10 @@
                                   </Group>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                              <Component id="jlTemporadaValoracion" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="65" max="32767" attributes="0"/>
                   </Group>
@@ -266,11 +270,13 @@
                           <Component id="jlSerieTituloFechaEstreno" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jtfSerieFechaEstreno" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="jlTemporadaValoracion" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jbCrearTemporada" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jbCrearCapitulo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="63" max="32767" attributes="0"/>
+                      <EmptySpace pref="65" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -348,6 +354,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCrearCapituloActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="jlTemporadaValoracion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Valoraci&#xf3;n: "/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jpInformacionPelicula">
@@ -360,55 +371,66 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                              <Component id="jcbPeliculaDisponibilidad" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="jlTituloCalificacionDeEdad" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jlTituloNombre" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                                      <Component id="jcbPeliculaDisponibilidad" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jlTituloCalificacionDeEdad" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Component id="jlTituloNombre" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jlTituloFechaIncorporación" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jlTituloTematica" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jlTituloActorPrincipal" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jlTituloDirector" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="jlTituloDuracion" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <Component id="jlTituloFechaIncorporación" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jlTituloTematica" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jlTituloActorPrincipal" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jlTituloDirector" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jlTituloDuracion" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jcbPeliculaTematica" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jtfPeliculaNombre" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaCalificacionDeEdad" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaFechaIncorporacion" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaDirector" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaActorPrincipal" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jtfPeliculaDuracion" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jcbPeliculaTematica" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jtfPeliculaNombre" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfPeliculaCalificacionDeEdad" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfPeliculaFechaIncorporacion" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfPeliculaDirector" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfPeliculaActorPrincipal" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfPeliculaDuracion" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Component id="jlTituloPelicula" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                              <Component id="jlTituloPelicula" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jlPeliculaValoracion" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace pref="88" max="32767" attributes="0"/>
@@ -462,7 +484,11 @@
                           <Component id="jlTituloTematica" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jcbPeliculaTematica" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="108" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jlPeliculaValoracion" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -565,6 +591,19 @@
                   <Font name="Helvetica Neue" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pelicula: &lt;Nombre&gt;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Calificar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jlPeliculaValoracion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Valoraci&#xf3;n: 0"/>
               </Properties>
             </Component>
           </SubComponents>
