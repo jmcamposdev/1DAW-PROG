@@ -222,7 +222,7 @@ public class TarjetaCredito implements Comparable<TarjetaCredito>, Serializable{
 
     public ArrayList<Movimiento> movimientos(int numero){
         // Validamos que el número no sea negativo y que poseemos tantos movimientos como el número insertado
-        if (numero <= 0 || numero > posicionSiguienteMovimiento){
+        if (numero < 0 || numero > posicionSiguienteMovimiento){
             throw new IllegalArgumentException("Valor fuera del rango");
         }
         int posicionInicio = posicionSiguienteMovimiento - numero; // Calculamos la posición para recorrer el array

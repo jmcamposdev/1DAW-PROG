@@ -363,6 +363,7 @@ public class InterfazJF extends javax.swing.JFrame {
          tarjetaSeleccionada = listaTarjetas.get(index);
          jlEstadoSeleccion.setVisible(false);
          actualizarInformacionTarjeta(tarjetaSeleccionada);
+         actualizarListaMovimientos();
          jtpTarjetaSeleccionada.setVisible(true);
     }//GEN-LAST:event_jtListaTarjetasCreditoMouseClicked
 
@@ -440,55 +441,59 @@ public class InterfazJF extends javax.swing.JFrame {
     }//GEN-LAST:event_jbModificarPINActionPerformed
 
     private void jbRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRealizarPagoActionPerformed
-        JTextField jtfConcepto = new JTextField();
-        JTextField jtfCantidad = new JTextField();
-        Object[] message = {
-            "Concepto:", jtfConcepto,
-            "Cantidad:", jtfCantidad
-        };
-        boolean exit = false;
-        boolean pagoValido = false;
-        String concepto = "";
-        String cantidad = "";
-        
-        do {
-            int option = JOptionPane.showConfirmDialog(this, message, "Realizar Pago", JOptionPane.OK_CANCEL_OPTION);
-            if (option == JOptionPane.OK_OPTION) {
-                double saldoDisponible = tarjetaSeleccionada.getLimite() - tarjetaSeleccionada.gastado();
-                boolean validInput = true;
-                concepto = jtfConcepto.getText();
-                cantidad = jtfCantidad.getText();
+        if (tarjetaSeleccionada.numeroMovimientos() == 50) {
+            JOptionPane.showMessageDialog(rootPane, "Ya posees el maximo de movimientos.");
+        } else {
+            JTextField jtfConcepto = new JTextField();
+            JTextField jtfCantidad = new JTextField();
+            Object[] message = {
+                "Concepto:", jtfConcepto,
+                "Cantidad:", jtfCantidad
+            };
+            boolean exit = false;
+            boolean pagoValido = false;
+            String concepto = "";
+            String cantidad = "";
 
-                if (concepto.isBlank()) {
-                    JOptionPane.showMessageDialog(this, "El concepto no puede estar vacio.");
-                    validInput = false;
-                }
-                if (validInput && !cantidad.matches("\\d+")) {
-                    JOptionPane.showMessageDialog(this, "La cantidad debe de ser un valor numérico");
-                    System.out.println(cantidad);
-                    validInput = false;
-                }
+            do {
+                int option = JOptionPane.showConfirmDialog(this, message, "Realizar Pago", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+                    double saldoDisponible = tarjetaSeleccionada.getLimite() - tarjetaSeleccionada.gastado();
+                    boolean validInput = true;
+                    concepto = jtfConcepto.getText();
+                    cantidad = jtfCantidad.getText();
 
-                if (validInput && (Integer.valueOf(cantidad) < 0 || Integer.valueOf(cantidad) > saldoDisponible)) {
-                    JOptionPane.showMessageDialog(this, "La cantidad supera el Límite");
-                    validInput = false;
+                    if (concepto.isBlank()) {
+                        JOptionPane.showMessageDialog(this, "El concepto no puede estar vacio.");
+                        validInput = false;
+                    }
+                    if (validInput && !cantidad.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(this, "La cantidad debe de ser un valor numérico");
+                        System.out.println(cantidad);
+                        validInput = false;
+                    }
+
+                    if (validInput && (Integer.valueOf(cantidad) < 0 || Integer.valueOf(cantidad) > saldoDisponible)) {
+                        JOptionPane.showMessageDialog(this, "La cantidad supera el Límite");
+                        validInput = false;
+                    }
+
+                    if (validInput) {
+                        pagoValido = true;
+                    }
+
+                } else {
+                    exit = true;
                 }
-                
-                if (validInput) {
-                    pagoValido = true;
-                }
-                
-            } else {
-                exit = true;
+            } while (!exit && !pagoValido);
+
+            if (pagoValido) {
+                tarjetaSeleccionada.pagar(Double.valueOf(cantidad), concepto);
+                actualizarListaMovimientos();
+                actualizarListaTarjeta();
+                actualizarGastoTotales(tarjetaSeleccionada);
+                JOptionPane.showMessageDialog(rootPane, "Se ha realizado el pago");
             }
-        } while (!exit && !pagoValido);
-        
-        if (pagoValido) {
-            tarjetaSeleccionada.pagar(Double.valueOf(cantidad), concepto);
-            actualizarListaMovimientos();
-            actualizarListaTarjeta();
-            actualizarGastoTotales(tarjetaSeleccionada);
-            JOptionPane.showMessageDialog(rootPane, "Se ha realizado el pago");
         }
     }//GEN-LAST:event_jbRealizarPagoActionPerformed
 
