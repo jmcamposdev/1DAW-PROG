@@ -1,4 +1,4 @@
-# 1DAW-PROG Java
+# 📚 Programing Course Repository - 1st Year Web Development
 
 This is a repository to store all the exercises, projects, and exams I complete in my Java programming course.
 
