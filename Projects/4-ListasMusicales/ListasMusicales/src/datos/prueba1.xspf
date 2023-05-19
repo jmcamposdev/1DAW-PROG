@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<playlist xmlns="http://xspf.org/ns/0/" version="1">
+    <trackList>
+        <track>
+            <location>/Users/josemaria/Downloads/Cancion1.ogg</location>
+            <title>Prueba 1</title>
+            <duration>0</duration>
+        </track>
+        <track>
+            <location>/Users/josemaria/Downloads/Cancion1.ogg</location>
+            <title>Cancion 2</title>
+            <duration>978000</duration>
+        </track>
+        <track>
+            <location>/Users/josemaria/Downloads/Cancion1.ogg</location>
+            <title>Cancion 3</title>
+            <duration>1482000</duration>
+        </track>
+        <track>
+            <location>/Users/josemaria/Downloads/Cancion1.ogg</location>
+            <title>Cancion 4</title>
+            <duration>548000</duration>
+        </track>
+    </trackList>
+</playlist>
