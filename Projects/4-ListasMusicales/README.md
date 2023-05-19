@@ -6,7 +6,7 @@ like polymorphism, inheritance, interfaces, enumerations, comparators, and compa
 
 # Functionality
 - CRUD Operations (Create, Read, Update, Delete) performed on Songs 
-- Lee y Exporta 3 formatos diferentes (M3U, PLS, XSPF)
+- Read and export in 3 differents formats (M3U, PLS, XSPF)
 - It uses shortcuts to perform operations such as: creating a playlist or a song, deleting a song, exporting and importing files, and others.
 - Use of mnemonic shortcuts
 - Some file format validations
