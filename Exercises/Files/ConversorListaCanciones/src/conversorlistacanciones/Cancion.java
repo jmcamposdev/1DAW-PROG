@@ -60,6 +60,6 @@ public class Cancion implements Serializable, Comparable<Cancion> {
 
     @Override
     public int compareTo(Cancion o) {
-        return duracion - o.duracion;
+        return o.duracion - duracion;
     }
 }
