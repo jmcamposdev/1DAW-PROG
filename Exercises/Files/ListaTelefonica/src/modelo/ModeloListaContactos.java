@@ -64,6 +64,21 @@ public class ModeloListaContactos  extends AbstractTableModel{
         return contactosEliminadas;
     }
     
+    public void addAll (ArrayList<Contacto> listaImportada)  {
+        this.listaContacto.addAll(listaImportada);
+        this.fireTableDataChanged();
+    }
+    
+    public ArrayList<Contacto> getListaContactos() {
+        ArrayList<Contacto> listaContactos = new ArrayList<>();
+        
+        for (Contacto contacto : this.listaContacto) {
+            listaContactos.add(new Contacto(contacto));
+        }
+        
+        return listaContactos;
+    }
+    
     /**
      * Método para limpiar de contendio
      * todo el Modelo
@@ -71,6 +86,10 @@ public class ModeloListaContactos  extends AbstractTableModel{
     public void clear () {
         this.listaContacto.clear();
         this.fireTableDataChanged();
+    }
+    
+    public boolean isEmpty() {
+        return this.listaContacto.isEmpty();
     }
     
     /**

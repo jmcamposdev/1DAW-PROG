@@ -4,7 +4,17 @@
  */
 package interfaz;
 
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.Contacto;
+import modelo.ExportarContactos;
+import modelo.Formato;
+import static modelo.Formato.TXT;
+import static modelo.Formato.XML;
+import modelo.ImportarContactos;
 import modelo.ModeloListaContactos;
 
 public class JFInterfaz extends javax.swing.JFrame {
@@ -13,7 +23,7 @@ public class JFInterfaz extends javax.swing.JFrame {
         initComponents();
         inicializar();
     }
-    
+
     public void inicializar() {
         modelo = new ModeloListaContactos();
         jtListaContactos.setModel(modelo);
@@ -80,9 +90,19 @@ public class JFInterfaz extends javax.swing.JFrame {
         jmArchivo.setText("Archivo");
 
         jmiImportar.setText("Importar");
+        jmiImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiImportarActionPerformed(evt);
+            }
+        });
         jmArchivo.add(jmiImportar);
 
         jmiExportar.setText("Exportar");
+        jmiExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExportarActionPerformed(evt);
+            }
+        });
         jmArchivo.add(jmiExportar);
 
         jmbAcciones.add(jmArchivo);
@@ -179,31 +199,114 @@ public class JFInterfaz extends javax.swing.JFrame {
         modificarContacto();
     }//GEN-LAST:event_jmiModificarContactoActionPerformed
 
-    
-    
+    private void jmiExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExportarActionPerformed
+        if (modelo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen contactos para exportar", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JFileChooser gestorArchivos = new JFileChooser(); // Creamos el JFileChooser
+            gestorArchivos.removeChoosableFileFilter(gestorArchivos.getFileFilter()); // Eliminamos el Filtro por defecto (Todos)
+            gestorArchivos.setFileFilter(new FileNameExtensionFilter("Extensiones de Listas (txt, xml)", "txt", "xml")); // Asignamos el Filtro de Extensiones
+            gestorArchivos.setFileSelectionMode(JFileChooser.FILES_ONLY); // Permitimos solo que pueda seleccionar archivos
+
+            int option = gestorArchivos.showSaveDialog(this); // Mostramos el JFileChooser
+
+            if (option == JFileChooser.APPROVE_OPTION) { // Si ha seleccionado un fichero o lo ha escrito 
+                File selectedFile = gestorArchivos.getSelectedFile(); // Obtenemos le Fichero
+
+                if (!validarFormato(selectedFile.getName())) {
+                    JOptionPane.showMessageDialog(this, "El fichero Seleccionada no posee una extensión válida (m3u, pls, xspf)", "Error", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    boolean escribirFichero = true;
+                    if (selectedFile.exists()) { // Si el fichero existe
+                        // Mostramos confirmación para sobreescribirlo
+                        int optionSobreEscribir = JOptionPane.showConfirmDialog(this, "Deseas sobreescribir el fichero", "Sobreescribir", JOptionPane.YES_NO_CANCEL_OPTION);
+                        if (optionSobreEscribir != JOptionPane.OK_OPTION) { // Si no desea sobreescribirlo
+                            escribirFichero = false; // No lo escribimos
+                        }
+                    }
+
+                    if (escribirFichero) { // Si se escribe en el fichero
+                        // Obtenemos el formato y lo guardamos en el formato correspondiente
+                        boolean exportacionRealizada = false;
+                        switch (getFormato(selectedFile.getName())) {  // Guardamos en la extensión correspondiente
+                            case TXT ->
+                                exportacionRealizada = ExportarContactos.exportarTXT(selectedFile.getAbsolutePath(), modelo.getListaContactos());
+                            case XML ->
+                                exportacionRealizada = ExportarContactos.exportarXML(selectedFile.getAbsolutePath(), modelo.getListaContactos());
+                        }
+
+                        if (exportacionRealizada) {
+                            JOptionPane.showMessageDialog(this, "Se ha guardado correctamente"); // Informamos al Usuario del Exito
+                        } else {
+                            JOptionPane.showMessageDialog(this, "No se ha podido crear el fichero", "Error", JOptionPane.WARNING_MESSAGE);
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jmiExportarActionPerformed
+
+    private void jmiImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiImportarActionPerformed
+
+        JFileChooser gestorArchivos = new JFileChooser(); // Creamos el JFileChooser
+        gestorArchivos.removeChoosableFileFilter(gestorArchivos.getFileFilter()); // Eliminamos el Filtro por defecto (Todos)
+        gestorArchivos.setFileFilter(new FileNameExtensionFilter("Extensiones de Listas (txt, xml)", "txt", "xml")); // Asignamos el Filtro de Extensiones
+        gestorArchivos.setFileSelectionMode(JFileChooser.FILES_ONLY); // Permitimos solo que pueda seleccionar archivos
+
+        int option = gestorArchivos.showSaveDialog(this); // Mostramos el JFileChooser
+
+        if (option == JFileChooser.APPROVE_OPTION) { // Si ha seleccionado un fichero o lo ha escrito 
+            File selectedFile = gestorArchivos.getSelectedFile(); // Obtenemos le Fichero
+
+            if (!validarFormato(selectedFile.getName())) {
+                JOptionPane.showMessageDialog(this, "El fichero Seleccionada no posee una extensión válida (m3u, pls, xspf)", "Error", JOptionPane.WARNING_MESSAGE);
+            } else if (!selectedFile.exists()) {
+                JOptionPane.showMessageDialog(this, "El fichero Seleccionada no posee una extensión válida (m3u, pls, xspf)", "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                ArrayList<Contacto> listaImportada = null;
+                switch (getFormato(selectedFile.getName())) {  // Guardamos en la extensión correspondiente
+                    case TXT ->
+                        listaImportada = ImportarContactos.importContactsTXT(selectedFile.getAbsolutePath());
+                    case XML ->
+                        listaImportada = ImportarContactos.importContactsXML(selectedFile.getAbsolutePath());
+                }
+
+                if (listaImportada == null) {
+                    JOptionPane.showMessageDialog(this, "No se ha podido cargar el fichero", "Error", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    modelo.addAll(listaImportada);
+                    JOptionPane.showMessageDialog(this, "Se ha guardado correctamente"); // Informamos al Usuario del Exito
+                }
+            }
+        }
+    }//GEN-LAST:event_jmiImportarActionPerformed
+
     private void agregarContacto() {
         JDContacto jDContacto = new JDContacto(this, true);
         jDContacto.setVisible(true);
-        
+
         if (jDContacto.isCreado()) {
             modelo.añadirContacto(jDContacto.getContacto());
+            JOptionPane.showMessageDialog(this, "Se ha añadido el Contacto con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     private void eliminarContacto() {
         int index = jtListaContactos.getSelectedRow();
-        
+
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Debes de seleccionadar un contacto", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             modelo.eliminarContacto(index);
-            JOptionPane.showMessageDialog(this, "Se ha elimiado correctamente", "Éxito", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se ha elimiado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     private void modificarContacto() {
         int index = jtListaContactos.getSelectedRow();
-        
+
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Debes de seleccionadar un contacto", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -211,14 +314,36 @@ public class JFInterfaz extends javax.swing.JFrame {
             jDContacto.setVisible(true);
             if (jDContacto.isCreado()) {
                 modelo.setContacto(index, jDContacto.getContacto());
+                JOptionPane.showMessageDialog(this, "Se ha modificado el Contacto con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        
+
     }
-    
-    
-    
-    
+
+    private boolean validarFormato(String fileName) {
+        boolean isExtensionValida = false;
+
+        if (fileName.contains(".")) {
+            // Obtenemos la extensión del fichero
+            String extension = fileName.substring(fileName.indexOf(".") + 1).toUpperCase();
+            // Comprobamos que la extensión sea una de las válidas para la canción
+            if (extension.matches("TXT|XML")) {
+                isExtensionValida = true;
+            }
+        }
+
+        return isExtensionValida;
+    }
+
+    private Formato getFormato(String fileName) {
+        Formato formato = null;
+        String extension = fileName.substring(fileName.indexOf(".") + 1).toUpperCase();
+        if (extension.matches("TXT|XML")) {
+            formato = Formato.valueOf(extension);
+        }
+        return formato;
+    }
+
     /**
      * @param args the command line arguments
      */
