@@ -276,6 +276,7 @@ public class JFInterfaz extends javax.swing.JFrame {
                 if (listaImportada == null) {
                     JOptionPane.showMessageDialog(this, "No se ha podido cargar el fichero", "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
+                    modelo.clear();
                     modelo.addAll(listaImportada);
                     JOptionPane.showMessageDialog(this, "Se ha guardado correctamente"); // Informamos al Usuario del Exito
                 }
